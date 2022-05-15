@@ -1,0 +1,14 @@
+.home {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-rows: minmax(30px, auto);
+    grid-template-rows: auto 1fr;  
+    grid-gap:5px;
+    height: 95vh;
+    grid-template-areas:
+    "header header header header header"
+    "channel-col messages-col messages-col messages-col people"
+   ; 
+
+}
+

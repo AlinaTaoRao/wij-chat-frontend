@@ -1,0 +1,34 @@
+.sign-in {
+    align-items: center;
+}
+
+.sign-in-form {
+    width: 35vw;
+    margin: 10px auto;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-auto-rows: minmax(50px, auto);
+    grid-gap: 10px;
+    grid-template-areas: 
+    "username-input"
+    "password-input"
+    "sign-container"
+    ;
+}
+
+.username-input{
+    grid-area: username-input;
+}
+
+.password-input {
+    grid-area: password-input;
+}
+
+.sign-container {
+    grid-area: sign-container;
+}
+
+.sign-in-btn {
+   font-size: 16px;
+    padding: 5px 30px;
+}

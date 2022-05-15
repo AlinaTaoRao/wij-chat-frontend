@@ -1,0 +1,31 @@
+.messages-col {
+  font-size: small;
+  color: green;
+  line-height: 1.5;
+  border: 2px solid black;
+  grid-area: messages-col;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: 1fr auto;
+  text-align: start;
+}
+
+.message {
+  padding: 10px 4px;
+
+}
+
+.create-message {
+  margin: 10px auto;
+  min-height: 25px;
+}
+
+.input-message {
+  min-width: 400px;
+  min-height: inherit;
+}
+
+.send-msg {
+  min-height: inherit;
+  padding: 5PX 8PX;
+}

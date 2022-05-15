@@ -1,0 +1,52 @@
+.channel-col {
+  font-size: 16px;
+  color: blue;
+  line-height: 1.5;
+  border: 2px solid black;
+  grid-area: channel-col;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: 1fr auto;
+  text-align: start;
+}
+
+.channel {
+  padding: 3px 8px;
+}
+
+.single-channel:hover {
+  background-color: rgb(186, 186, 228);
+}
+
+.create-new-channel {
+  align-self: end;
+  margin: 10px auto;
+  /* min-height: 25px; */
+}
+
+.channel-form {
+  min-height: 25px;
+}
+
+.channel-input {
+  min-height: inherit;
+}
+
+.add-channel {
+  min-height: inherit;
+  padding: 5px 10px;
+}
+
+/* highlight last clicked channel by checkbox*/
+.check-ch {
+  display: none;
+}
+
+.check-ch:checked + .single-channel {
+  background-color: rgb(203, 169, 234);
+}
+
+/* for highlight current channel way 2: ternary */
+.default-ch {
+  background-color: rgb(180, 243, 169);
+}

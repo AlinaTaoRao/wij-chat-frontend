@@ -1,0 +1,33 @@
+.header {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-auto-rows: minmax(30px, auto); */
+    grid-area: header;
+    grid-template-areas: 
+    "title register";
+    justify-content: space-between;
+    background-color: #9292c9;
+    min-height: 40px;
+}
+
+.title{ 
+    grid-area: title;
+    justify-self: start;
+    font-size: 20px;
+    padding: 10px 20px;
+    min-height: inherit;
+}
+
+.register {
+    grid-area:register;
+    justify-self: end;
+    padding: 10px 20px;
+    min-height: inherit;
+}
+
+.to-sign-in {
+    margin: auto 15px;
+}
+
+/* .to-sign-up {
+} */
