@@ -15,6 +15,22 @@
 
 }
 
+.sender{
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.time {
+  font-size: 8px;
+  font-weight: 300;
+  padding-left: 5px;
+}
+
+.single-msg {
+  color: rgb(39, 35, 35);
+  padding-left: 10px;
+}
+
 .create-message {
   margin: 10px auto;
   min-height: 25px;

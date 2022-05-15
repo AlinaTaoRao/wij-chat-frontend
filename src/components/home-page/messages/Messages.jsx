@@ -11,6 +11,10 @@ import { useState, useEffect } from "react";
 export default function Messages({ username }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
+  console.log("msgLength in Messages:", msgLength);
+
+  // const [hasNewMsg, setHasNewMsg]= useState(false); //not work
+  // console.log("hasNewMsg origin:", hasNewMsg);
 
   /* define current channel url, global var curData.curCH value from Homepage*/
   const url = curData.curCh
@@ -31,8 +35,13 @@ export default function Messages({ username }) {
   /* post new msg & update msgLength state to fire useFetch() */
   const handleNewMsg = (e) => {
     e.preventDefault();
-    setMsgLength((ml) => ml + 1);
-    console.log("msgLength", msgLength);
+    setMsgLength(len => (len + 1));  // not work;
+    console.log("msgLength in handleNewMsg: ", msgLength);
+
+    // setHasNewMsg(!hasNewMsg);      //not work
+    // console.log("hasNewMsg update:", hasNewMsg);
+  
+  
 
     const sender = curData.curUser;
     console.log("sender=", sender);
@@ -76,8 +85,8 @@ export default function Messages({ username }) {
       <div className="messages">
         {data.data.attributes.messages.data.map((msg, index) => (
           <div key={index} className="message">
-            <p className="sender">{msg.attributes.sender}</p>
-            <p>{msg.attributes.publishedAt}</p>
+            <span className="sender">{msg.attributes.sender}</span>
+            <span className="time">{msg.attributes.publishedAt}</span>
             <p className="single-msg" data-msg-id={msg.id}>
               {msg.attributes.body}
             </p>
