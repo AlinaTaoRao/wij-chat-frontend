@@ -14,27 +14,44 @@ export default function HomePage() {
   /* can't comment url, setUrl, message col will freeze. why? useFetch dependence [url]? */
   const [url, setUrl] = useState("");
 
-  console.log("in Homepage");
+  const switchCh = (e) => {
+    e.preventDefault();
+    curData.curCh = e.target.id;
+    console.log("e.target.id:", e.target.id);
+    setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
+    
+    /* remove default ch class */
+    const defaultCh = document.querySelector(".default-ch");
+    if (defaultCh) defaultCh.classList.remove("default-ch");
+    
+    /* uncheck all .check-ch and check the current one */
+    document
+      .querySelectorAll(".check-ch")
+      .forEach((e) => (e.checked = false));
+    e.target.parentElement.children[0].checked = true;
+
+  };
   return (
     <div className="home">
       <Header />
       <Channels
-        handleSwitchCh={(e) => {
-          e.preventDefault();
-          curData.curCh = e.target.id;
-          console.log("e.target.id:", e.target.id);
-          setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
+        // handleSwitchCh={(e) => {
+        //   e.preventDefault();
+        //   curData.curCh = e.target.id;
+        //   console.log("e.target.id:", e.target.id);
+        //   setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
           
-          /* remove default ch class */
-          const defaultCh = document.querySelector(".default-ch");
-          if (defaultCh) defaultCh.classList.remove("default-ch");
+        //   /* remove default ch class */
+        //   const defaultCh = document.querySelector(".default-ch");
+        //   if (defaultCh) defaultCh.classList.remove("default-ch");
           
-          /* uncheck all .check-ch and check the current one */
-          document
-            .querySelectorAll(".check-ch")
-            .forEach((e) => (e.checked = false));
-          e.target.parentElement.children[0].checked = true;
-        }}
+        //   /* uncheck all .check-ch and check the current one */
+        //   document
+        //     .querySelectorAll(".check-ch")
+        //     .forEach((e) => (e.checked = false));
+        //   e.target.parentElement.children[0].checked = true;
+        // }}
+        handleSwitchCh={e => switchCh(e)}
       />
       <Messages />
       <People />
