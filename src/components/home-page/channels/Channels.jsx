@@ -111,7 +111,7 @@ export default function Channels({ handleSwitchCh }) {
 
 //   /* define handlers */
 //   const handleNewChannel = (e) => {
-//     // e.preventDefault();
+//     // e.preventDefault();   // has this line will reload page, then lost cur user.
 //     const title = channelName;
 //     const initiator = curData.curUser;
 //     // const curUserId = curData.curUserId;

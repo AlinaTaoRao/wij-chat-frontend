@@ -9,7 +9,7 @@ import People from "./people/People"; // for   <People/>
 import { curData } from "../../data";
 import { baseUrl } from "../../config";
 
-/* way 1: use global var curData.curCh, works */
+/* way 2: switchCh way */
 export default function HomePage() {
   /* can't comment url, setUrl, message col will freeze. why? useFetch dependence [url]? */
   const [url, setUrl] = useState("");
@@ -34,23 +34,7 @@ export default function HomePage() {
   return (
     <div className="home">
       <Header />
-      <Channels
-        // handleSwitchCh={(e) => {
-        //   e.preventDefault();
-        //   curData.curCh = e.target.id;
-        //   console.log("e.target.id:", e.target.id);
-        //   setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
-          
-        //   /* remove default ch class */
-        //   const defaultCh = document.querySelector(".default-ch");
-        //   if (defaultCh) defaultCh.classList.remove("default-ch");
-          
-        //   /* uncheck all .check-ch and check the current one */
-        //   document
-        //     .querySelectorAll(".check-ch")
-        //     .forEach((e) => (e.checked = false));
-        //   e.target.parentElement.children[0].checked = true;
-        // }}
+      <Channels        
         handleSwitchCh={e => switchCh(e)}
       />
       <Messages />
@@ -58,4 +42,35 @@ export default function HomePage() {
     </div>
   );
 }
+
+/* way 1: use global var curData.curCh, works */
+// export default function HomePage() {
+//   /* can't comment url, setUrl, message col will freeze. why? useFetch dependence [url]? */
+//   const [url, setUrl] = useState("");
+//   return (
+//     <div className="home">
+//       <Header />
+//       <Channels
+//         handleSwitchCh={(e) => {
+//           e.preventDefault();
+//           curData.curCh = e.target.id;
+//           console.log("e.target.id:", e.target.id);
+//           setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
+          
+//           /* remove default ch class */
+//           const defaultCh = document.querySelector(".default-ch");
+//           if (defaultCh) defaultCh.classList.remove("default-ch");
+          
+//           /* uncheck all .check-ch and check the current one */
+//           document
+//             .querySelectorAll(".check-ch")
+//             .forEach((e) => (e.checked = false));
+//           e.target.parentElement.children[0].checked = true;
+//         }}
+//       />
+//       <Messages />
+//       <People />
+//     </div>
+//   );
+// }
 
