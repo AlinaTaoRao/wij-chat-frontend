@@ -1,22 +1,29 @@
 import "./styles.css";
 import useFetch from "../../../my-hook/useFetch";
-import { localhostUrl } from "../../../config";
+import { baseUrl } from "../../../config";
 import { curData } from "../../../data";
 
 import React, { useState } from "react"; // for way 1
 
 /* way 2: highlight current user ternary, curData.curUser?, works, best way! */
 export default function People() {
-  const { data, error, loading } = useFetch(`${localhostUrl}/users`);
+  const { data, error, loading } = useFetch(`${baseUrl}/users`);
   console.log("USERS:", data);
   if (loading) return <p> Loading</p>;
-  if (error) return <p> Oops, there is something wrong :(</p>;
+  if (error)
+    return (
+      <div className="error-container">
+        <p className="error-general error"> Oops, there is something wrong :(</p>
+        <p className="error-status error">{error.status}</p> 
+        <p className="error-msg error">{error.message}</p>
+      </div>
+    );
 
   return (
     <div className="people">
       {data.map((user, index) => (
         <div key={index} className="user">
-          {curData.curUser && curData.curUser === user.username ? 
+          {curData.curUser && curData.curUser === user.username ? (
             <p
               className="single-user cur-usr"
               id={user.id}
@@ -24,11 +31,11 @@ export default function People() {
             >
               {user.username}
             </p>
-          : 
+          ) : (
             <p className="single-user" id={user.id} data-usr={user.username}>
               {user.username}
             </p>
-          }
+          )}
         </div>
       ))}
     </div>
@@ -38,7 +45,7 @@ export default function People() {
 /* way 1: highlight current user by event, works */
 // export default function People() {
 //   const [highlight, setHighlight] = useState(0);
-//   const { data, error, loading } = useFetch(`${localhostUrl}/users`);
+//   const { data, error, loading } = useFetch(`${baseUrl}/users`);
 //   console.log("USERS:", data);
 //   if (loading) return <p> Loading</p>;
 //   if (error) return <p> Oops, there is something wrong :(</p>;

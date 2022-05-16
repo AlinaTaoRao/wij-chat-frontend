@@ -1,11 +1,15 @@
-
 .people {
     font-size: small;
-    color: red;
+    color: rgb(53, 42, 42);
     line-height: 1.5;
     border: 2px solid greenyellow; 
     grid-area: people;
     text-align: start;
+}
+
+.error {
+    color: rgb(239, 53, 53);
+    padding-bottom: 5px;
 }
 
 .user {
