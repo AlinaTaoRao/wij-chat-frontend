@@ -8,7 +8,7 @@ import React from "react";
 import { useState } from "react";
 
 /* way 2 form section, has refresh issue */
-export default function Channels({ handleSwitchCh }) {
+export default function Channels({ usr, handleSwitchCh}) {
   /* get channels data */
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0); // not work
@@ -26,7 +26,8 @@ export default function Channels({ handleSwitchCh }) {
     e.preventDefault();
     setChLength((l) => l + 1);
     const title = channelName;
-    const initiator = curData.curUser;
+    // const initiator = curData.curUser;
+    const initiator = usr;
     // const curUserId = curData.curUserId;
     async function addChannel(title, initiator) {
       const body = {

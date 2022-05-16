@@ -9,26 +9,23 @@ import { baseUrl } from "../../../config";
 import { curData } from "../../../data";
 import { jwt } from "../../../config";
 
-/* way 3: usePostFetch, use form section instead of div section, works */
-export default function Messages({ username }) {
+/* way 2: usePostFetch & { usr, curCh}, use form section instead of div section, works */
+export default function Messages({ usr, curCh, url}) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
   console.log("msgLength in Messages:", msgLength);
-  // const [hasNewMsg, setHasNewMsg] = useState(false);
 
   /* customize usePostFetch to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
   const { postData, postError, postLoading } = usePostFetch(
+    usr,
+    curCh,
     msgUrl,
     newMsg,
     msgLength
   );
   console.log(" post Messages:", postData);
 
-  /* define current channel url, global var curData.curCH value from Homepage*/
-  const url = curData.curCh
-    ? `${baseUrl}/channels/${curData.curCh}?populate=messages`
-    : `${baseUrl}/channels/1?populate=messages`;
   const { data, error, loading } = useFetch(url, msgLength);
   console.log("Messages in cur ch:", data);
   if (loading) return <p> Loading</p>;
@@ -52,7 +49,8 @@ export default function Messages({ username }) {
         {data.data.attributes.messages.data.map((msg, index) => (
           <div key={index} className="message">
             <span className="sender">{msg.attributes.sender}</span>
-            <span className="time">{msg.attributes.publishedAt}</span>
+            {/* <span className="time">{msg.attributes.publishedAt}</span> */}
+            <span className="time">{msg.attributes.time}</span>
             <span className="ch-title">{data.data.attributes.title}</span>
             <p className="single-msg" data-msg-id={msg.id}>
               {msg.attributes.body}

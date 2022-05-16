@@ -9,22 +9,11 @@ import { Link } from "react-router-dom";
 
 export default function SignIn({
   username,
-  handleUsernameInput,
+  password,
+  handleUsrInput,
+  handlePwdInput,
   handleSignIn,
-  handleSignUp,
 }) {
-  // const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  // const [userId, setUserId] = useState("");
-
-  // const url = `${baseUrl}/users?filters[username][$eq]=${username}`;
-  // const { data, error, loading } = useFetch(url);
-  // console.log(data);
-
-  // if (loading) return <p> Loading</p>;
-  // if (error) return <p> Oops, there is something wrong :(</p>;
-  // if (data.id) setUserId(data.id);
-
   return (
     <div className="sign-in">
       <Link to="/">
@@ -37,14 +26,7 @@ export default function SignIn({
           type="text"
           className="username-input"
           value={username}
-          onChange={
-            //   (e) => {
-            //   curData.curUser = e.target.value;
-            //   console.log("cur user?:", curData.curUser);
-            //   setUsername(e.target.value);
-            // }
-            handleUsernameInput
-          }
+          onChange={handleUsrInput}
           placeholder="Username"
           required
         />
@@ -52,7 +34,7 @@ export default function SignIn({
           type="password"
           className="password-input"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handlePwdInput}
           placeholder="Password"
           required
         />

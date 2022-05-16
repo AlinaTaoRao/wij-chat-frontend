@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { curData } from "../data";
 import { jwt } from "../config";
 
-const usePostFetch = (msgUrl, newMsg, msgLength) => {
+const usePostFetch = (usr, curCh, msgUrl, newMsg, msgLength) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -16,9 +16,11 @@ const usePostFetch = (msgUrl, newMsg, msgLength) => {
 
       try {
         /* grab cur values and define body */
-        const sender = curData.curUser;
+        // const sender = curData.curUser;
+        const sender = usr;
         console.log("sender=", sender);
-        const chId = curData.curCh;
+        // const chId = curData.curCh;
+        const chId = curCh;
         // const userId = 2;     // # todo, dynamically get user id.
         const body = {
           data: {
@@ -27,6 +29,7 @@ const usePostFetch = (msgUrl, newMsg, msgLength) => {
             // },
             sender: sender,
             body: newMsg,
+            time: `${new Date().toLocaleTimeString()}`,
             channel: {
               id: chId,
             },
@@ -70,7 +73,7 @@ const usePostFetch = (msgUrl, newMsg, msgLength) => {
     fetchData();
   }, [msgUrl, msgLength]);
 
-  return { data, error, loading};
+  return { data, error, loading };
 };
 
 export default usePostFetch;

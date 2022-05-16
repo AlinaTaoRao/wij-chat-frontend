@@ -9,35 +9,31 @@ import People from "./people/People"; // for   <People/>
 import { curData } from "../../data";
 import { baseUrl } from "../../config";
 
-/* way 2: switchCh way */
-export default function HomePage() {
-  /* can't comment url, setUrl, message col will freeze. why? useFetch dependence [url]? */
-  const [url, setUrl] = useState("");
+/* way 2: switchCh way, use url and curCh state, works*/
+export default function HomePage({ usr }) {
+  /* can't comment url, setUrl, message col will freeze. why? useFetch dependence [url]?. issue disappear */
+  const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
+  const [curCh, setCurCh] = useState("");
 
   const switchCh = (e) => {
     e.preventDefault();
-    curData.curCh = e.target.id;
+    setCurCh(e.target.id);
     console.log("e.target.id:", e.target.id);
     setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
-    
+
     /* remove default ch class */
     const defaultCh = document.querySelector(".default-ch");
     if (defaultCh) defaultCh.classList.remove("default-ch");
-    
-    /* uncheck all .check-ch and check the current one */
-    document
-      .querySelectorAll(".check-ch")
-      .forEach((e) => (e.checked = false));
-    e.target.parentElement.children[0].checked = true;
 
+    /* uncheck all .check-ch and check the current one */
+    document.querySelectorAll(".check-ch").forEach((e) => (e.checked = false));
+    e.target.parentElement.children[0].checked = true;
   };
   return (
     <div className="home">
       <Header />
-      <Channels        
-        handleSwitchCh={e => switchCh(e)}
-      />
-      <Messages />
+      <Channels usr={usr} handleSwitchCh={(e) => switchCh(e)} />
+      <Messages usr={usr} curCh={curCh} url={url}/>
       <People />
     </div>
   );
@@ -56,11 +52,11 @@ export default function HomePage() {
 //           curData.curCh = e.target.id;
 //           console.log("e.target.id:", e.target.id);
 //           setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
-          
+
 //           /* remove default ch class */
 //           const defaultCh = document.querySelector(".default-ch");
 //           if (defaultCh) defaultCh.classList.remove("default-ch");
-          
+
 //           /* uncheck all .check-ch and check the current one */
 //           document
 //             .querySelectorAll(".check-ch")
@@ -73,4 +69,3 @@ export default function HomePage() {
 //     </div>
 //   );
 // }
-

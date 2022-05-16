@@ -8,8 +8,8 @@ import { useState, useEffect } from "react";
 import { curData } from "./data";
 
 function App() {
-  const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
+  const [usr, setUsr] = useState("");
+  const [pwd, setPwd] = useState("");
   // const [userId, setUserId] = useState("");
   /* define handlers */
   const activeUser = () => {
@@ -25,18 +25,20 @@ function App() {
             path="/signIn"
             element={
               <SignIn
-                username={username}
-                handleUsernameInput={(e) => {
+                username={usr}
+                password={pwd}
+                handleUsrInput={(e) => {
                   curData.curUser = e.target.value;
                   console.log("cur user?:", curData.curUser);
-                  setUsername(e.target.value);
+                  setUsr(e.target.value);
                 }}
+                handlePwdInput={(e) => setPwd(e.target.value)}
                 handleSignIn={activeUser}
               />
             }
           />
           <Route path="/signUp" element={<SignUp />} />
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage usr={usr} />} />
         </Routes>
       </div>
     </Router>
