@@ -11,11 +11,12 @@ import { useState } from "react";
 export default function Channels({ handleSwitchCh }) {
   /* get channels data */
   const [channelName, setChannelName] = useState("");
-  const [hasNewCh, setHasNewCh]= useState(false);
+  const [chLength, setChLength] = useState(0); // not work
+
   // define url, fetch data
   const url = `${baseUrl}/channels`;
   // const { data, error, loading } = useFetch(url);
-  const { data, error, loading } = useFetch(url, hasNewCh);
+  const { data, error, loading } = useFetch(url, chLength);
   console.log(data);
   if (loading) return <p> Loading</p>;
   if (error) return <p> Oops, there is something wrong :(</p>;
@@ -23,6 +24,7 @@ export default function Channels({ handleSwitchCh }) {
   /* define handlers */
   const handleNewChannel = (e) => {
     e.preventDefault();
+    setChLength((l) => l + 1);
     const title = channelName;
     const initiator = curData.curUser;
     // const curUserId = curData.curUserId;
@@ -30,7 +32,7 @@ export default function Channels({ handleSwitchCh }) {
       const body = {
         data: {
           users_permissions_users: {
-            id: 2,        // if the max user id in strapi < this number, will throw error!
+            id: 2, // if the max user id in strapi < this number, will throw error!
           },
           title: `# ${title}`,
           initiator: initiator,
@@ -79,10 +81,12 @@ export default function Channels({ handleSwitchCh }) {
         ))}
       </div>
       <div className="create-new-channel">
-        <form className="channel-form" onSubmit={(e) => {
-          handleNewChannel(e);
-          setHasNewCh(!hasNewCh);
-        }}>
+        <form
+          className="channel-form"
+          onSubmit={(e) => {
+            handleNewChannel(e);
+          }}
+        >
           <input
             type="text"
             className="channel-input"
@@ -91,7 +95,7 @@ export default function Channels({ handleSwitchCh }) {
             placeholder="New Channel Name"
             required
           />
-           <input type="submit" value="+" className="add-channel" />
+          <input type="submit" value="+" className="add-channel" />
         </form>
       </div>
     </div>

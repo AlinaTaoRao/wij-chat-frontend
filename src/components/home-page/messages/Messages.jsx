@@ -14,14 +14,14 @@ export default function Messages({ username }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
   console.log("msgLength in Messages:", msgLength);
-  const [hasNewMsg, setHasNewMsg] = useState(false);
+  // const [hasNewMsg, setHasNewMsg] = useState(false);
 
   /* customize usePostFetch to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
   const { postData, postError, postLoading } = usePostFetch(
     msgUrl,
     newMsg,
-    hasNewMsg
+    msgLength
   );
   console.log(" post Messages:", postData);
 
@@ -65,7 +65,7 @@ export default function Messages({ username }) {
         className="create-message"
         onSubmit={(e) => {
           e.preventDefault();
-          setHasNewMsg(!hasNewMsg);
+          setMsgLength((l) => l + 1);
         }}
       >
         <input
@@ -86,7 +86,7 @@ export default function Messages({ username }) {
         className="create-message"
         onSubmit={(e) => {
           e.preventDefault();
-          setHasNewMsg(!hasNewMsg);
+          setMsgLength((l) => l + 1);
         }}
       >
         <input
@@ -102,7 +102,6 @@ export default function Messages({ username }) {
     </div>
   );
 }
-
 
 /* way 1: get and render messages in a channel, use div section works*/
 // export default function Messages({ username }) {
@@ -230,4 +229,3 @@ export default function Messages({ username }) {
 //     </div>
 //   );
 // }
-

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { curData } from "../data";
 import { jwt } from "../config";
 
-const usePostFetch = (msgUrl, newMsg, hasNewMsg) => {
+const usePostFetch = (msgUrl, newMsg, msgLength) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -68,7 +68,7 @@ const usePostFetch = (msgUrl, newMsg, hasNewMsg) => {
     };
 
     fetchData();
-  }, [msgUrl, hasNewMsg]);
+  }, [msgUrl, msgLength]);
 
   return { data, error, loading};
 };
