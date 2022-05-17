@@ -29,7 +29,7 @@ export default function Messages({ usr, curCh, url}) {
   const { data, error, loading } = useFetch(url, msgLength);
   console.log("Messages in cur ch:", data);
   if (loading) return <p> Loading</p>;
-  if (error) return <p> Oops, there is something wrong :(, {error.message}</p>;
+  if (error) return <p className="error"> Oops, there is something wrong :(, {error.message}</p>;
 
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
