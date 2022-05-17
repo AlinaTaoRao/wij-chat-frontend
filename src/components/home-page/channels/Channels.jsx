@@ -6,7 +6,6 @@ import useFetch from "../../../my-hooks/useFetch";
 import usePostFetchCh from "../../../my-hooks/usePostFetchCh";
 import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
-import { jwt } from "../../../config";
 
 /* way 3 usePostFetchCh to post new ch, works with refresh issue */
 // curCh, id of cur ch, try to toggle rerender.

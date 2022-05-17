@@ -18,8 +18,7 @@ function App() {
   const [loginCount, setLoginCount] = useState(0);
   // const [usrCollection, setUsrCollection] = useState({});
 
-  /* define handlers */
-  // const activeUser = () => {};
+  /* usePostFetchUsr, handle sign in */
   const { loginData, loginError, loginLoading } = usePostFetchUsr(
     usr,
     pwd,
@@ -30,6 +29,16 @@ function App() {
     setUserId,
     loginCount
   );
+
+  /* validation for empty input field, not work */
+  // const validateForm = () => {
+  //   const inputName=document.forms["Form"]["input-name"].value;
+  //   const inputPassword=document.forms["Form"]["input-password"].value;
+  //   if(!inputName && !inputPassword) {
+  //     alert("Please Fill All Required Field");
+  //     return true;
+  //   }
+  // };
 
   return (
     <Router>
@@ -48,6 +57,7 @@ function App() {
                 }}
                 handlePwdInput={(e) => setPwd(e.target.value)}
                 handleSignIn={() => setLoginCount((c) => c + 1)}
+                // handleSignIn={() => validateForm()}
               />
             }
           />
@@ -57,8 +67,6 @@ function App() {
               <SignUp
                 usr={usr}
                 setUsr={setUsr}
-                // usrCollection={usrCollection}
-                // setUsrCollection={setUsrCollection}
               />
             }
           />
@@ -68,8 +76,6 @@ function App() {
               <HomePage
                 usr={usr}
                 jwtToken={jwtToken}
-                // usrCollection={usrCollection}
-                // setUsrCollection={setUsrCollection}
               />
             }
           />

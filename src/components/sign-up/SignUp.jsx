@@ -61,32 +61,6 @@ export default function SignUp({
 
         // setLoading(false);
 
-        /* way 1: store post usr data in state, works but can't use jwtToken to post msg */
-
-        // setUsrCollection(
-        //   (usrCollection[`${usr}`] = {
-        //     id: json.user.id,
-        //     jwtToken: json.jwt,
-        //     username: nUsr,
-        //     email: email,
-        //     password: pwd,
-        //   })
-        // );
-        // console.log("usrCollection=", usrCollection);
-        // console.log("Object.keys(usrCollection)=", Object.keys(usrCollection));
-        // console.log("usrCollection[usr].token=", usrCollection[`${usr}`].jwtToken);
-
-        /* way 2: store post usr data in data.js */
-        // usrPostData.id = {
-        //   id: json.user.id,
-        //   jwtToken: json.jwt,
-        //   username: nUsr,
-        //   email: email,
-        //   password: pwd,
-        // };
-        // console.log("usrPostData.id=", usrPostData.id);
-        // console.log("usrPostData=", usrPostData);
-
         // return { data, error, loading };
       } catch (error) {
         setError(error);

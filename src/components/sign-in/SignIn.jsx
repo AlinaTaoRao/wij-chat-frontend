@@ -25,8 +25,9 @@ export default function SignIn({
           <h1 className="title-sign">Wij Chat</h1>
         </div>
       </Link>
-      <form className="sign-in-form">
+      <form name="Form" className="sign-in-form" onSubmit={handleSignIn}>
         <input
+          name="input-name"
           type="text"
           className="username-input"
           value={username}
@@ -35,6 +36,7 @@ export default function SignIn({
           required
         />
         <input
+          name="input-password"
           type="password"
           className="password-input"
           value={password}
@@ -45,9 +47,12 @@ export default function SignIn({
 
         <div className="sign-container">
           <Link to="/" className="link-home">
-            <button className="sign-in-btn" onClick={handleSignIn}>
-              Sign in
-            </button>
+            <input
+              className="sign-in-btn"
+              type="submit"
+              value="Sign in"
+              // onClick={handleSignIn}
+            />
           </Link>
 
           <p className="sign-up">
