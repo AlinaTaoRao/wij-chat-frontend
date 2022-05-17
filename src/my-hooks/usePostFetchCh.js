@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 // import { curData } from "../data";
 import { jwt } from "../config";
 
-const usePostFetchCh = (usr, channelName, chUrl, chLength) => {
+const usePostFetchCh = (
+  usr,
+  channelName,
+  chUrl,
+  chLength,
+  usrCollection
+) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -29,6 +35,7 @@ const usePostFetchCh = (usr, channelName, chUrl, chLength) => {
         };
 
         const token = jwt;
+        // const token = usrCollection.usr.jwtToken; // not work
 
         if (!channelName) return;
         const res = await fetch(encodeURI(chUrl), {

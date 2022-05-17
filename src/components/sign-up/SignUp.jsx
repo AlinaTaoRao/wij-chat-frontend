@@ -8,13 +8,18 @@ import usePostFetchUsr from "../../my-hooks/usePostFetchUsr";
 import { usrPostData } from "../../data";
 
 /* try 2: use handler, post usr works, but onsubmit not work, only use onClick to fire post handler. */
-export default function SignUp() {
+export default function SignUp({
+  usr,
+  setUsr,
+  usrCollection,
+  setUsrCollection,
+}) {
   const authorizationUrl = `${baseUrl}/auth/local/register`;
-  const [usr, setUsr] = useState("");
+  const [nUsr, setNUsr] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const [usrLength, setUsrLength] = useState(0);
-  const [usrCollection, setUserCollection] = useState({});
+  // const [usrCollection, setUsrCollection] = useState({});
 
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -25,12 +30,12 @@ export default function SignUp() {
     const fetchData = async () => {
       try {
         const body = {
-          username: usr,
+          username: nUsr,
           email: email,
           password: pwd,
         };
 
-        if (!usr || !email || !pwd) return;
+        if (!nUsr || !email || !pwd) return;
         const res = await fetch(encodeURI(authorizationUrl), {
           method: "POST",
           headers: {
@@ -53,7 +58,33 @@ export default function SignUp() {
 
         setData(json);
         console.log("post usr data:", data);
+
         // setLoading(false);
+
+        /* way 1: store post usr data in state */
+        setUsrCollection(
+          (usrCollection.usr = {
+            id: json.user.id,
+            jwtToken: json.jwt,
+            username: nUsr,
+            email: email,
+            password: pwd,
+          })
+        );
+        console.log("usrCollection=", usrCollection);
+        console.log("usrCollection.usr.token=", usrCollection.usr.jwtToken);
+
+        /* way 2: store post usr data in data.js */
+        usrPostData.id = {
+          id: json.user.id,
+          jwtToken: json.jwt,
+          username: nUsr,
+          email: email,
+          password: pwd,
+        };
+        console.log("usrPostData.id=", usrPostData.id);
+        console.log("usrPostData=", usrPostData);
+
         // return { data, error, loading };
       } catch (error) {
         setError(error);
@@ -66,30 +97,6 @@ export default function SignUp() {
     return { data, error };
   };
 
-  if (data) {
-    /* way 1: store post usr data in state */
-    setUserCollection(
-      (usrCollection.usr = {
-        id: data.user.id,
-        token: data.jwt,
-        username: usr,
-        email: email,
-        password: pwd,
-      })
-    );
-    console.log("usrCollection=", usrCollection);
-
-    /* way 2: store post usr data in data.js */
-    usrPostData.id = {
-      id: data.user.id,
-      token: data.jwt,
-      username: usr,
-      email: email,
-      password: pwd,
-    };
-    console.log("usrPostData.id=", usrPostData.id);
-    console.log("usrPostData=", usrPostData);
-  }
   if (error)
     return (
       <p>
@@ -97,6 +104,7 @@ export default function SignUp() {
       </p>
     );
   // if (loading) return <p>loading...</p>;
+
   return (
     <div className="sign-up">
       <Link to="/">
@@ -115,10 +123,13 @@ export default function SignUp() {
         <input
           type="text"
           className="usr-input"
-          value={usr}
+          value={nUsr}
           onChange={(e) => {
+            setNUsr(e.target.value);
+            console.log("sign in usr is:", nUsr);
+            // set new user as cur usr.
             setUsr(e.target.value);
-            console.log("sign in usr is:", usr);
+            console.log("cur usr from sign in is:", usr);
           }}
           placeholder="Username"
           required
@@ -139,7 +150,7 @@ export default function SignUp() {
           className="pwd-input"
           value={pwd}
           onChange={(e) => setPwd(e.target.value)}
-          placeholder="Password"
+          placeholder="Password. Must >= 6 character"
           required
         />
         <Link to="/">

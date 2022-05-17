@@ -8,8 +8,8 @@ import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
 import { jwt } from "../../../config";
 
-/* way 3 usePostFetchCh to post new ch */
-export default function Channels({ usr, handleSwitchCh }) {
+/* way 3 usePostFetchCh to post new ch, works with refresh issue */
+export default function Channels({ usr, usrCollection, handleSwitchCh }) {
   /* get channels data */
   // define url
   const chUrl = `${baseUrl}/channels`;
@@ -21,12 +21,13 @@ export default function Channels({ usr, handleSwitchCh }) {
     usr,
     channelName,
     chUrl,
-    chLength
+    chLength,
+    usrCollection
   );
 
   // fetch chs data
   const { data, error, loading } = useFetch(chUrl, chLength);
-  console.log(data);
+  // console.log(data);
   if (loading) return <p> Loading</p>;
   if (error) return <p> Oops, there is something wrong :(</p>;
 
@@ -43,7 +44,6 @@ export default function Channels({ usr, handleSwitchCh }) {
           </div>
         )}
       </div>
-
 
       <div className="channels">
         {data.data.map((channel, index) => (

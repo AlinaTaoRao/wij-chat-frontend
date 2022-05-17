@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 // import { curData } from "../data";
 import { jwt } from "../config";
 
-const usePostFetchMsg = (usr, curCh, msgUrl, newMsg, msgLength) => {
+const usePostFetchMsg = (
+  usr,
+  curCh,
+  msgUrl,
+  newMsg,
+  msgLength,
+  usrCollection
+) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -35,6 +42,7 @@ const usePostFetchMsg = (usr, curCh, msgUrl, newMsg, msgLength) => {
         };
 
         const token = jwt;
+        // const token = usrCollection.usr.jwtToken; // not work
 
         if (!newMsg) return;
         const res = await fetch(encodeURI(msgUrl), {

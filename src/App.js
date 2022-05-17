@@ -10,12 +10,10 @@ import { curData } from "./data";
 function App() {
   const [usr, setUsr] = useState("");
   const [pwd, setPwd] = useState("");
+  const [usrCollection, setUsrCollection] = useState({});
   // const [userId, setUserId] = useState("");
   /* define handlers */
-  const activeUser = () => {
-    
-  };
-
+  const activeUser = () => {};
 
   return (
     <Router>
@@ -28,8 +26,6 @@ function App() {
                 username={usr}
                 password={pwd}
                 handleUsrInput={(e) => {
-                  curData.curUser = e.target.value;
-                  console.log("cur user?:", curData.curUser);
                   setUsr(e.target.value);
                 }}
                 handlePwdInput={(e) => setPwd(e.target.value)}
@@ -37,8 +33,27 @@ function App() {
               />
             }
           />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/" element={<HomePage usr={usr} />} />
+          <Route
+            path="/signUp"
+            element={
+              <SignUp
+                usr={usr}
+                setUsr={setUsr}
+                usrCollection={usrCollection}
+                setUsrCollection={setUsrCollection}
+              />
+            }
+          />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                usr={usr}
+                usrCollection={usrCollection}
+                setUsrCollection={setUsrCollection}
+              />
+            }
+          />
         </Routes>
       </div>
     </Router>

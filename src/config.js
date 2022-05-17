@@ -7,9 +7,9 @@ export const jwtLocalhost = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiaW
 /* test herou */
 // export const localhostUrl = "https://wij-chat-backend.herokuapp.com/api";
 export const herokuUrl = "https://wij-chat-backend.herokuapp.com/api";
-/* jwt token from postman1, id=2 */
-export const jwtHeroku = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjUyNjMyNjA1LCJleHAiOjE2NTUyMjQ2MDV9.-dy29BqP-h4Eb1qBgg-zQI6c4K26O4t5uz-C7hDSOJk";
-
+/* jwt token from test1, id=13 */
+export const jwtHeroku = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImlhdCI6MTY1Mjc4NDEwMiwiZXhwIjoxNjU1Mzc2MTAyfQ.bknYviXgMFS_Wilvn6GRELQmRrOC7BxTZYw5U4MnkOI";
+// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImlhdCI6MTY1Mjc4NDEwMiwiZXhwIjoxNjU1Mzc2MTAyfQ.bknYviXgMFS_Wilvn6GRELQmRrOC7BxTZYw5U4MnkOI"
 /* env set up */
 export const baseUrl = herokuUrl;
 export const jwt = jwtHeroku;

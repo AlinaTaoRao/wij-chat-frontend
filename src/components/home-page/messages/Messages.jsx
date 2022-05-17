@@ -9,11 +9,16 @@ import { baseUrl } from "../../../config";
 import { curData } from "../../../data";
 import { jwt } from "../../../config";
 
-/* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works */
-export default function Messages({ usr, curCh, url}) {
+/* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works witch refresh issue */
+export default function Messages({
+  usr,
+  curCh,
+  url,
+  usrCollection,
+}) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
-  console.log("msgLength in Messages:", msgLength);
+  // console.log("msgLength in Messages:", msgLength);
 
   /* customize usePostFetchMsg to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
@@ -22,14 +27,21 @@ export default function Messages({ usr, curCh, url}) {
     curCh,
     msgUrl,
     newMsg,
-    msgLength
+    msgLength,
+    usrCollection
   );
-  console.log(" post Messages:", postData);
+  // console.log(" post Messages:", postData);
 
   const { data, error, loading } = useFetch(url, msgLength);
-  console.log("Messages in cur ch:", data);
+  // console.log("Messages in cur ch:", data);
   if (loading) return <p> Loading</p>;
-  if (error) return <p className="error"> Oops, there is something wrong :(, {error.message}</p>;
+  if (error)
+    return (
+      <p className="error">
+        {" "}
+        Oops, there is something wrong :(, {error.message}
+      </p>
+    );
 
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
@@ -90,7 +102,6 @@ export default function Messages({ usr, curCh, url}) {
           </div>
         )}
       </div>
-
 
       <div className="messages">{`"${data.data.attributes.title}" don't have any message yet.`}</div>
       <form
