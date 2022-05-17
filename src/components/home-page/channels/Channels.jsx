@@ -1,62 +1,50 @@
-import "./styles.css";
-import useFetch from "../../../my-hooks/useFetch";
-import { baseUrl } from "../../../config";
-import { curData } from "../../../data";
-import { jwt } from "../../../config";
-
 import React from "react";
 import { useState } from "react";
 
-/* way 2 form section, has refresh issue */
-export default function Channels({ usr, handleSwitchCh}) {
+import "./styles.css";
+import useFetch from "../../../my-hooks/useFetch";
+import usePostFetchCh from "../../../my-hooks/usePostFetchCh";
+import { baseUrl } from "../../../config";
+// import { curData } from "../../../data";
+import { jwt } from "../../../config";
+
+/* way 3 usePostFetchCh to post new ch */
+export default function Channels({ usr, handleSwitchCh }) {
   /* get channels data */
+  // define url
+  const chUrl = `${baseUrl}/channels`;
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0); // not work
 
-  // define url, fetch data
-  const url = `${baseUrl}/channels`;
-  // const { data, error, loading } = useFetch(url);
-  const { data, error, loading } = useFetch(url, chLength);
+  /* usePostFetchCh to post new ch */
+  const { PData, PError, pLoading } = usePostFetchCh(
+    usr,
+    channelName,
+    chUrl,
+    chLength
+  );
+
+  // fetch chs data
+  const { data, error, loading } = useFetch(chUrl, chLength);
   console.log(data);
   if (loading) return <p> Loading</p>;
   if (error) return <p> Oops, there is something wrong :(</p>;
 
-  /* define handlers */
-  const handleNewChannel = (e) => {
-    e.preventDefault();
-    setChLength((l) => l + 1);
-    const title = channelName;
-    // const initiator = curData.curUser;
-    const initiator = usr;
-    // const curUserId = curData.curUserId;
-    async function addChannel(title, initiator) {
-      const body = {
-        data: {
-          users_permissions_users: {
-            id: 2, // if the max user id in strapi < this number, will throw error!
-          },
-          title: `# ${title}`,
-          initiator: initiator,
-        },
-      };
-
-      const token = jwt;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(body),
-      });
-      console.log("run handleChannel");
-      return response.json();
-    }
-    addChannel(title, initiator);
-  };
-
   return (
     <div className="channel-col">
+      <div className="post-info-container">
+        {PError && (
+          <div className="post-error">
+            <p className="post-error-general error">
+              Oops, there is something wrong :(
+            </p>
+            <p className="post-error-status error">{PError.status}</p>
+            <p className="post-error-msg error">{PError.message}</p>
+          </div>
+        )}
+      </div>
+
+
       <div className="channels">
         {data.data.map((channel, index) => (
           <div key={index} className="channel">
@@ -85,7 +73,8 @@ export default function Channels({ usr, handleSwitchCh}) {
         <form
           className="channel-form"
           onSubmit={(e) => {
-            handleNewChannel(e);
+            e.preventDefault();
+            setChLength((l) => l + 1);
           }}
         >
           <input
@@ -102,6 +91,102 @@ export default function Channels({ usr, handleSwitchCh}) {
     </div>
   );
 }
+
+/* way 2 form section, has refresh issue */
+// export default function Channels({ usr, handleSwitchCh}) {
+//   /* get channels data */
+//   const [channelName, setChannelName] = useState("");
+//   const [chLength, setChLength] = useState(0); // not work
+
+//   // define url, fetch data
+//   const url = `${baseUrl}/channels`;
+//   // const { data, error, loading } = useFetch(url);
+//   const { data, error, loading } = useFetch(url, chLength);
+//   console.log(data);
+//   if (loading) return <p> Loading</p>;
+//   if (error) return <p> Oops, there is something wrong :(</p>;
+
+//   /* define handlers */
+//   const handleNewChannel = (e) => {
+//     e.preventDefault();
+//     setChLength((l) => l + 1);
+//     const title = channelName;
+//     // const initiator = curData.curUser;
+//     const initiator = usr;
+//     // const curUserId = curData.curUserId;
+//     async function addChannel(title, initiator) {
+//       const body = {
+//         data: {
+//           users_permissions_users: {
+//             id: 2, // if the max user id in strapi < this number, will throw error!
+//           },
+//           title: `# ${title}`,
+//           initiator: initiator,
+//         },
+//       };
+
+//       const token = jwt;
+//       const response = await fetch(url, {
+//         method: "POST",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${token}`,
+//         },
+//         body: JSON.stringify(body),
+//       });
+//       console.log("run handleChannel");
+//       return response.json();
+//     }
+//     addChannel(title, initiator);
+//   };
+
+//   return (
+//     <div className="channel-col">
+//       <div className="channels">
+//         {data.data.map((channel, index) => (
+//           <div key={index} className="channel">
+//             <input type="checkbox" className="check-ch" />
+//             {channel.id === 1 ? (
+//               <p
+//                 className="single-channel default-ch"
+//                 id={channel.id}
+//                 onClick={handleSwitchCh}
+//               >
+//                 {channel.attributes.title}
+//               </p>
+//             ) : (
+//               <p
+//                 className="single-channel"
+//                 id={channel.id}
+//                 onClick={handleSwitchCh}
+//               >
+//                 {channel.attributes.title}
+//               </p>
+//             )}
+//           </div>
+//         ))}
+//       </div>
+//       <div className="create-new-channel">
+//         <form
+//           className="channel-form"
+//           onSubmit={(e) => {
+//             handleNewChannel(e);
+//           }}
+//         >
+//           <input
+//             type="text"
+//             className="channel-input"
+//             value={channelName}
+//             onChange={(e) => setChannelName(e.target.value)}
+//             placeholder="New Channel Name"
+//             required
+//           />
+//           <input type="submit" value="+" className="add-channel" />
+//         </form>
+//       </div>
+//     </div>
+//   );
+// }
 
 /* way 1: highlight current channel by checkbox; highlight default ch, works */
 // export default function Channels({ handleSwitchCh }) {

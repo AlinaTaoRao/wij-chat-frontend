@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 // import { curData } from "../data";
 import { jwt } from "../config";
 
-const usePostFetchMsg = (usr, curCh, msgUrl, newMsg, msgLength) => {
+const usePostFetchCh = (usr, channelName, chUrl, chLength) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -16,28 +16,22 @@ const usePostFetchMsg = (usr, curCh, msgUrl, newMsg, msgLength) => {
 
       try {
         /* gather cur values and define body */
-        const sender = usr;
-        console.log("sender=", sender);
-        const chId = curCh;
-        // const userId = 2;     // # todo, dynamically get user id.
+        const initiator = usr;
+        const title = channelName;
         const body = {
           data: {
             // users_permissions_users: {
-            //   id: userId,
+            //   id: 2, // if the max user id in strapi < this number, will throw error!
             // },
-            sender: sender,
-            body: newMsg,
-            time: `${new Date().toLocaleTimeString()}`,
-            channel: {
-              id: chId,
-            },
+            initiator: initiator,
+            title: `# ${title}`,
           },
         };
 
         const token = jwt;
 
-        if (!newMsg) return;
-        const res = await fetch(encodeURI(msgUrl), {
+        if (!channelName) return;
+        const res = await fetch(encodeURI(chUrl), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -50,16 +44,16 @@ const usePostFetchMsg = (usr, curCh, msgUrl, newMsg, msgLength) => {
         // --- throw an error if the res is not ok (this works!) ---
         if (!res.ok) {
           const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`
-            : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
+            ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
+            : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
           throw new Error(message);
         }
 
         const json = await res.json();
-        console.log("post msg json:", json);
+        console.log("post ch json:", json);
 
         setData(json);
-        console.log("post msg data:", data);
+        console.log("post ch data:", data);
         setLoading(false);
         // return json;
       } catch (error) {
@@ -69,9 +63,9 @@ const usePostFetchMsg = (usr, curCh, msgUrl, newMsg, msgLength) => {
     };
 
     fetchData();
-  }, [msgUrl, msgLength]);
+  }, [chUrl, chLength]);
 
   return { data, error, loading };
 };
 
-export default usePostFetchMsg;
+export default usePostFetchCh;

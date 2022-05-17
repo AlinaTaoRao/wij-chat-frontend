@@ -39,8 +39,8 @@ export default function Messages({ usr, curCh, url}) {
             <p className="post-error-general error">
               Oops, there is something wrong :(
             </p>
-            <p className="post-error-status error">{error.status}</p>
-            <p className="post-error-msg error">{error.message}</p>
+            <p className="post-error-status error">{postError.status}</p>
+            <p className="post-error-msg error">{postError.message}</p>
           </div>
         )}
       </div>

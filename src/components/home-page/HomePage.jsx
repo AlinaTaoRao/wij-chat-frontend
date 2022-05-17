@@ -13,7 +13,7 @@ import { baseUrl } from "../../config";
 export default function HomePage({ usr }) {
   /* can't comment url, setUrl, message col will freeze. why? useFetch dependence [url]?. issue disappear */
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
-  const [curCh, setCurCh] = useState("");
+  const [curCh, setCurCh] = useState(1);  // default ch id=1;
 
   const switchCh = (e) => {
     e.preventDefault();
