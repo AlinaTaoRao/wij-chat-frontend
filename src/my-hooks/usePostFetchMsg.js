@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { curData } from "../data";
+// import { curData } from "../data";
 import { jwt } from "../config";
 
-const usePostFetch = (usr, curCh, msgUrl, newMsg, msgLength) => {
+const usePostFetchMsg = (usr, curCh, msgUrl, newMsg, msgLength) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -15,11 +15,9 @@ const usePostFetch = (usr, curCh, msgUrl, newMsg, msgLength) => {
       setLoading(true);
 
       try {
-        /* grab cur values and define body */
-        // const sender = curData.curUser;
+        /* gather cur values and define body */
         const sender = usr;
         console.log("sender=", sender);
-        // const chId = curData.curCh;
         const chId = curCh;
         // const userId = 2;     // # todo, dynamically get user id.
         const body = {
@@ -76,4 +74,4 @@ const usePostFetch = (usr, curCh, msgUrl, newMsg, msgLength) => {
   return { data, error, loading };
 };
 
-export default usePostFetch;
+export default usePostFetchMsg;

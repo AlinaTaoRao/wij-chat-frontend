@@ -1,11 +1,11 @@
-import "./styles.css";
-import { curData } from "../../data";
-import { baseUrl } from "../../config";
-import useFetch from "../../my-hook/useFetch";
-
 import React from "react";
-import { useState } from "react";
+// import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import "./styles.css";
+// import { curData } from "../../data";
+// import { baseUrl } from "../../config";
+import useFetch from "../../my-hooks/useFetch";
 
 export default function SignIn({
   username,

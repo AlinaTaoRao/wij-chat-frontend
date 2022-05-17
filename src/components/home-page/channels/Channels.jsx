@@ -1,5 +1,5 @@
 import "./styles.css";
-import useFetch from "../../../my-hook/useFetch";
+import useFetch from "../../../my-hooks/useFetch";
 import { baseUrl } from "../../../config";
 import { curData } from "../../../data";
 import { jwt } from "../../../config";

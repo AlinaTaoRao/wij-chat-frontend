@@ -2,22 +2,22 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import "./styles.css";
-import useFetch from "../../../my-hook/useFetch";
-import useValueRef from "../../../my-hook/useValueRef";
-import usePostFetch from "../../../my-hook/usePostFetch";
+import useFetch from "../../../my-hooks/useFetch";
+import useValueRef from "../../../my-hooks/useValueRef";
+import usePostFetchMsg from "../../../my-hooks/usePostFetchMsg";
 import { baseUrl } from "../../../config";
 import { curData } from "../../../data";
 import { jwt } from "../../../config";
 
-/* way 2: usePostFetch & { usr, curCh}, use form section instead of div section, works */
+/* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works */
 export default function Messages({ usr, curCh, url}) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
   console.log("msgLength in Messages:", msgLength);
 
-  /* customize usePostFetch to handle new message*/
+  /* customize usePostFetchMsg to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
-  const { postData, postError, postLoading } = usePostFetch(
+  const { postData, postError, postLoading } = usePostFetchMsg(
     usr,
     curCh,
     msgUrl,
