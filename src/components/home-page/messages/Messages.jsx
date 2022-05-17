@@ -79,6 +79,19 @@ export default function Messages({ usr, curCh, url}) {
     </div>
   ) : (
     <div className="messages-col">
+      <div className="post-info-container">
+        {postError && (
+          <div className="post-error">
+            <p className="post-error-general error">
+              Oops, there is something wrong :(
+            </p>
+            <p className="post-error-status error">{error.status}</p>
+            <p className="post-error-msg error">{error.message}</p>
+          </div>
+        )}
+      </div>
+
+
       <div className="messages">{`"${data.data.attributes.title}" don't have any message yet.`}</div>
       <form
         className="create-message"
