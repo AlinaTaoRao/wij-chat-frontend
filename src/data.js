@@ -3,3 +3,5 @@ export const curData = {
     curUser:null,
     curUserId:null
 };
+
+export const usrPostData={};
