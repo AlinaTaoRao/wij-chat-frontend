@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
-// import { curData } from "../data";
-import { jwt } from "../config";
+import { curData } from "../data";
 
+/* usePostFetchCh, for post new channel */
+// curCh, id of cur ch, try to toggle rerender.
 const usePostFetchCh = (
   usr,
   channelName,
   chUrl,
+  curCh,
   chLength,
-  usrCollection
+  jwtToken,
 ) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const [rerender, setRerender] = useState(false);
 
   // define fetch data function
   useEffect(() => {
@@ -21,21 +22,19 @@ const usePostFetchCh = (
       setLoading(true);
 
       try {
-        /* gather cur values and define body */
-        const initiator = usr;
-        const title = channelName;
         const body = {
           data: {
-            // users_permissions_users: {
-            //   id: 2, // if the max user id in strapi < this number, will throw error!
-            // },
-            initiator: initiator,
-            title: `# ${title}`,
+            users_permissions_users: {
+              id: curData.curUserId, 
+            },
+            initiator: usr,
+            title: `# ${channelName}`,
           },
         };
 
-        const token = jwt;
-        // const token = usrCollection.usr.jwtToken; // not work
+        // const token = jwtToken; // null?
+        const token = curData.jwtToken; // works, with refresh issue
+
 
         if (!channelName) return;
         const res = await fetch(encodeURI(chUrl), {
@@ -46,9 +45,9 @@ const usePostFetchCh = (
           },
           body: JSON.stringify(body),
         });
-        console.log("res:", res);
+        console.log("post ch res:", res);
 
-        // --- throw an error if the res is not ok (this works!) ---
+        // --- throw an error if the res is not ok  ---
         if (!res.ok) {
           const message = res.statusText
             ? `${res.status}: ${res.statusText}\n-> ${chUrl}`

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-const useFetch = (url, msgLength) => {
+/* useFetch, for fetch ch, msg, usr list. */
+// curCh, cur ch id, try to toggle rerender?
+const useFetch = (url, curCh, msgLength) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -36,7 +38,7 @@ const useFetch = (url, msgLength) => {
     };
 
     fetchData();
-  }, [url, msgLength]);
+  }, [url, curCh, msgLength]);
 
   return { data, error, loading };
 };

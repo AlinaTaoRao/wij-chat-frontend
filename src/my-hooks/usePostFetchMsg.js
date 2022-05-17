@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-// import { curData } from "../data";
-import { jwt } from "../config";
+import { curData } from "../data";
 
+
+/* usePostFetchMsg, for post new msg */
 const usePostFetchMsg = (
   usr,
   curCh,
   msgUrl,
   newMsg,
   msgLength,
-  usrCollection
+  jwtToken,
 ) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const [rerender, setRerender] = useState(false);
 
   // define fetch data function
   useEffect(() => {
@@ -22,27 +22,22 @@ const usePostFetchMsg = (
       setLoading(true);
 
       try {
-        /* gather cur values and define body */
-        const sender = usr;
-        console.log("sender=", sender);
-        const chId = curCh;
-        // const userId = 2;     // # todo, dynamically get user id.
         const body = {
           data: {
-            // users_permissions_users: {
-            //   id: userId,
-            // },
-            sender: sender,
+            users_permissions_users: {
+              id: curData.curUserId, // way 1 use global var, works;
+            },
+            sender: usr,
             body: newMsg,
             time: `${new Date().toLocaleTimeString()}`,
             channel: {
-              id: chId,
+              id: curCh, // ch id state
             },
           },
         };
 
-        const token = jwt;
-        // const token = usrCollection.usr.jwtToken; // not work
+        // const token = jwtToken; // null?
+        const token = curData.jwtToken; // way 1 use global var, works
 
         if (!newMsg) return;
         const res = await fetch(encodeURI(msgUrl), {
@@ -55,7 +50,7 @@ const usePostFetchMsg = (
         });
         console.log("res:", res);
 
-        // --- throw an error if the res is not ok (this works!) ---
+        // --- throw an error if the res is not ok ---
         if (!res.ok) {
           const message = res.statusText
             ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`

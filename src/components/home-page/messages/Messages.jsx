@@ -32,7 +32,7 @@ export default function Messages({
   );
   // console.log(" post Messages:", postData);
 
-  const { data, error, loading } = useFetch(url, msgLength);
+  const { data, error, loading } = useFetch(url, curCh, msgLength);
   // console.log("Messages in cur ch:", data);
   if (loading) return <p> Loading</p>;
   if (error)

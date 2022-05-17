@@ -9,7 +9,8 @@ import { baseUrl } from "../../../config";
 import { jwt } from "../../../config";
 
 /* way 3 usePostFetchCh to post new ch, works with refresh issue */
-export default function Channels({ usr, usrCollection, handleSwitchCh }) {
+// curCh, id of cur ch, try to toggle rerender.
+export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
   /* get channels data */
   // define url
   const chUrl = `${baseUrl}/channels`;
@@ -21,12 +22,13 @@ export default function Channels({ usr, usrCollection, handleSwitchCh }) {
     usr,
     channelName,
     chUrl,
+    curCh,
     chLength,
-    usrCollection
+    jwtToken
   );
 
   // fetch chs data
-  const { data, error, loading } = useFetch(chUrl, chLength);
+  const { data, error, loading } = useFetch(chUrl, curCh, chLength);
   // console.log(data);
   if (loading) return <p> Loading</p>;
   if (error) return <p> Oops, there is something wrong :(</p>;

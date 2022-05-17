@@ -10,6 +10,10 @@ import useFetch from "../../my-hooks/useFetch";
 export default function SignIn({
   username,
   password,
+  jwtToken,
+  setJwtToken,
+  userId,
+  setUserId,
   handleUsrInput,
   handlePwdInput,
   handleSignIn,
