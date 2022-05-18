@@ -30,16 +30,6 @@ function App() {
     loginCount
   );
 
-  /* validation for empty input field, not work */
-  // const validateForm = () => {
-  //   const inputName=document.forms["Form"]["input-name"].value;
-  //   const inputPassword=document.forms["Form"]["input-password"].value;
-  //   if(!inputName && !inputPassword) {
-  //     alert("Please Fill All Required Field");
-  //     return true;
-  //   }
-  // };
-
   return (
     <Router>
       <div className="App">
@@ -57,27 +47,16 @@ function App() {
                 }}
                 handlePwdInput={(e) => setPwd(e.target.value)}
                 handleSignIn={() => setLoginCount((c) => c + 1)}
-                // handleSignIn={() => validateForm()}
               />
             }
           />
           <Route
             path="/signUp"
-            element={
-              <SignUp
-                usr={usr}
-                setUsr={setUsr}
-              />
-            }
+            element={<SignUp usr={usr} setUsr={setUsr} />}
           />
           <Route
             path="/"
-            element={
-              <HomePage
-                usr={usr}
-                jwtToken={jwtToken}
-              />
-            }
+            element={<HomePage usr={usr} jwtToken={jwtToken} />}
           />
         </Routes>
       </div>
