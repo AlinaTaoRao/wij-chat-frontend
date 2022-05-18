@@ -29,7 +29,7 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
   // fetch chs data
   const { data, error, loading } = useFetch(chUrl, curCh, chLength);
   // console.log(data);
-  // if (loading) return <p> Loading</p>;
+  if (loading) return <p> Loading</p>; // useful, can prevent reading data before loading end.
   if (error) return <p> Oops, there is something wrong :(</p>;
 
   return (
