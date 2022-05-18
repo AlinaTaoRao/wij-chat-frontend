@@ -36,7 +36,7 @@ const usePostFetchMsg = (
           },
         };
 
-        // const token = jwtToken; // null?
+        // const token = jwtToken; // read from jwtToken state, null?
         const token = curData.jwtToken; // way 1 use global var, works
 
         if (!newMsg) return;
@@ -63,6 +63,8 @@ const usePostFetchMsg = (
 
         setData(json);
         console.log("post msg data:", data);
+
+        curData.postMsgJson=json;  // for manually render newest msg
         setLoading(false);
         // return json;
       } catch (error) {

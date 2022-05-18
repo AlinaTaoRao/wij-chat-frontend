@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import "./styles.css";
 import useFetch from "../../../my-hooks/useFetch";
@@ -15,6 +15,12 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
   const chUrl = `${baseUrl}/channels`;
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0); // not work
+
+  /* try to update new ch?, not work */
+  // const latestChLength = useRef(null);
+  // latestChLength.current = () => {
+  //   setChLength((l) => l + 1);
+  // };
 
   /* usePostFetchCh to post new ch */
   const { PData, PError, pLoading } = usePostFetchCh(
@@ -78,6 +84,7 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
           onSubmit={(e) => {
             e.preventDefault();
             setChLength((l) => l + 1);
+            // latestChLength.current(); // try to update new ch?, not work
           }}
         >
           <input
