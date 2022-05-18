@@ -70,20 +70,6 @@ export default function Messages({
           </div>
         ))}
 
-        {/* render post msg manually, data from post msg json */}
-        <div className="message">
-            <span className="sender">{curData.postMsgJson.data.attributes.sender}</span>
-            {/* <span className="time">{msg.attributes.publishedAt}</span> */}
-            <span className="time">{curData.postMsgJson.data.attributes.time}</span>
-            <span className="ch-title">{curData.postMsgJson.data.attributes.title}</span>
-            <p className="single-msg" data-msg-id={curData.postMsgJson.data.id}>
-              {curData.postMsgJson.data.attributes.body}
-            </p>
-          </div>
-
-
-
-
       </div>
 
       <form
