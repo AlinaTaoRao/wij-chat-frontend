@@ -76,7 +76,7 @@ export default function Messages({
         className="create-message"
         onSubmit={(e) => {
           e.preventDefault();
-          setMsgLength((l) => l + 1);
+          setMsgLength((l) => l + 1);  // form onSubmit works. new msg created, but not render in msg list?!
         }}
       >
         <input
@@ -109,7 +109,7 @@ export default function Messages({
         className="create-message"
         onSubmit={(e) => {
           e.preventDefault();
-          setMsgLength((l) => l + 1);
+          setMsgLength((l) => l + 1); // form onSubmit works. new msg created, but not render in msg list?!
         }}
       >
         <input

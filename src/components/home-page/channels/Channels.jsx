@@ -83,7 +83,7 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
           className="channel-form"
           onSubmit={(e) => {
             e.preventDefault();
-            setChLength((l) => l + 1);
+            setChLength((l) => l + 1); // form onSubmit works. new ch created, but not render in ch list?!
             // latestChLength.current(); // try to update new ch?, not work
           }}
         >
