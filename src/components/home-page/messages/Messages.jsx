@@ -10,24 +10,31 @@ import { curData } from "../../../data";
 import { jwt } from "../../../config";
 
 /* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works witch refresh issue */
-export default function Messages({
-  usr,
-  curCh,
-  url,
-}) {
+export default function Messages({ usr, curCh, url }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
   // console.log("msgLength in Messages:", msgLength);
 
   /* customize usePostFetchMsg to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
-  const { postData, postError, postLoading } = usePostFetchMsg(
+  const postMsgArgumentList = [
     usr,
     curCh,
     msgUrl,
     newMsg,
     setNewMsg,
     msgLength,
+  ];
+  // const { postData, postError, postLoading } = usePostFetchMsg(
+  //   usr,
+  //   curCh,
+  //   msgUrl,
+  //   newMsg,
+  //   setNewMsg,
+  //   msgLength
+  // );
+  const { postData, postError, postLoading } = usePostFetchMsg(
+    ...postMsgArgumentList
   );
   // console.log(" post Messages:", postData);
 
@@ -68,14 +75,13 @@ export default function Messages({
             </p>
           </div>
         ))}
-
       </div>
 
       <form
         className="create-message"
         onSubmit={(e) => {
           e.preventDefault();
-          setMsgLength((l) => l + 1);  // form onSubmit works. new msg created, but not render in msg list?!
+          setMsgLength((l) => l + 1); // form onSubmit works. new msg created, but not render in msg list?!
         }}
       >
         <input
