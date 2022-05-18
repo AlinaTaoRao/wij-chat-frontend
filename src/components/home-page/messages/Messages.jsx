@@ -32,7 +32,7 @@ export default function Messages({ usr, curCh, url }) {
 
   const { data, error, loading } = useFetch(url, curCh, msgLength);
   // console.log("Messages in cur ch:", data);
-  if (loading) return <p> Loading</p>; // useful, can prevent reading data before loading end.
+  if (loading) return <div className="messages-col"><p> Loading...</p></div>; // useful, can prevent reading data before loading end.
   if (error)
     return (
       <p className="error">
