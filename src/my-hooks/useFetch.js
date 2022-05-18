@@ -7,7 +7,9 @@ const useFetch = (url, curCh, msgLength) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  // const [rerender, setRerender] = useState(false);
+
+  /* try to fire useFetch each time after send new msg or created new ch */
+  
 
   // define fetch data function
   useEffect(() => {
@@ -25,11 +27,16 @@ const useFetch = (url, curCh, msgLength) => {
           throw new Error(message);
         }
 
+        console.log("useFetch url:", url);
+        console.log("useFetch curCh:", curCh);
+        console.log("useFetch msgLength:", msgLength);
+
         const json = await res.json();
-        // console.log("json:", json);
+        console.log("useFetch json:", json);
 
         setData(json);
-        // console.log("json data:", data);
+        console.log("useFetch json data:", data);
+        
         setLoading(false);
       } catch (error) {
         setError(error);
