@@ -23,14 +23,16 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
   // };
 
   /* usePostFetchCh to post new ch */
-  const { PData, PError, pLoading } = usePostFetchCh(
+  const postChArgumentList = [
     usr,
     channelName,
+    setChannelName,
     chUrl,
     curCh,
     chLength,
-    jwtToken
-  );
+    jwtToken,
+  ];
+  const { PData, PError, pLoading } = usePostFetchCh(...postChArgumentList);
 
   // fetch chs data
   // const { data, error, loading } = useFetch(chUrl, curCh, chLength); // refresh too often issue

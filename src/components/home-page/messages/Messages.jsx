@@ -44,7 +44,7 @@ export default function Messages({ usr, curCh, url }) {
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
       <div className="post-info-container">
-        {postError && (
+        {{postError} && (
           <div className="post-error">
             <p className="post-error-general error">
               Oops, there is something wrong :(

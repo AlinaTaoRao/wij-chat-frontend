@@ -8,6 +8,7 @@ import { curData } from "../data";
 const usePostFetchCh = (
   usr,
   channelName,
+  setChannelName,
   chUrl,
   curCh,
   chLength,
@@ -49,19 +50,21 @@ const usePostFetchCh = (
         });
         console.log("post ch res:", res);
 
-        // --- throw an error if the res is not ok  ---
-        if (!res.ok) {
-          const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
-            : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
-          throw new Error(message);
-        }
+        // --- throw an error if the res is not ok, not work?  ---
+        // if (!res.ok) {
+        //   const message = res.statusText
+        //     ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
+        //     : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
+        //   throw new Error(message);
+        // }
 
         const json = await res.json();
         console.log("post ch json:", json);
 
         setData(json);
         console.log("post ch data:", data);
+
+        setChannelName(""); // clear input field;
         setLoading(false);
         // return json;
       } catch (error) {

@@ -40,7 +40,7 @@ const usePostFetchMsg = (
         // const token = jwtToken; // read from jwtToken state, null?
         const token = curData.jwtToken; // way 1 use global var, works
 
-        if (!newMsg) return;
+        if (!newMsg) return; // prevent send empty msg.
         const res = await fetch(encodeURI(msgUrl), {
           method: "POST",
           headers: {
@@ -51,13 +51,13 @@ const usePostFetchMsg = (
         });
         console.log("res:", res);
 
-        // --- throw an error if the res is not ok ---
-        if (!res.ok) {
-          const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`
-            : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
-          throw new Error(message);
-        }
+        // --- throw an error if the res is not ok, not work? ---
+        // if (!res.ok) {
+        //   const message = res.statusText
+        //     ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`
+        //     : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
+        //   throw new Error(message);
+        // }
 
         const json = await res.json();
         console.log("post msg json:", json);
