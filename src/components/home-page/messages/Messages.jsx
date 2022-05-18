@@ -25,14 +25,6 @@ export default function Messages({ usr, curCh, url }) {
     setNewMsg,
     msgLength,
   ];
-  // const { postData, postError, postLoading } = usePostFetchMsg(
-  //   usr,
-  //   curCh,
-  //   msgUrl,
-  //   newMsg,
-  //   setNewMsg,
-  //   msgLength
-  // );
   const { postData, postError, postLoading } = usePostFetchMsg(
     ...postMsgArgumentList
   );
