@@ -8,6 +8,7 @@ const usePostFetchMsg = (
   curCh,
   msgUrl,
   newMsg,
+  setNewMsg,
   msgLength,
   jwtToken,
 ) => {
@@ -63,6 +64,8 @@ const usePostFetchMsg = (
 
         setData(json);
         console.log("post msg data:", data);
+
+        setNewMsg(""); // clear input field
 
         curData.postMsgJson=json;  // for manually render newest msg
         setLoading(false);

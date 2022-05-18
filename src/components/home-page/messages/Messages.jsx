@@ -26,6 +26,7 @@ export default function Messages({
     curCh,
     msgUrl,
     newMsg,
+    setNewMsg,
     msgLength,
   );
   // console.log(" post Messages:", postData);
