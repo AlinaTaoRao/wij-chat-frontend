@@ -25,7 +25,9 @@ export default function SignIn({
           <h1 className="title-sign">Wij Chat</h1>
         </div>
       </Link>
-      <form name="Form" className="sign-in-form" onSubmit={handleSignIn}>
+      <form name="Form" className="sign-in-form" 
+      // onSubmit={handleSignIn} // can't fire handleSignIn, why?!
+      >
         <input
           name="input-name"
           type="text"
@@ -51,7 +53,7 @@ export default function SignIn({
               className="sign-in-btn"
               type="submit"
               value="Sign in"
-              // onClick={handleSignIn}
+              onClick={handleSignIn} // works
             />
           </Link>
 

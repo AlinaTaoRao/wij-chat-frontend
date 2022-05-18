@@ -26,11 +26,6 @@ const usePostFetchUsr = (
       setLoading(true);
 
       try {
-        /* gather cur values and define body */
-        console.log("sign in username=", usr);
-        console.log("sign in password=", pwd);
-
-        // const userId = 2;     // # todo, dynamically get user id.
         const body = {
           identifier: usr, // username or email
           password: pwd,
