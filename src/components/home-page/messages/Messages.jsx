@@ -14,7 +14,6 @@ export default function Messages({
   usr,
   curCh,
   url,
-  usrCollection,
 }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
@@ -28,7 +27,6 @@ export default function Messages({
     msgUrl,
     newMsg,
     msgLength,
-    usrCollection
   );
   // console.log(" post Messages:", postData);
 
