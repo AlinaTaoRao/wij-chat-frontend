@@ -1,12 +1,16 @@
 .title-container {
-    background-color: rgb(221, 203, 238);
-    padding: 50px auto;
+    background-color: #4d94ff;
+    /* padding: 50px auto; */
     margin: 50px auto;
+    /* background-color: #4d94ff; */
+    min-height: 40px;
+    position: relative;
 }
 
 .title-sign {
-    background-color: rgb(221, 203, 238);
-   border: 2px solid red;
+    background-color: #4d94ff;
+    min-height: 30px;
+    position: absolute;
 
 }
 

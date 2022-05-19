@@ -84,7 +84,12 @@ export default function SignUp({
     <div className="sign-up">
       <Link to="/">
         <div className="title-container">
-          <h1 className="title-sign">Wij Chat</h1>
+        <img
+          className="chat-logo"
+          src="./assets/chatCoin.png"
+          alt="chat logo"
+        />
+          <h1 className="title-sign wij-chat">Wij Chat</h1>
         </div>
       </Link>
       <form

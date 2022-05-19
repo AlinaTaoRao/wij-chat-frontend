@@ -6,16 +6,29 @@
     grid-template-areas: 
     "title register";
     justify-content: space-between;
-    background-color: #9292c9;
+    background-color: #4d94ff;
     min-height: 40px;
 }
 
 .title{ 
     grid-area: title;
-    justify-self: start;
-    font-size: 20px;
-    padding: 10px 20px;
+    justify-items: center;
     min-height: inherit;
+    text-align: start;
+    position: relative;
+}
+
+.chat-logo {
+    width: 30px;
+    margin: 5px 2px;
+
+}
+
+.wij-chat{
+    font-size: 18px;
+    margin: 5px 2px;
+    display: inline-block;
+    position: absolute;
 }
 
 .register {

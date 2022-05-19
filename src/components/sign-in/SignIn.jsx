@@ -18,11 +18,18 @@ export default function SignIn({
     <div className="sign-in">
       <Link to="/">
         <div className="title-container">
-          <h1 className="title-sign">Wij Chat</h1>
+          <img
+            className="chat-logo"
+            src="./assets/chatCoin.png"
+            alt="chat logo"
+          />
+          <h1 className="title-sign wij-chat">Wij Chat</h1>
         </div>
       </Link>
-      <form name="Form" className="sign-in-form" 
-      // onSubmit={handleSignIn}   // onSubmit not work, why ? 
+      <form
+        name="Form"
+        className="sign-in-form"
+        // onSubmit={handleSignIn}   // onSubmit not work, why ?
       >
         <input
           name="input-name"
@@ -49,7 +56,7 @@ export default function SignIn({
               className="sign-in-btn"
               type="submit"
               value="Sign in"
-              onClick={handleSignIn}  //works, hit enter or click btn
+              onClick={handleSignIn} //works, hit enter or click btn
             />
           </Link>
 
