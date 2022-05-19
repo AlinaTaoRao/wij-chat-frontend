@@ -2,7 +2,7 @@
     font-size: small;
     color: rgb(53, 42, 42);
     line-height: 1.5;
-    border: 2px solid greenyellow; 
+    border-left: 1.5px solid #0033cc; 
     grid-area: people;
     text-align: start;
 }
@@ -18,7 +18,9 @@
 
 /* highlight  the user who's sign in */
 .cur-usr {
-    background-color: rgb(177, 245, 181);
-    text-decoration: underline;
+    /* background-color: #b3c6ff; */
+    font-weight: 700;
+    color: #0040ff;
+    /* text-decoration: underline; */
 }
 

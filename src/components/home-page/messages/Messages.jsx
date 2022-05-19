@@ -58,12 +58,23 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
       </div>
     );
 
+    /* separate cur usr msg and other msg */
+    const lastUsr=document.getElementsByClassName("cur-usr-msg");
+    // if(lastUsr) lastUsr.classList.remove("my-class"); //can't read remove
+    lastUsr.className -= " cur-usr-msg";
+
+    const curUsrMsg = document.getElementsByClassName(`.${usr}`);
+  //  curUsrMsg.classList.add("cur-usr-msg") //can't read add
+  curUsrMsg.className += " cur-usr-msg";
+
+    
+
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
       <div className="messages">
         {data.data.attributes.messages.data.map((msg, index) => (
-          <div key={index} className="message">
-            <span className="sender">{msg.attributes.sender}</span>
+          <div key={index} className={`message ${msg.attributes.sender}`}>
+            <span className="sender" >{msg.attributes.sender}</span>
             {/* <span className="time">{msg.attributes.publishedAt}</span> */}
             <span className="time">{msg.attributes.time}</span>
             <span className="ch-title">{data.data.attributes.title}</span>

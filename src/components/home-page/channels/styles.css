@@ -1,8 +1,8 @@
 .channel-col {
   font-size: 16px;
-  color: blue;
+  color: #00001a;
   line-height: 1.5;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   grid-area: channel-col;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -15,8 +15,13 @@
   padding: 3px 8px;
 }
 
+.single-channel {
+  padding-left: 2px;
+
+}
+
 .single-channel:hover {
-  background-color: rgb(186, 186, 228);
+  background-color:  #cce0ff;
 }
 
 .create-new-channel {
@@ -44,10 +49,17 @@
 }
 
 .check-ch:checked + .single-channel {
-  background-color: rgb(203, 169, 234);
+  padding-left: 2px;
+  background-color: #ffffff;
+  border-left: 2px solid #0039e6;
+  /* border-radius: 4px; */
+  box-shadow: 2px 2px 5px #3385ff;
 }
 
 /* for highlight current channel way 2: ternary */
 .default-ch {
-  background-color: rgb(180, 243, 169);
+  background-color:  #b3c6ff;
+  border-left: 1px solid #0039e6;
+  /* border-radius: 4px; */
+  box-shadow: 2px 2px 5px  #002080;
 }
