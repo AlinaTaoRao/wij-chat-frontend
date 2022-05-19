@@ -11,6 +11,7 @@ import { baseUrl } from "../../config";
 export default function SignUp({
   usr,
   setUsr,
+  setUserId,
   jwtToken,
   setJwtToken
 }) {
@@ -58,6 +59,8 @@ export default function SignUp({
 
         setData(json);
         console.log("sign up usr data:", data);
+
+        setUserId(() => json.user.id); //?
 
         setJwtToken(()=>json.jwt);
         console.log("sign up usr jwtToken:", jwtToken);

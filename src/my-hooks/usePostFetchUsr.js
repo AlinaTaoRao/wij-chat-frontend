@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { curData } from "../data";
 
-/* usePostFetchUsr, for user sign in */
+/* usePostFetchUsr, for user sign in, fired when loginCount change */
 const usePostFetchUsr = (
   usr,
   pwd,
@@ -11,13 +11,13 @@ const usePostFetchUsr = (
   setJwtToken,
   userId,
   setUserId,
+  loginCount
 ) => {
   // const state
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   //   const [loading, setLoading] = useState(false);
-  // const [rerender, setRerender] = useState(false);
 
   // define fetch data function
   useEffect(() => {
@@ -72,7 +72,7 @@ const usePostFetchUsr = (
     };
 
     fetchData();
-  }, [loginUrl]);
+  }, [loginUrl, loginCount]);
 
   return { data, error, loading };
 };

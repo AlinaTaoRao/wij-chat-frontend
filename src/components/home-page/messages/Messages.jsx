@@ -8,7 +8,7 @@ import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
 
 /* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works witch refresh issue */
-export default function Messages({ usr, curCh, url, jwtToken }) {
+export default function Messages({ usr, curCh, url, jwtToken, userId }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
   // console.log("msgLength in Messages:", msgLength);
@@ -29,6 +29,7 @@ export default function Messages({ usr, curCh, url, jwtToken }) {
     postMsg,
     setPostMsg,
     jwtToken,
+    userId
   ];
   const { postData, postError, postLoading } = usePostFetchMsg(
     ...postMsgArgumentList
@@ -36,16 +37,8 @@ export default function Messages({ usr, curCh, url, jwtToken }) {
   // console.log(" post Messages:", postData);
 
   const { data, error, loading } = useFetch(url, postMsg); // postMsg control fetch order, works
-  // console.log("Messages in cur ch:", data);
-  // if (loading) return <div className="messages-col"><p> Loading...</p></div>; // useful, can prevent reading data before loading end.
-  // if (error)
-  //   return (
-  //     <p className="error">
-  //       Oops, there is something wrong :(, {error.message}
-  //     </p>
-  //   );
-
-  /////////////
+  // console.log("Messages in cur ch is :", data);
+  
   const isLoading = postLoading || loading;
   const hasError = postError || error;
   if (isLoading)
@@ -86,7 +79,7 @@ export default function Messages({ usr, curCh, url, jwtToken }) {
         className="create-message"
         onSubmit={(e) => {
           e.preventDefault();
-          setMsgLength((l) => l + 1); // form onSubmit works. new msg created, but not render in msg list?!
+          setMsgLength((l) => l + 1); // works, to fire usePostFetchMsg
         }}
       >
         <input
@@ -115,13 +108,12 @@ export default function Messages({ usr, curCh, url, jwtToken }) {
       </div>
 
       <div className="messages">
-        {/* {`"${data.data.attributes.title}" don't have any message yet.`} */}
       </div>
       <form
         className="create-message"
         onSubmit={(e) => {
           e.preventDefault();
-          setMsgLength((l) => l + 1); // form onSubmit works. new msg created, but not render in msg list?!
+          setMsgLength((l) => l + 1); // form onSubmit works. 
         }}
       >
         <input

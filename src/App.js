@@ -15,9 +15,9 @@ function App() {
   const [pwd, setPwd] = useState("");
   const [jwtToken, setJwtToken] = useState(null);
   const [userId, setUserId] = useState(null);
-  // const [loginCount, setLoginCount] = useState(0);
+  const [loginCount, setLoginCount] = useState(0); // change this state while sign in submit, to fire usePostFetchUsr, must have!
 
-  /* usePostFetchUsr, handle usr sign in*/ // this fn fired without handler, if usr input data correctly, hit enter, then they sign in! why?
+  /* usePostFetchUsr, handle usr sign in*/ 
   const { loginData, loginError, loginLoading } = usePostFetchUsr(
     usr,
     pwd,
@@ -25,7 +25,8 @@ function App() {
     jwtToken,
     setJwtToken,
     userId,
-    setUserId
+    setUserId,
+    loginCount
   );
 
   return (
@@ -44,17 +45,17 @@ function App() {
                   setUsr(e.target.value);
                 }}
                 handlePwdInput={(e) => setPwd(e.target.value)}
-                // handleSignIn={() => setLoginCount((c) => c + 1)}
+                handleSignIn={() => setLoginCount((c) => c + 1)}
               />
             }
           />
           <Route
             path="/signUp"
-            element={<SignUp usr={usr} setUsr={setUsr} jwtToken={jwtToken} setJwtToken={setJwtToken} />}
+            element={<SignUp usr={usr} setUsr={setUsr} setUserId={setUserId} jwtToken={jwtToken} setJwtToken={setJwtToken} />}
           />
           <Route
             path="/"
-            element={<HomePage usr={usr} jwtToken={jwtToken} />}
+            element={<HomePage usr={usr} userId={userId} jwtToken={jwtToken} />}
           />
         </Routes>
       </div>

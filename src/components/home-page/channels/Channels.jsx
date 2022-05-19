@@ -9,14 +9,14 @@ import { baseUrl } from "../../../config";
 
 /* way 3 usePostFetchCh to post new ch, works with refresh issue */
 // curCh, id of cur ch, try to toggle rerender.
-export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
+export default function Channels({ usr, curCh, jwtToken, userId, handleSwitchCh }) {
   /* get channels data */
   // define url
   const chUrl = `${baseUrl}/channels`;
   const [channelName, setChannelName] = useState("");
-  const [chLength, setChLength] = useState(0); // not work
+  const [chLength, setChLength] = useState(0); 
 
-  /* try to fire use* in order, use state var postCh as useFetch() dependency, works*/
+  /* try to fire multiple fetch in order, use state var postCh as useFetch() dependency, works*/
   const [postCh, setPostCh] = useState(null);
 
   /* usePostFetchCh to post new ch */
@@ -30,13 +30,12 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
     postCh,
     setPostCh,
     jwtToken,
+    userId
   ];
   const { PData, PError, pLoading } = usePostFetchCh(...postChArgumentList);
 
   // fetch chs data
-  // const { data, error, loading } = useFetch(chUrl, curCh, chLength); // refresh too often issue
-  const { data, error, loading } = useFetch(chUrl, postCh); // order control
-  // const { data, error, loading } = useFetch(chUrl); // # todo, fix this can't update new ch issue?
+  const { data, error, loading } = useFetch(chUrl, postCh); // postCh, multiple fetch order control
   console.log(data);
 
   const isLoading = pLoading || loading;
@@ -61,18 +60,6 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
 
   return (
     <div className="channel-col">
-      {/* <div className="post-info-container">
-        {PError && (
-          <div className="post-error">
-            <p className="post-error-general error">
-              Oops, there is something wrong :(
-            </p>
-            <p className="post-error-status error">{PError.status}</p>
-            <p className="post-error-msg error">{PError.message}</p>
-          </div>
-        )}
-      </div> */}
-
       <div className="channels">
         {data.data.map((channel, index) => (
           <div key={index} className="channel">

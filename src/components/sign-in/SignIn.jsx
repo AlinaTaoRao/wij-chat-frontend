@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 // import { curData } from "../../data";
 // import { baseUrl } from "../../config";
-import useFetch from "../../my-hooks/useFetch";
+// import useFetch from "../../my-hooks/useFetch";
 
 export default function SignIn({
   username,
@@ -22,7 +22,7 @@ export default function SignIn({
         </div>
       </Link>
       <form name="Form" className="sign-in-form" 
-      // onSubmit={handleSignIn} // can't fire handleSignIn, why?!
+      // onSubmit={handleSignIn}   // ?
       >
         <input
           name="input-name"
@@ -49,7 +49,7 @@ export default function SignIn({
               className="sign-in-btn"
               type="submit"
               value="Sign in"
-              // onClick={handleSignIn} // no handler to handle sign in, but usr still can sign in successfully, post msg and create ch, why?
+              // onClick={handleSignIn}  //?
             />
           </Link>
 

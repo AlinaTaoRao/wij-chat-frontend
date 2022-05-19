@@ -11,7 +11,8 @@ const usePostFetchMsg = (
   msgLength,
   postMsg,
   setPostMsg,
-  jwtToken
+  jwtToken,
+  userId
 ) => {
   // const state
   const [data, setData] = useState(null);
@@ -27,7 +28,8 @@ const usePostFetchMsg = (
         const body = {
           data: {
             users_permissions_users: {
-              id: curData.curUserId, // way 1 use global var, works;
+              // id: curData.curUserId, // way 1 use global var, works;
+              id: userId, // way 1 use global var, works;
             },
             sender: usr,
             body: newMsg,

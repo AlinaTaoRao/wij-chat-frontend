@@ -13,6 +13,7 @@ import { baseUrl } from "../../config";
 export default function HomePage({
   usr,
   jwtToken,
+  userId
 }) {
   // set channel url state, default ch id=1;
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
@@ -44,9 +45,10 @@ export default function HomePage({
         usr={usr}
         curCh={curCh} // to toggle rerender channel?
         jwtToken={jwtToken}
+        userId={userId}
         handleSwitchCh={(e) => switchCh(e)}
       />
-      <Messages usr={usr} curCh={curCh} url={url} jwtToken={jwtToken}/>
+      <Messages usr={usr} curCh={curCh} url={url} jwtToken={jwtToken} userId={userId}/>
       <People usr={usr} />
     </div>
   );
