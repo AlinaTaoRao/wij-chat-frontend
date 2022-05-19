@@ -22,7 +22,7 @@ export default function SignIn({
         </div>
       </Link>
       <form name="Form" className="sign-in-form" 
-      // onSubmit={handleSignIn}   // ?
+      // onSubmit={handleSignIn}   // onSubmit not work, why ? 
       >
         <input
           name="input-name"
@@ -49,7 +49,7 @@ export default function SignIn({
               className="sign-in-btn"
               type="submit"
               value="Sign in"
-              // onClick={handleSignIn}  //?
+              onClick={handleSignIn}  //works, hit enter or click btn
             />
           </Link>
 
