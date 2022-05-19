@@ -53,7 +53,7 @@ export default function SignIn({
               className="sign-in-btn"
               type="submit"
               value="Sign in"
-              onClick={handleSignIn} // works
+              // onClick={handleSignIn} // no handler to handle sign in, but usr still can sign in successfully, post msg and create ch, why?
             />
           </Link>
 

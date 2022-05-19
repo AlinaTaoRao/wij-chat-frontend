@@ -11,7 +11,6 @@ const usePostFetchUsr = (
   setJwtToken,
   userId,
   setUserId,
-  loginCount
 ) => {
   // const state
   const [data, setData] = useState(null);
@@ -57,12 +56,12 @@ const usePostFetchUsr = (
 
         curData.jwtToken = json.jwt; //way 1 use global var, works
 
-        setJwtToken(() => json.jwt); // way 2 use state, refresh issue   //
-        console.log("jwtToken from sign in json is", jwtToken); // null?
+        setJwtToken(() => json.jwt); // way 2 use state, works, must use an update fn instead of an object!  //
+        console.log("jwtToken from sign in json is", jwtToken); 
 
         curData.curUserId = json.user.id; //way 1 use global var
-        setUserId(() => json.user.id); // way 2 use state, refresh issue  //
-        console.log("usr id from sign in json is", userId); // null?
+        setUserId(() => json.user.id); // way 2 use state, works
+        console.log("usr id from sign in json is", userId); 
 
         setLoading(false);
         // return json;
@@ -73,7 +72,7 @@ const usePostFetchUsr = (
     };
 
     fetchData();
-  }, [loginUrl, loginCount]);
+  }, [loginUrl]);
 
   return { data, error, loading };
 };
