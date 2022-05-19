@@ -68,7 +68,7 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
 
   return (
     <div className="channel-col">
-      <div className="post-info-container">
+      {/* <div className="post-info-container">
         {PError && (
           <div className="post-error">
             <p className="post-error-general error">
@@ -78,7 +78,7 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
             <p className="post-error-msg error">{PError.message}</p>
           </div>
         )}
-      </div>
+      </div> */}
 
       <div className="channels">
         {data.data.map((channel, index) => (

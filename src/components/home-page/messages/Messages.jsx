@@ -70,8 +70,8 @@ export default function Messages({ usr, curCh, url, jwtToken}) {
 
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
-      <div className="post-info-container">
-        {/* {{postError} && (
+      {/* <div className="post-info-container">
+        {{postError} && (
           <div className="post-error">
             <p className="post-error-general error">
               Oops, there is something wrong :(
@@ -79,9 +79,8 @@ export default function Messages({ usr, curCh, url, jwtToken}) {
             <p className="post-error-status error">{postError.status}</p>
             <p className="post-error-msg error">{postError.message}</p>
           </div>
-        )}  */}
-        {/* Uncaught TypeError: Cannot read properties of undefined (reading 'status') */}
-      </div>
+        )} 
+      </div> */}
 
       <div className="messages">
         {data.data.attributes.messages.data.map((msg, index) => (
@@ -129,7 +128,9 @@ export default function Messages({ usr, curCh, url, jwtToken}) {
         )}
       </div>
 
-      <div className="messages">{`"${data.data.attributes.title}" don't have any message yet.`}</div>
+      <div className="messages">
+        {/* {`"${data.data.attributes.title}" don't have any message yet.`} */}
+        </div>
       <form
         className="create-message"
         onSubmit={(e) => {
