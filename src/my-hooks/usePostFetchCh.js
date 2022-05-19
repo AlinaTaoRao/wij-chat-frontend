@@ -37,8 +37,8 @@ const usePostFetchCh = (
           },
         };
 
-        // const token = jwtToken; // null?
-        const token = curData.jwtToken; // works, with refresh issue
+        const token = jwtToken; // null?
+        // const token = curData.jwtToken; // works, with refresh issue
 
 
         if (!channelName) return;

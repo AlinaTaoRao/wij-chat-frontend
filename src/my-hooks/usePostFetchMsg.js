@@ -38,8 +38,8 @@ const usePostFetchMsg = (
           },
         };
 
-        // const token = jwtToken; // read from jwtToken state, null?
-        const token = curData.jwtToken; // way 1 use global var, works
+        const token = jwtToken; // read from jwtToken state, null?
+        // const token = curData.jwtToken; // way 1 use global var, works
 
         if (!newMsg) return; // prevent send empty msg.
         const res = await fetch(encodeURI(msgUrl), {
