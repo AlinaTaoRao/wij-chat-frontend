@@ -1,6 +1,6 @@
 .messages-col {
   font-size: small;
-  color: green;
+  color: black;
   line-height: 1.5;
   border-left: 1.5px solid #0033cc;
   grid-area: messages-col;
@@ -17,8 +17,21 @@
 }
 
 .message {
-  padding: 10px 4px;
+  background-color: #e6ecff;
+  margin: 10px 10px;
+  border: 1px solid #ccd8ff;
+  border-radius: 10px;
+  padding-left: 10px;
 
+}
+
+div.cur-usr-msg {
+  background-color: #b3c4ff;
+  color: black;
+  justify-self: end;
+  text-align: end;
+  margin-right: 10px;
+  padding-right: 10px;
 }
 
 .sender{

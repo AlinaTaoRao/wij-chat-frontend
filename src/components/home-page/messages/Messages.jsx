@@ -7,7 +7,7 @@ import usePostFetchMsg from "../../../my-hooks/usePostFetchMsg";
 import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
 
-/* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works witch refresh issue */
+/* way 3, separate cur usr msg and other msg */
 export default function Messages({ usr, curCh, url, jwtToken, userId }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
@@ -73,9 +73,15 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
     <div className="messages-col">
       <div className="messages">
         {data.data.attributes.messages.data.map((msg, index) => (
-          <div key={index} className={`message ${msg.attributes.sender}`}>
+          msg.attributes.sender===usr? <div key={index} className="message cur-usr-msg" >
             <span className="sender" >{msg.attributes.sender}</span>
-            {/* <span className="time">{msg.attributes.publishedAt}</span> */}
+            <span className="time">{msg.attributes.time}</span>
+            <span className="ch-title">{data.data.attributes.title}</span>
+            <p className="single-msg" data-msg-id={msg.id}>
+              {msg.attributes.body}
+            </p>
+          </div>: <div key={index} className="message">
+            <span className="sender" >{msg.attributes.sender}</span>
             <span className="time">{msg.attributes.time}</span>
             <span className="ch-title">{data.data.attributes.title}</span>
             <p className="single-msg" data-msg-id={msg.id}>
@@ -139,6 +145,139 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
     </div>
   );
 }
+
+/* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works witch refresh issue */
+// export default function Messages({ usr, curCh, url, jwtToken, userId }) {
+//   const [newMsg, setNewMsg] = useState("");
+//   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
+//   // console.log("msgLength in Messages:", msgLength);
+
+//  /* try to fire multiple fetch in order, use state var postMsg as dependency in useFetch(), works*/
+//   const [postMsg, setPostMsg] = useState(null);
+
+//   /* customize usePostFetchMsg to handle new message*/
+//   const msgUrl = `${baseUrl}/messages`;
+//   const postMsgArgumentList = [
+//     usr,
+//     curCh,
+//     msgUrl,
+//     newMsg,
+//     setNewMsg,
+//     msgLength,
+//     postMsg,
+//     setPostMsg,
+//     jwtToken,
+//     userId
+//   ];
+//   const { postData, postError, postLoading } = usePostFetchMsg(
+//     ...postMsgArgumentList
+//   );
+//   // console.log(" post Messages:", postData);
+
+//   const { data, error, loading } = useFetch(url, postMsg); // postMsg control fetch order, works
+//   // console.log("Messages in cur ch is :", data);
+  
+//   const isLoading = postLoading || loading;
+//   const hasError = postError || error;
+//   if (isLoading)
+//     return (
+//       <div className="messages-col">
+//         <p className="loading"> Loading...</p>
+//       </div>
+//     ); // useful, can prevent reading data before loading end.
+//   if (hasError)
+//     return (
+//       <div className="messages-col">
+//         <p> Oops, there is something wrong :( </p>
+//         {postError ? (
+//           <p className="use-post-msg-error"> {postError.message} </p>
+//         ) : (
+//           <p className="use-fetch-error"> {error.message} </p>
+//         )}
+//       </div>
+//     );
+
+//     /* separate cur usr msg and other msg */
+//     const lastUsr=document.getElementsByClassName("cur-usr-msg");
+//     // if(lastUsr) lastUsr.classList.remove("my-class"); //can't read remove
+//     lastUsr.className -= " cur-usr-msg";
+
+//     const curUsrMsg = document.getElementsByClassName(`.${usr}`);
+//   //  curUsrMsg.classList.add("cur-usr-msg") //can't read add
+//   curUsrMsg.className += " cur-usr-msg";
+
+    
+
+//   return data.data.attributes.messages.data.length !== 0 ? (
+//     <div className="messages-col">
+//       <div className="messages">
+//         {data.data.attributes.messages.data.map((msg, index) => (
+//           <div key={index} className={`message ${msg.attributes.sender}`}>
+//             <span className="sender" >{msg.attributes.sender}</span>
+//             {/* <span className="time">{msg.attributes.publishedAt}</span> */}
+//             <span className="time">{msg.attributes.time}</span>
+//             <span className="ch-title">{data.data.attributes.title}</span>
+//             <p className="single-msg" data-msg-id={msg.id}>
+//               {msg.attributes.body}
+//             </p>
+//           </div>
+//         ))}
+//       </div>
+
+//       <form
+//         className="create-message"
+//         onSubmit={(e) => {
+//           e.preventDefault();
+//           setMsgLength((l) => l + 1); // works, to fire usePostFetchMsg
+//         }}
+//       >
+//         <input
+//           type="text"
+//           className="input-message"
+//           placeholder="New message"
+//           value={newMsg}
+//           onChange={(e) => setNewMsg(e.target.value)}
+//           required
+//         />
+//         <input type="submit" value="Send" className="send-msg" />
+//       </form>
+//     </div>
+//   ) : (
+//     <div className="messages-col">
+//       <div className="post-info-container">
+//         {postError && (
+//           <div className="post-error">
+//             <p className="post-error-general error">
+//               Oops, there is something wrong :(
+//             </p>
+//             <p className="post-error-status error">{error.status}</p>
+//             <p className="post-error-msg error">{error.message}</p>
+//           </div>
+//         )}
+//       </div>
+
+//       <div className="messages">
+//       </div>
+//       <form
+//         className="create-message"
+//         onSubmit={(e) => {
+//           e.preventDefault();
+//           setMsgLength((l) => l + 1); // form onSubmit works. 
+//         }}
+//       >
+//         <input
+//           type="text"
+//           className="input-message"
+//           placeholder="New message"
+//           value={newMsg}
+//           onChange={(e) => setNewMsg(e.target.value)}
+//           required
+//         />
+//         <input type="submit" value="Send" className="send-msg" />
+//       </form>
+//     </div>
+//   );
+// }
 
 /* way 1: get and render messages in a channel, use div section works*/
 // export default function Messages({ username }) {
