@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { curData } from "../data";
+// import { curData } from "../data";
 
 /* usePostFetchCh, for post new channel */
 const usePostFetchCh = (
@@ -30,7 +30,7 @@ const usePostFetchCh = (
           data: {
             users_permissions_users: {
               // id: curData.curUserId, // way 1, global var, works
-              id: userId,  // way 2, state, ?
+              id: userId,  // way 2, state, works
             },
             initiator: usr,
             title: `# ${channelName}`,
