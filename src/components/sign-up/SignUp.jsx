@@ -4,21 +4,21 @@ import { Link } from "react-router-dom";
 
 import "./styles.css";
 import { baseUrl } from "../../config";
-import usePostFetchUsr from "../../my-hooks/usePostFetchUsr";
-import { usrPostData } from "../../data";
+// import usePostFetchUsr from "../../my-hooks/usePostFetchUsr";
+// import { usrPostData } from "../../data";
 
-/* try 2: use handler, post usr works, but onsubmit not work, only use onClick to fire post handler. */
+/* try 2: use handler, post usr works */
 export default function SignUp({
   usr,
   setUsr,
-  usrCollection,
-  setUsrCollection,
+  jwtToken,
+  setJwtToken
 }) {
   const authorizationUrl = `${baseUrl}/auth/local/register`;
   const [nUsr, setNUsr] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  const [usrLength, setUsrLength] = useState(0);
+  // const [usrLength, setUsrLength] = useState(0);
   // const [usrCollection, setUsrCollection] = useState({});
 
   const [data, setData] = useState(null);
@@ -54,10 +54,13 @@ export default function SignUp({
         }
 
         const json = await res.json();
-        console.log("post usr json:", json);
+        console.log("sign up usr json:", json);
 
         setData(json);
-        console.log("post usr data:", data);
+        console.log("sign up usr data:", data);
+
+        setJwtToken(()=>json.jwt);
+        console.log("sign up usr jwtToken:", jwtToken);
 
         // setLoading(false);
 

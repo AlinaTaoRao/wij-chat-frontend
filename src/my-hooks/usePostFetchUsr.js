@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { curData } from "../data";
 
-/* usePostFetchUsr, for user sign in, verb is POST  */
+/* usePostFetchUsr, for user sign in */
 const usePostFetchUsr = (
   usr,
   pwd,

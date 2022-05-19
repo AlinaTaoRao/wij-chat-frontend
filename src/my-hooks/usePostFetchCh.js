@@ -37,7 +37,8 @@ const usePostFetchCh = (
           },
         };
 
-        const token = jwtToken; // null?
+        const token = jwtToken; 
+        console.log("token form post ch is:", token)
         // const token = curData.jwtToken; // works, with refresh issue
 
 

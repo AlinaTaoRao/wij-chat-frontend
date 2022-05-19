@@ -15,7 +15,7 @@ function App() {
   const [pwd, setPwd] = useState("");
   const [jwtToken, setJwtToken] = useState(null);
   const [userId, setUserId] = useState(null);
-  const [loginCount, setLoginCount] = useState(0);
+  // const [loginCount, setLoginCount] = useState(0);
 
   /* usePostFetchUsr, handle usr sign in*/ // this fn fired without handler, if usr input data correctly, hit enter, then they sign in! why?
   const { loginData, loginError, loginLoading } = usePostFetchUsr(
@@ -50,7 +50,7 @@ function App() {
           />
           <Route
             path="/signUp"
-            element={<SignUp usr={usr} setUsr={setUsr} />}
+            element={<SignUp usr={usr} setUsr={setUsr} jwtToken={jwtToken} setJwtToken={setJwtToken} />}
           />
           <Route
             path="/"

@@ -39,6 +39,7 @@ const usePostFetchMsg = (
         };
 
         const token = jwtToken; // read from jwtToken state, null?
+        console.log("token form post msg is:", token)
         // const token = curData.jwtToken; // way 1 use global var, works
 
         if (!newMsg) return; // prevent send empty msg.
@@ -66,11 +67,11 @@ const usePostFetchMsg = (
         setData(json);
         console.log("post msg data:", data);
 
-        setPostMsg(json);            // order control
+        setPostMsg(json);            // order control, works!
 
         setNewMsg(""); // clear input field
 
-        curData.postMsgJson = json; // for manually render newest msg
+        // curData.postMsgJson = json; // for manually render newest msg
         setLoading(false);
         // return json;
       } catch (error) {
