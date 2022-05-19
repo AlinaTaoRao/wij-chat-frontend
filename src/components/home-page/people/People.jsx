@@ -8,7 +8,7 @@ import React, { useState } from "react"; // for way 1
 /* way 1: highlight current user ternary, {usr}?, works, best way! */
 export default function People({ usr }) {
   const peopleUrl = `${baseUrl}/users`;
-  const { data, error, loading } = useFetch(peopleUrl);
+  const { data, error, loading } = useFetch(peopleUrl, usr); // if there is a sign up, usr state change, then fire  useFetch()
   // console.log("USERS:", data);
   if (loading) return <p> Loading</p>;
   if (error)

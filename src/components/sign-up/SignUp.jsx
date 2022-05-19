@@ -16,7 +16,7 @@ export default function SignUp({
   setJwtToken
 }) {
   const authorizationUrl = `${baseUrl}/auth/local/register`;
-  const [nUsr, setNUsr] = useState("");
+  // const [nUsr, setNUsr] = useState(""); replaced by usr state
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   // const [usrLength, setUsrLength] = useState(0);
@@ -24,19 +24,21 @@ export default function SignUp({
 
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   /* post new usr */
   const handlePostUsr = () => {
     const fetchData = async () => {
       try {
         const body = {
-          username: nUsr,
+          // username: nUsr, // replaced by usr
+          username: usr, //
           email: email,
           password: pwd,
         };
 
-        if (!nUsr || !email || !pwd) return;
+        // if (!nUsr || !email || !pwd) return; // replaced by usr
+        if (!usr || !email || !pwd) return;
         const res = await fetch(encodeURI(authorizationUrl), {
           method: "POST",
           headers: {
@@ -44,7 +46,7 @@ export default function SignUp({
           },
           body: JSON.stringify(body),
         });
-        console.log("post usr res:", res);
+        console.log("sign up res:", res);
 
         // --- throw an error if the res is not ok (this works!) ---
         if (!res.ok) {
@@ -55,28 +57,27 @@ export default function SignUp({
         }
 
         const json = await res.json();
-        console.log("sign up usr json:", json);
+        console.log("sign up json:", json);
 
         setData(json);
-        console.log("sign up usr data:", data);
+        console.log("sign up data:", data);
 
-        setUserId(() => json.user.id); //?
+        setUserId(() => json.user.id); // works
 
-        setJwtToken(()=>json.jwt);
+        setJwtToken(()=>json.jwt); // works, for this user post msg or ch.
         console.log("sign up usr jwtToken:", jwtToken);
 
-        // setLoading(false);
+        setLoading(false);
 
-        // return { data, error, loading };
       } catch (error) {
         setError(error);
-        // setLoading(false);
+        setLoading(false);
       }
     };
 
     fetchData();
 
-    return { data, error };
+    return { data, error, loading};
   };
 
   if (error)
@@ -100,15 +101,17 @@ export default function SignUp({
         //   e.preventDefault();
         //   handlePostUsr();
         // }}
-        // onSubmit={handlePostUsr} // can't fire handlepostUsr, ?!
+        // onSubmit={handlePostUsr} // not work, can't fire handlepostUsr, ?!
       >
         <input
           type="text"
           className="usr-input"
-          value={nUsr}
+          // value={nUsr}
+          value={usr}
           onChange={(e) => {
-            setNUsr(e.target.value);
-            console.log("sign in usr is:", nUsr);
+            // setNUsr(e.target.value);
+            // console.log("sign in usr is:", usr);
+
             // set new user as cur usr.
             setUsr(e.target.value);
             console.log("cur usr from sign in is:", usr);
@@ -140,7 +143,7 @@ export default function SignUp({
             type="submit"
             value="Sign up"
             className="sign-up-btn"
-            onClick={handlePostUsr}
+            onClick={handlePostUsr} // 
           />
         </Link>
       </form>
