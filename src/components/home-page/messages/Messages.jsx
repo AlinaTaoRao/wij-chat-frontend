@@ -10,7 +10,7 @@ import { baseUrl } from "../../../config";
 /* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works witch refresh issue */
 export default function Messages({ usr, curCh, url, jwtToken }) {
   const [newMsg, setNewMsg] = useState("");
-  const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
+  const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
   // console.log("msgLength in Messages:", msgLength);
 
   /* try to fire use* in order */
@@ -35,7 +35,7 @@ export default function Messages({ usr, curCh, url, jwtToken }) {
   );
   // console.log(" post Messages:", postData);
 
-  const { data, error, loading } = useFetch(url, postMsg); // order control
+  const { data, error, loading } = useFetch(url, postMsg); // postMsg control fetch order, works
   // console.log("Messages in cur ch:", data);
   // if (loading) return <div className="messages-col"><p> Loading...</p></div>; // useful, can prevent reading data before loading end.
   // if (error)
