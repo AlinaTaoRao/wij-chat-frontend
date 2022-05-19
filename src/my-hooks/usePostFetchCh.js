@@ -39,7 +39,7 @@ const usePostFetchCh = (
 
         const token = jwtToken; 
         console.log("token form post ch is:", token)
-        // const token = curData.jwtToken; // works, with refresh issue
+        // const token = curData.jwtToken; // works, 
 
 
         if (!channelName) return;
@@ -67,7 +67,7 @@ const usePostFetchCh = (
         setData(json);
         console.log("post ch data:", data);
 
-        setPostCh(json);    // order control
+        setPostCh(json);    // to control multiple api fetch order. post ch first, when it finish, fire useFetch(), this works!
 
         setChannelName(""); // clear input field;
         setLoading(false);

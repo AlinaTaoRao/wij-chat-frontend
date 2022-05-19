@@ -1,23 +1,21 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import "./styles.css";
 import useFetch from "../../../my-hooks/useFetch";
-import useValueRef from "../../../my-hooks/useValueRef";
 import usePostFetchMsg from "../../../my-hooks/usePostFetchMsg";
 import { baseUrl } from "../../../config";
-import { curData } from "../../../data";
-import { jwt } from "../../../config";
+// import { curData } from "../../../data";
 
 /* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works witch refresh issue */
-export default function Messages({ usr, curCh, url, jwtToken}) {
+export default function Messages({ usr, curCh, url, jwtToken }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
   // console.log("msgLength in Messages:", msgLength);
 
-    /* try to fire use* in order */
-    const [postMsg, setPostMsg]= useState(null);
-    // const [postCh, setPostCh]= useState(null);
+  /* try to fire use* in order */
+  const [postMsg, setPostMsg] = useState(null);
+  // const [postCh, setPostCh]= useState(null);
 
   /* customize usePostFetchMsg to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
@@ -28,16 +26,16 @@ export default function Messages({ usr, curCh, url, jwtToken}) {
     newMsg,
     setNewMsg,
     msgLength,
-    postMsg, 
+    postMsg,
     setPostMsg,
-    jwtToken
+    jwtToken,
   ];
   const { postData, postError, postLoading } = usePostFetchMsg(
     ...postMsgArgumentList
   );
   // console.log(" post Messages:", postData);
 
-  const { data, error, loading } = useFetch(url, postMsg);      // order control
+  const { data, error, loading } = useFetch(url, postMsg); // order control
   // console.log("Messages in cur ch:", data);
   // if (loading) return <div className="messages-col"><p> Loading...</p></div>; // useful, can prevent reading data before loading end.
   // if (error)
@@ -47,8 +45,8 @@ export default function Messages({ usr, curCh, url, jwtToken}) {
   //     </p>
   //   );
 
-    /////////////
-    const isLoading = postLoading || loading;
+  /////////////
+  const isLoading = postLoading || loading;
   const hasError = postError || error;
   if (isLoading)
     return (
@@ -70,18 +68,6 @@ export default function Messages({ usr, curCh, url, jwtToken}) {
 
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
-      {/* <div className="post-info-container">
-        {{postError} && (
-          <div className="post-error">
-            <p className="post-error-general error">
-              Oops, there is something wrong :(
-            </p>
-            <p className="post-error-status error">{postError.status}</p>
-            <p className="post-error-msg error">{postError.message}</p>
-          </div>
-        )} 
-      </div> */}
-
       <div className="messages">
         {data.data.attributes.messages.data.map((msg, index) => (
           <div key={index} className="message">
@@ -130,7 +116,7 @@ export default function Messages({ usr, curCh, url, jwtToken}) {
 
       <div className="messages">
         {/* {`"${data.data.attributes.title}" don't have any message yet.`} */}
-        </div>
+      </div>
       <form
         className="create-message"
         onSubmit={(e) => {

@@ -38,7 +38,7 @@ const usePostFetchMsg = (
           },
         };
 
-        const token = jwtToken; // read from jwtToken state, null?
+        const token = jwtToken;  // way 2, set jwtToken while sign in or sign up, works.
         console.log("token form post msg is:", token)
         // const token = curData.jwtToken; // way 1 use global var, works
 
@@ -67,7 +67,7 @@ const usePostFetchMsg = (
         setData(json);
         console.log("post msg data:", data);
 
-        setPostMsg(json);            // order control, works!
+        setPostMsg(json);  // to control multiple api fetch order. post msg first, when it finish, fire useFetch(), this works!
 
         setNewMsg(""); // clear input field
 
