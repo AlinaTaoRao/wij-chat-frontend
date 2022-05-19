@@ -16,7 +16,7 @@ export default function Channels({ usr, curCh, jwtToken, userId, handleSwitchCh 
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0); 
 
-  /* try to fire multiple fetch in order, use state var postCh as useFetch() dependency, works*/
+  /* try to fire multiple fetch in order, use state var postCh as dependency in useFetch(), works*/
   const [postCh, setPostCh] = useState(null);
 
   /* usePostFetchCh to post new ch */

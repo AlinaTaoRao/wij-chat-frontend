@@ -11,10 +11,12 @@ import { baseUrl } from "./config";
 
 function App() {
   const loginUrl = `${baseUrl}/auth/local`;
-  const [usr, setUsr] = useState("");
+  // usr, pwd, jwtToken, collect usr input from sign in or sign up, use in post msg or ch.
+  const [usr, setUsr] = useState(""); 
   const [pwd, setPwd] = useState("");
   const [jwtToken, setJwtToken] = useState(null);
-  const [userId, setUserId] = useState(null);
+
+  const [userId, setUserId] = useState(null);  // grab cur usr id from sign up or sign in response.
   const [loginCount, setLoginCount] = useState(0); // change this state while sign in submit, to fire usePostFetchUsr, must have!
 
   /* usePostFetchUsr, handle usr sign in*/ 

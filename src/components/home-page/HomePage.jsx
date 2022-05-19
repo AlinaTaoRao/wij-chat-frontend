@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import "./styles.css";
 import Header from "./header/Header";
@@ -18,10 +18,6 @@ export default function HomePage({
   // set channel url state, default ch id=1;
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
   const [curCh, setCurCh] = useState(1); // default ch id=1;
-
-  /* try to fire use* in order */
-  const [postMsg, setPostMsg]= useState(null);
-  const [postCh, setPostCh]= useState(null);
 
   /* switchCh, grab cur ch id from click event, and reset url for render this ch msg. */
   const switchCh = (e) => {
@@ -53,34 +49,3 @@ export default function HomePage({
     </div>
   );
 }
-
-/* way 1: use global var curData.curCh, works */
-// export default function HomePage() {
-//   /* can't comment url, setUrl, message col will freeze. why? useFetch dependence [url]? */
-//   const [url, setUrl] = useState("");
-//   return (
-//     <div className="home">
-//       <Header />
-//       <Channels
-//         handleSwitchCh={(e) => {
-//           e.preventDefault();
-//           curData.curCh = e.target.id;
-//           console.log("e.target.id:", e.target.id);
-//           setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
-
-//           /* remove default ch class */
-//           const defaultCh = document.querySelector(".default-ch");
-//           if (defaultCh) defaultCh.classList.remove("default-ch");
-
-//           /* uncheck all .check-ch and check the current one */
-//           document
-//             .querySelectorAll(".check-ch")
-//             .forEach((e) => (e.checked = false));
-//           e.target.parentElement.children[0].checked = true;
-//         }}
-//       />
-//       <Messages />
-//       <People />
-//     </div>
-//   );
-// }

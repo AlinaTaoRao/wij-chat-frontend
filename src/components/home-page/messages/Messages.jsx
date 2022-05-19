@@ -13,9 +13,8 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
   // console.log("msgLength in Messages:", msgLength);
 
-  /* try to fire use* in order */
+ /* try to fire multiple fetch in order, use state var postMsg as dependency in useFetch(), works*/
   const [postMsg, setPostMsg] = useState(null);
-  // const [postCh, setPostCh]= useState(null);
 
   /* customize usePostFetchMsg to handle new message*/
   const msgUrl = `${baseUrl}/messages`;

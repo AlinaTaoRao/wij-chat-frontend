@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { curData } from "../data";
 
-/* usePostFetchUsr, for user sign in, fired when loginCount change */
+/* usePostFetchUsr, handle user sign in, fired when loginCount change */
 const usePostFetchUsr = (
   usr,
   pwd,
