@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 
 import "./styles.css";
 import { baseUrl } from "../../config";
-// import usePostFetchUsr from "../../my-hooks/usePostFetchUsr";
-// import { usrPostData } from "../../data";
 
 /* try 2: use handler, post usr works */
 export default function SignUp({
@@ -13,31 +11,26 @@ export default function SignUp({
   setUsr,
   setUserId,
   jwtToken,
-  setJwtToken
+  setJwtToken,
 }) {
   const authorizationUrl = `${baseUrl}/auth/local/register`;
-  // const [nUsr, setNUsr] = useState(""); replaced by usr state
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
-  // const [usrLength, setUsrLength] = useState(0);
-  // const [usrCollection, setUsrCollection] = useState({});
 
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   /* post new usr */
-  const handlePostUsr = () => {
+  const handleUsrSignUp = () => {
     const fetchData = async () => {
       try {
         const body = {
-          // username: nUsr, // replaced by usr
-          username: usr, //
+          username: usr, // works
           email: email,
           password: pwd,
         };
 
-        // if (!nUsr || !email || !pwd) return; // replaced by usr
         if (!usr || !email || !pwd) return;
         const res = await fetch(encodeURI(authorizationUrl), {
           method: "POST",
@@ -64,11 +57,10 @@ export default function SignUp({
 
         setUserId(() => json.user.id); // works
 
-        setJwtToken(()=>json.jwt); // works, for this user post msg or ch.
+        setJwtToken(() => json.jwt); // works, for this user post msg or ch.
         console.log("sign up usr jwtToken:", jwtToken);
 
         setLoading(false);
-
       } catch (error) {
         setError(error);
         setLoading(false);
@@ -77,7 +69,7 @@ export default function SignUp({
 
     fetchData();
 
-    return { data, error, loading};
+    return { data, error, loading };
   };
 
   if (error)
@@ -99,19 +91,15 @@ export default function SignUp({
         className="sign-up-form"
         // onSubmit={(e) => {
         //   e.preventDefault();
-        //   handlePostUsr();
+        //   handleUsrSignUp();
         // }}
-        // onSubmit={handlePostUsr} // not work, can't fire handlepostUsr, ?!
+        // onSubmit={handleUsrSignUp} // not work, can't fire handleUsrSignUp, ?!
       >
         <input
           type="text"
           className="usr-input"
-          // value={nUsr}
           value={usr}
           onChange={(e) => {
-            // setNUsr(e.target.value);
-            // console.log("sign in usr is:", usr);
-
             // set new user as cur usr.
             setUsr(e.target.value);
             console.log("cur usr from sign in is:", usr);
@@ -143,7 +131,7 @@ export default function SignUp({
             type="submit"
             value="Sign up"
             className="sign-up-btn"
-            onClick={handlePostUsr} // 
+            onClick={handleUsrSignUp} //
           />
         </Link>
       </form>
@@ -158,109 +146,3 @@ export default function SignUp({
     </div>
   );
 }
-
-/* try 1:  usePostFetchUsr, not work , loading issue */
-// export default function SignUp() {
-//   const authorizationUrl = `${baseUrl}/auth/local/register`;
-//   const [usr, setUsr] = useState("");
-//   const [email, setEmail] = useState("");
-//   const [pwd, setPwd] = useState("");
-//   const [usrLength, setUsrLength] = useState(0);
-//   const [usrCollection, setUserCollection] = useState({});
-
-//   /* post new usr */
-//   const { data, error, loading } = usePostFetchUsr(
-//     usr,
-//     email,
-//     pwd,
-//     authorizationUrl,
-//     usrLength
-//   );
-//   if (data) {
-//     /* way 1: store post usr data in state */
-//     setUserCollection(
-//       (usrCollection.usr = {
-//         id: data.user.id,
-//         token: data.jwt,
-//         username: usr,
-//         email: email,
-//         password: pwd,
-//       })
-//     );
-//     console.log("usrCollection=", usrCollection);
-
-//     /* way 2: store post usr data in data.js */
-//     usrPostData.id = {
-//       id: data.user.id,
-//       token: data.jwt,
-//       username: usr,
-//       email: email,
-//       password: pwd,
-//     };
-//     console.log("usrPostData.id=", usrPostData.id);
-//     console.log("usrPostData=", usrPostData);
-//   }
-//   if (error)
-//     return (
-//       <p>
-//         error status: {error.status} <span>error: message {error.message}</span>
-//       </p>
-//     );
-//   if (loading) return <p>loading...</p>;
-//   return (
-//     <div className="sign-up">
-//       <Link to="/">
-//         <div className="title-container">
-//           <h1 className="title-sign">Wij Chat</h1>
-//         </div>
-//       </Link>
-//       <form
-//         className="sign-up-form"
-//         onSubmit={(e) => {
-//           e.preventDefault();
-//           setUsrLength((l) => l + 1);
-//         }}
-//       >
-//         <input
-//           type="text"
-//           className="usr-input"
-//           value={usr}
-//           onChange={(e) => setUsr(e.target.value)}
-//           placeholder="Username"
-//           required
-//         />
-//         <input
-//           type="email"
-//           className="email-input"
-//           value={email}
-//           onChange={(e) => setEmail(e.target.value)}
-//           placeholder="Email"
-//           required
-//         />
-//         <input
-//           type="password"
-//           className="pwd-input"
-//           value={pwd}
-//           onChange={(e) => setPwd(e.target.value)}
-//           placeholder="Password"
-//           required
-//         />
-
-//         <div className="sign-up-container">
-//           <Link to="/">
-//             <input type="submit" value="Sign up" className="sign-up-btn" />
-//             {/* <button className="sign-up-btn" onClick={handleSignUp}>
-//               Sign up
-//             </button> */}
-//           </Link>
-//           <p>
-//             Already have a count.
-//             <Link to="/signIn">
-//               <span className="to-sign-in">Sign in.</span>
-//             </Link>
-//           </p>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// }
