@@ -12,6 +12,8 @@ const usePostFetchCh = (
   chUrl,
   curCh,
   chLength,
+  postCh, 
+  setPostCh,
   jwtToken,
 ) => {
   // const state
@@ -51,18 +53,20 @@ const usePostFetchCh = (
         console.log("post ch res:", res);
 
         // --- throw an error if the res is not ok, not work?  ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
-        //     : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
-        //   throw new Error(message);
-        // }
+        if (!res.ok) {
+          const message = res.statusText
+            ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
+            : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
+          throw new Error(message);
+        }
 
         const json = await res.json();
         console.log("post ch json:", json);
 
         setData(json);
         console.log("post ch data:", data);
+
+        setPostCh(json);    // order control
 
         setChannelName(""); // clear input field;
         setLoading(false);

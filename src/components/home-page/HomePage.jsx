@@ -18,6 +18,10 @@ export default function HomePage({
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
   const [curCh, setCurCh] = useState(1); // default ch id=1;
 
+  /* try to fire use* in order */
+  const [postMsg, setPostMsg]= useState(null);
+  const [postCh, setPostCh]= useState(null);
+
   /* switchCh, grab cur ch id from click event, and reset url for render this ch msg. */
   const switchCh = (e) => {
     e.preventDefault();
@@ -42,7 +46,7 @@ export default function HomePage({
         jwtToken={jwtToken}
         handleSwitchCh={(e) => switchCh(e)}
       />
-      <Messages usr={usr} curCh={curCh} url={url} jwtToken={jwtToken} />
+      <Messages usr={usr} curCh={curCh} url={url} jwtToken={jwtToken}/>
       <People usr={usr} />
     </div>
   );

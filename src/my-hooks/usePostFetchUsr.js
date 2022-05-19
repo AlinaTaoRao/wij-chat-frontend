@@ -56,11 +56,12 @@ const usePostFetchUsr = (
         console.log("sign in post usr data:", data); // null?
 
         curData.jwtToken = json.jwt; //way 1 use global var, works
-        setJwtToken(json.jwt); // way 2 use state, refresh issue
+
+        setJwtToken(() => json.jwt); // way 2 use state, refresh issue   //
         console.log("jwtToken from sign in json is", jwtToken); // null?
 
         curData.curUserId = json.user.id; //way 1 use global var
-        setUserId(json.user.id); // way 2 use state, refresh issue
+        setUserId(() => json.user.id); // way 2 use state, refresh issue  //
         console.log("usr id from sign in json is", userId); // null?
 
         setLoading(false);

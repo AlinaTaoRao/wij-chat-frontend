@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { curData } from "../data";
 
-
 /* usePostFetchMsg, for post new msg */
 const usePostFetchMsg = (
   usr,
@@ -10,7 +9,9 @@ const usePostFetchMsg = (
   newMsg,
   setNewMsg,
   msgLength,
-  jwtToken,
+  postMsg,
+  setPostMsg,
+  jwtToken
 ) => {
   // const state
   const [data, setData] = useState(null);
@@ -52,12 +53,12 @@ const usePostFetchMsg = (
         console.log("res:", res);
 
         // --- throw an error if the res is not ok, not work? ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`
-        //     : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
-        //   throw new Error(message);
-        // }
+        if (!res.ok) {
+          const message = res.statusText
+            ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`
+            : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
+          throw new Error(message);
+        }
 
         const json = await res.json();
         console.log("post msg json:", json);
@@ -65,9 +66,11 @@ const usePostFetchMsg = (
         setData(json);
         console.log("post msg data:", data);
 
+        setPostMsg(json);            // order control
+
         setNewMsg(""); // clear input field
 
-        curData.postMsgJson=json;  // for manually render newest msg
+        curData.postMsgJson = json; // for manually render newest msg
         setLoading(false);
         // return json;
       } catch (error) {

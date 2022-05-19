@@ -10,10 +10,14 @@ import { curData } from "../../../data";
 import { jwt } from "../../../config";
 
 /* way 2: usePostFetchMsg & { usr, curCh}, use form section instead of div section, works witch refresh issue */
-export default function Messages({ usr, curCh, url }) {
+export default function Messages({ usr, curCh, url, jwtToken}) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // define msgLength state to fire useFetch when new msg is send.
   // console.log("msgLength in Messages:", msgLength);
+
+    /* try to fire use* in order */
+    const [postMsg, setPostMsg]= useState(null);
+    // const [postCh, setPostCh]= useState(null);
 
   /* customize usePostFetchMsg to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
@@ -24,20 +28,44 @@ export default function Messages({ usr, curCh, url }) {
     newMsg,
     setNewMsg,
     msgLength,
+    postMsg, 
+    setPostMsg,
+    jwtToken
   ];
   const { postData, postError, postLoading } = usePostFetchMsg(
     ...postMsgArgumentList
   );
   // console.log(" post Messages:", postData);
 
-  const { data, error, loading } = useFetch(url, curCh, msgLength);
+  const { data, error, loading } = useFetch(url, postMsg);      // order control
   // console.log("Messages in cur ch:", data);
-  if (loading) return <div className="messages-col"><p> Loading...</p></div>; // useful, can prevent reading data before loading end.
-  if (error)
+  // if (loading) return <div className="messages-col"><p> Loading...</p></div>; // useful, can prevent reading data before loading end.
+  // if (error)
+  //   return (
+  //     <p className="error">
+  //       Oops, there is something wrong :(, {error.message}
+  //     </p>
+  //   );
+
+    /////////////
+    const isLoading = postLoading || loading;
+  const hasError = postError || error;
+  if (isLoading)
     return (
-      <p className="error">
-        Oops, there is something wrong :(, {error.message}
-      </p>
+      <div className="messages-col">
+        <p className="loading"> Loading...</p>
+      </div>
+    ); // useful, can prevent reading data before loading end.
+  if (hasError)
+    return (
+      <div className="messages-col">
+        <p> Oops, there is something wrong :( </p>
+        {postError ? (
+          <p className="use-post-msg-error"> {postError.message} </p>
+        ) : (
+          <p className="use-fetch-error"> {error.message} </p>
+        )}
+      </div>
     );
 
   return data.data.attributes.messages.data.length !== 0 ? (

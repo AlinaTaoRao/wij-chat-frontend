@@ -16,6 +16,10 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0); // not work
 
+  /* try to fire use* in order */
+  // const [postMsg, setPostMsg]= useState(null);
+  const [postCh, setPostCh] = useState(null);
+
   /* try to update new ch?, not work */
   // const latestChLength = useRef(null);
   // latestChLength.current = () => {
@@ -30,17 +34,37 @@ export default function Channels({ usr, curCh, jwtToken, handleSwitchCh }) {
     chUrl,
     curCh,
     chLength,
+    postCh,
+    setPostCh,
     jwtToken,
   ];
   const { PData, PError, pLoading } = usePostFetchCh(...postChArgumentList);
 
   // fetch chs data
   // const { data, error, loading } = useFetch(chUrl, curCh, chLength); // refresh too often issue
-  const { data, error, loading } = useFetch(chUrl, chLength); // can't update new ch issue?
+  const { data, error, loading } = useFetch(chUrl, postCh); // order control
   // const { data, error, loading } = useFetch(chUrl); // # todo, fix this can't update new ch issue?
-  // console.log(data);
-  if (loading) return <p> Loading</p>; // useful, can prevent reading data before loading end.
-  if (error) return <p> Oops, there is something wrong :(</p>;
+  console.log(data);
+
+  const isLoading = pLoading || loading;
+  const hasError = PError || error;
+  if (isLoading)
+    return (
+      <div className="channel-col">
+        <p className="loading"> Loading...</p>
+      </div>
+    ); // useful, can prevent reading data before loading end.
+  if (hasError)
+    return (
+      <div className="channel-col">
+        <p> Oops, there is something wrong :( </p>
+        {PError ? (
+          <p className="use-post-ch-error"> PError.message </p>
+        ) : (
+          <p className="use-fetch-error"> error.message </p>
+        )}
+      </div>
+    );
 
   return (
     <div className="channel-col">
