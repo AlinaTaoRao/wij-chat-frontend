@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../config";
 
 /* way 2, add order control state */
-const useDelFetchCh = (chIdToDel, setPostCh, jwtToken) => {
+const useDelFetchCh = (chIdToDel, setPostCh, jwtToken, usr, delInitiator) => {
   const delChUrl = `${baseUrl}/channels/${chIdToDel}`;
   // const state
   const [data, setData] = useState(null);
@@ -15,11 +15,13 @@ const useDelFetchCh = (chIdToDel, setPostCh, jwtToken) => {
 
       if(!chIdToDel) return;
 
-      // get usr conform to delete ch. prevent delete by accident.
-      const conform = prompt(
-        "Are you sure to delete this channel? It'll never come back."
-      );
-      if (!conform) return;
+      // get usr conform to delete ch. prevent delete by accident.  // weird issue, but not error
+      // const conform = prompt(
+      //   "Are you sure to delete this channel? It'll never come back."
+      // );
+      // if (!conform) return;
+
+      if (usr !== delInitiator) return;
 
       try {
         const res = await fetch(encodeURI(delChUrl), {
