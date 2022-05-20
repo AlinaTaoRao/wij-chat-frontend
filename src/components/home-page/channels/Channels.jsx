@@ -9,12 +9,18 @@ import { baseUrl } from "../../../config";
 
 /* way 3 usePostFetchCh to post new ch, works with refresh issue */
 // curCh, id of cur ch, try to toggle rerender.
-export default function Channels({ usr, curCh, jwtToken, userId, handleSwitchCh }) {
+export default function Channels({
+  usr,
+  curCh,
+  jwtToken,
+  userId,
+  handleSwitchCh,
+}) {
   /* get channels data */
   // define url
   const chUrl = `${baseUrl}/channels`;
   const [channelName, setChannelName] = useState("");
-  const [chLength, setChLength] = useState(0); 
+  const [chLength, setChLength] = useState(0);
 
   /* try to fire multiple fetch in order, use state var postCh as dependency in useFetch(), works*/
   const [postCh, setPostCh] = useState(null);
@@ -30,7 +36,7 @@ export default function Channels({ usr, curCh, jwtToken, userId, handleSwitchCh 
     postCh,
     setPostCh,
     jwtToken,
-    userId
+    userId,
   ];
   const { PData, PError, pLoading } = usePostFetchCh(...postChArgumentList);
 
@@ -65,23 +71,27 @@ export default function Channels({ usr, curCh, jwtToken, userId, handleSwitchCh 
           <div key={index} className="channel">
             <input type="checkbox" className="check-ch" />
             {channel.id === 1 ? (
-              <p
-                className="single-channel default-ch"
-                id={channel.id}
-                onClick={handleSwitchCh}
-              >
-                {channel.attributes.title}
-              </p>
-            ) : (
               <div className="single-channel">
               <p
-                className="single-channel ch-name"
+                className="default-ch"
                 id={channel.id}
+                data-ch-initiator={channel.attributes.initiator}
                 onClick={handleSwitchCh}
               >
                 {channel.attributes.title}
               </p>
-              <button className="delete-ch">Delete</button>
+              </div>
+            ) : (
+              <div className="single-channel">
+                <p
+                  className="ch-name"
+                  id={channel.id}
+                  data-ch-initiator={channel.attributes.initiator}
+                  onClick={handleSwitchCh}
+                >
+                  {channel.attributes.title}
+                </p>
+                <button className="delete-ch">Delete</button>
               </div>
             )}
           </div>

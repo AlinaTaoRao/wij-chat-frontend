@@ -28,7 +28,7 @@ export default function HomePage({ usr, jwtToken, userId }) {
 
     /* uncheck all .check-ch and check the current one */
     document.querySelectorAll(".check-ch").forEach((e) => (e.checked = false));
-    e.target.parentElement.children[0].checked = true;
+    e.target.parentElement.parentElement.children[0].checked = true;
   };
   return (
     <div className="home">

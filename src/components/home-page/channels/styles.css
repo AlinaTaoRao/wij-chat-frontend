@@ -17,16 +17,24 @@
 
 .single-channel {
   padding-left: 2px;
-
+  position: relative;
 }
 
 .single-channel:hover {
   background-color:  #cce0ff;
 }
 
+
 /* del ch btn */
 .delete-ch {
   display: none;
+  position: absolute;
+  top: 2px;
+  right: 3px;
+}
+
+.ch-name:hover + .delete-ch {
+  display: block;
 }
 
 /*  */
@@ -55,7 +63,7 @@
   display: none;
 }
 
-.check-ch:checked + .single-channel {
+.check-ch:checked + .single-channel{
   padding-left: 2px;
   background-color: #ffffff;
   border-left: 2px solid #0039e6;
