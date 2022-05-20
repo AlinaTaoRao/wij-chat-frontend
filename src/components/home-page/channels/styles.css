@@ -27,10 +27,14 @@
 
 /* del ch btn */
 .delete-ch {
-  display: none;
+  /* display: none; */
   position: absolute;
   top: 2px;
   right: 3px;
+  padding: 1px 2px;
+  opacity: 0.4;
+  color: red;
+  box-shadow: 1px 2px 3px #ef5858;
 }
 
 .ch-name:hover + .delete-ch {

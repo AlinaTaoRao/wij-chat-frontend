@@ -73,7 +73,7 @@ export default function Channels({
             {usr === channel.attributes.initiator ? (
               <div className="single-channel">
                 <p
-                  className="default-ch"
+                  className="ch-name"
                   id={channel.id}
                   data-ch-title={channel.attributes.title}
                   data-ch-initiator={channel.attributes.initiator}
