@@ -142,7 +142,7 @@ export default function SignUp({
       </form>
       <div className="sign-up-container">
         <p>
-          Already have a count.
+          Already have a count?
           <Link to="/signIn">
             <span className="to-sign-in">Sign in.</span>
           </Link>

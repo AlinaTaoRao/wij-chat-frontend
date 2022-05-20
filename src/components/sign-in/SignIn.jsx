@@ -61,7 +61,7 @@ export default function SignIn({
           </Link>
 
           <p className="sign-up-text">
-            Don't have a count yet.
+            Don't have a count yet?
             <Link to="/signUp">
               <span className="to-sign-up">Sign up</span>
             </Link>
