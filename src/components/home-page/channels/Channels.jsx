@@ -23,6 +23,7 @@ export default function Channels({
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0);
   const [chIdToDel, setChIdToDel] = useState(null); // for delete ch
+  const [delInitiator, setDelInitiator]=useState(null); // for delete ch, check if cur usr is the ch owner, double check
 
   /* try to fire multiple fetch in order, use state var postCh as dependency in useFetch(), works*/
   const [postCh, setPostCh] = useState(null);
@@ -47,7 +48,7 @@ export default function Channels({
   console.log(data);
 
   // delete ch
-  const {delData, delError, delLoading}= useDelFetchCh(chIdToDel, setPostCh, jwtToken); 
+  const {delData, delError, delLoading}= useDelFetchCh(chIdToDel, setPostCh, jwtToken, usr, delInitiator); 
 
   const isLoading = pLoading || loading || delLoading;
   const hasError = PError || error || delError;
@@ -97,6 +98,10 @@ export default function Channels({
                     const theChId = prevSibling.id;
                     setChIdToDel(() => theChId);
                     console.log("setChIdToDel is", setChIdToDel);
+
+                    // get ch initiator
+                    const theChOwner=prevSibling.dataset.chInitiator;
+                    setDelInitiator(() => theChOwner);
                   }}
                 >
                   Delete

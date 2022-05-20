@@ -9,6 +9,9 @@
   /* grid-template-rows: auto 1fr auto; */
   grid-template-rows: 1fr auto;
   text-align: start;
+
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 .channel {

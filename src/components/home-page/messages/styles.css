@@ -10,6 +10,9 @@
   grid-template-rows: 1fr auto;
   /* text-align: start; */
   /* justify-items: end; */
+
+  max-height: 90vh;
+  overflow-y: scroll;
 }
 
 .post-info-container {
