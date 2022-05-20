@@ -13,6 +13,12 @@ const useDelFetchCh = (chIdToDel, setPostCh, jwtToken) => {
     const fetchData = async () => {
       setLoading(true);
 
+      // get usr conform to delete ch. prevent delete by accident.
+      const conform = prompt(
+        "Are you sure to delete this channel? It'll never come back."
+      );
+      if (!conform) return;
+
       try {
         const res = await fetch(encodeURI(delChUrl), {
           method: "DELETE",
