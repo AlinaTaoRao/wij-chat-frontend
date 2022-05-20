@@ -24,6 +24,13 @@
   background-color:  #cce0ff;
 }
 
+/* del ch btn */
+.delete-ch {
+  display: none;
+}
+
+/*  */
+
 .create-new-channel {
   align-self: end;
   margin: 10px auto;

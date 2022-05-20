@@ -73,13 +73,16 @@ export default function Channels({ usr, curCh, jwtToken, userId, handleSwitchCh 
                 {channel.attributes.title}
               </p>
             ) : (
+              <div className="single-channel">
               <p
-                className="single-channel"
+                className="single-channel ch-name"
                 id={channel.id}
                 onClick={handleSwitchCh}
               >
                 {channel.attributes.title}
               </p>
+              <button className="delete-ch">Delete</button>
+              </div>
             )}
           </div>
         ))}

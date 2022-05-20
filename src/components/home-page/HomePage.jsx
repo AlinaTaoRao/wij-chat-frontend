@@ -10,11 +10,7 @@ import People from "./people/People";
 import { baseUrl } from "../../config";
 
 /* way 2: switchCh way, use url and curCh state, works*/
-export default function HomePage({
-  usr,
-  jwtToken,
-  userId
-}) {
+export default function HomePage({ usr, jwtToken, userId }) {
   // set channel url state, default ch id=1;
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
   const [curCh, setCurCh] = useState(1); // default ch id=1;
@@ -44,7 +40,13 @@ export default function HomePage({
         userId={userId}
         handleSwitchCh={(e) => switchCh(e)}
       />
-      <Messages usr={usr} curCh={curCh} url={url} jwtToken={jwtToken} userId={userId}/>
+      <Messages
+        usr={usr}
+        curCh={curCh}
+        url={url}
+        jwtToken={jwtToken}
+        userId={userId}
+      />
       <People usr={usr} />
     </div>
   );
