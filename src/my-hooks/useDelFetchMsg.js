@@ -48,7 +48,7 @@ const useDelFetchMsg = (msgIdToDel, setPostMsg, jwtToken) => {
     };
 
     fetchData();
-  }, [msgIdToDel]);
+  }, [delMsgUrl, msgIdToDel]);
 
   return { data, error, loading };
 };
