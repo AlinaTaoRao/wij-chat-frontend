@@ -72,9 +72,15 @@
 }
 
 /* for highlight current channel way 2: ternary */
-.default-ch {
+/* .default-ch {
   background-color:  #b3c6ff;
   border-left: 1px solid #0039e6;
-  /* border-radius: 4px; */
+  box-shadow: 2px 2px 5px  #002080;
+} */
+
+[data-ch-title="test"] {
+  padding-left: 2px;
+  background-color:  #b3ffcc;
+  border-left: 2px solid #0039e6;
   box-shadow: 2px 2px 5px  #002080;
 }

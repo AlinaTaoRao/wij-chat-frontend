@@ -75,6 +75,7 @@ export default function Channels({
               <p
                 className="default-ch"
                 id={channel.id}
+                data-ch-title= {channel.attributes.title}
                 data-ch-initiator={channel.attributes.initiator}
                 onClick={handleSwitchCh}
               >
@@ -86,6 +87,7 @@ export default function Channels({
                 <p
                   className="ch-name"
                   id={channel.id}
+                  data-ch-title= {channel.attributes.title}
                   data-ch-initiator={channel.attributes.initiator}
                   onClick={handleSwitchCh}
                 >
@@ -93,6 +95,9 @@ export default function Channels({
                 </p>
                 <button className="delete-ch">Delete</button>
               </div>
+
+
+
             )}
           </div>
         ))}
