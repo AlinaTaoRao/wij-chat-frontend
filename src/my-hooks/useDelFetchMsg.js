@@ -13,6 +13,8 @@ const useDelFetchMsg = (msgIdToDel, setPostMsg, jwtToken) => {
     const fetchData = async () => {
       setLoading(true);
 
+      if (!msgIdToDel) return;
+
       try {
         const res = await fetch(encodeURI(delMsgUrl), {
           method: "DELETE",
