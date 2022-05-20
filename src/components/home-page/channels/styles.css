@@ -25,7 +25,7 @@
 }
 
 
-/* del ch btn */
+/* style delete ch btn */
 .delete-ch {
   display: none;
   position: absolute;
@@ -40,6 +40,23 @@
 .ch-name:hover + .delete-ch {
   display: block;
 }
+
+/* way 2: display delete btn with delay, easy to del, high risc */
+/* .delete-ch {
+  position: absolute;
+  top: 2px;
+  right: 3px;
+  padding: 1px 2px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 20s, opacity 8s linear;
+}
+
+.ch-name:hover + .delete-ch {
+  visibility: visible;
+  opacity: 1;
+} */
+
 
 /*  */
 
