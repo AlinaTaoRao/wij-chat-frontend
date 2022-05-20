@@ -10,7 +10,7 @@ export default function People({ usr }) {
   const peopleUrl = `${baseUrl}/users`;
   const { data, error, loading } = useFetch(peopleUrl, usr); // if there is a sign up, usr state change, then fire  useFetch()
   // console.log("USERS:", data);
-  if (loading) return <p> Loading</p>;
+  if (loading) return <p> Loading...</p>;
   if (error)
     return (
       <div className="error-container">

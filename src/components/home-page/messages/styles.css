@@ -8,7 +8,8 @@
   grid-template-columns: repeat(1, 1fr);
   /* grid-template-rows: auto 1fr auto; */
   grid-template-rows: 1fr auto;
-  text-align: start;
+  /* text-align: start; */
+  /* justify-items: end; */
 }
 
 .post-info-container {
@@ -21,17 +22,24 @@
   margin: 10px 10px;
   border: 1px solid #ccd8ff;
   border-radius: 10px;
-  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 80%;
+  justify-self: end;
+  text-align: end;
+
+  position: relative;
 
 }
 
-div.cur-usr-msg {
+div.message.cur-usr-msg {
   background-color: #b3c4ff;
   color: black;
-  justify-self: end;
-  text-align: end;
-  margin-right: 10px;
-  padding-right: 10px;
+  justify-self: start;
+  text-align: start;
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-right:0px;
+  padding: 2px 2px 2px 10px;
 }
 
 .sender{
@@ -55,6 +63,36 @@ div.cur-usr-msg {
   color: rgb(39, 35, 35);
   padding-left: 10px;
 }
+
+/* ====== style bin start ======= */
+.msg-trash-bin{
+  display: none;
+  position:absolute;
+  right: 20px;
+  bottom: 5px;
+  color: red;
+  font-size: 16px;
+  border: 1px solid rgb(236, 55, 67);
+  border-radius: 3px;
+  padding: 1px 2px;
+  box-sizing: border-box;
+  opacity: 0.5;
+  box-shadow: 1.5px 2.5px #ec7e7e;
+
+  /* transition-property: display;
+  transition-duration: 2s; */
+  /* transition: width 2s; */
+  /* width: 20px; */
+
+}
+
+.single-msg:hover + .msg-trash-bin {
+  display: block;
+  background-color: rgb(189, 186, 186);
+  color: rgb(236, 21, 21);
+  /* width: 25px; */
+}
+/* ====== style bin end ======= */
 
 .create-message {
   margin: 10px auto;

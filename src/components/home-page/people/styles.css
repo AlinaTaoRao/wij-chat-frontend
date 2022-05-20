@@ -13,14 +13,14 @@
 }
 
 .user {
-    padding: 3px 10px;
+    padding: 2px 10px;
 }
 
-/* highlight  the user who's sign in */
+/* highlight the user who's sign in */
 .cur-usr {
-    /* background-color: #b3c6ff; */
-    font-weight: 700;
-    color: #0040ff;
-    /* text-decoration: underline; */
+    padding: 2px 3px;
+    text-decoration: underline solid #0066ff 20%; 
+    
+    /* border-left: 2px solid #4d94ff; */
 }
 

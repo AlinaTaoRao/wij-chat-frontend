@@ -1,6 +1,10 @@
 import React from "react";
 import { useState } from "react";
 
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+// import { faLight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+
 import "./styles.css";
 import useFetch from "../../../my-hooks/useFetch";
 import usePostFetchMsg from "../../../my-hooks/usePostFetchMsg";
@@ -13,7 +17,7 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
   // console.log("msgLength in Messages:", msgLength);
 
- /* try to fire multiple fetch in order, use state var postMsg as dependency in useFetch(), works*/
+  /* try to fire multiple fetch in order, use state var postMsg as dependency in useFetch(), works*/
   const [postMsg, setPostMsg] = useState(null);
 
   /* customize usePostFetchMsg to handle new message*/
@@ -28,7 +32,7 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
     postMsg,
     setPostMsg,
     jwtToken,
-    userId
+    userId,
   ];
   const { postData, postError, postLoading } = usePostFetchMsg(
     ...postMsgArgumentList
@@ -37,7 +41,10 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
 
   const { data, error, loading } = useFetch(url, postMsg); // postMsg control fetch order, works
   // console.log("Messages in cur ch is :", data);
-  
+
+  /* define handler  */
+  const handleDeleteMsg = () => {};
+
   const isLoading = postLoading || loading;
   const hasError = postError || error;
   if (isLoading)
@@ -58,37 +65,33 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
       </div>
     );
 
-    /* separate cur usr msg and other msg */
-    const lastUsr=document.getElementsByClassName("cur-usr-msg");
-    // if(lastUsr) lastUsr.classList.remove("my-class"); //can't read remove
-    lastUsr.className -= " cur-usr-msg";
-
-    const curUsrMsg = document.getElementsByClassName(`.${usr}`);
-  //  curUsrMsg.classList.add("cur-usr-msg") //can't read add
-  curUsrMsg.className += " cur-usr-msg";
-
-    
 
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
       <div className="messages">
-        {data.data.attributes.messages.data.map((msg, index) => (
-          msg.attributes.sender===usr? <div key={index} className="message cur-usr-msg" >
-            <span className="sender" >{msg.attributes.sender}</span>
-            <span className="time">{msg.attributes.time}</span>
-            <span className="ch-title">{data.data.attributes.title}</span>
-            <p className="single-msg" data-msg-id={msg.id}>
-              {msg.attributes.body}
-            </p>
-          </div>: <div key={index} className="message">
-            <span className="sender" >{msg.attributes.sender}</span>
-            <span className="time">{msg.attributes.time}</span>
-            <span className="ch-title">{data.data.attributes.title}</span>
-            <p className="single-msg" data-msg-id={msg.id}>
-              {msg.attributes.body}
-            </p>
-          </div>
-        ))}
+        {data.data.attributes.messages.data.map((msg, index) =>
+          msg.attributes.sender === usr ? (
+            <div key={index} className="message cur-usr-msg">
+              <span className="sender">{msg.attributes.sender}</span>
+              <span className="time">{msg.attributes.time}</span>
+              <span className="ch-title">{data.data.attributes.title}</span>
+              <p className="single-msg" data-msg-id={msg.id}>
+                {msg.attributes.body}
+              </p>
+              <button className="msg-trash-bin" onClick={handleDeleteMsg}>Delete </button>
+
+            </div>
+          ) : (
+            <div key={index} className="message">
+              <span className="sender">{msg.attributes.sender}</span>
+              <span className="time">{msg.attributes.time}</span>
+              <span className="ch-title">{data.data.attributes.title}</span>
+              <p className="single-msg" data-msg-id={msg.id}>
+                {msg.attributes.body}
+              </p>
+            </div>
+          )
+        )}
       </div>
 
       <form
@@ -123,13 +126,12 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
         )}
       </div>
 
-      <div className="messages">
-      </div>
+      <div className="messages"></div>
       <form
         className="create-message"
         onSubmit={(e) => {
           e.preventDefault();
-          setMsgLength((l) => l + 1); // form onSubmit works. 
+          setMsgLength((l) => l + 1); // form onSubmit works.
         }}
       >
         <input
@@ -176,7 +178,7 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
 
 //   const { data, error, loading } = useFetch(url, postMsg); // postMsg control fetch order, works
 //   // console.log("Messages in cur ch is :", data);
-  
+
 //   const isLoading = postLoading || loading;
 //   const hasError = postError || error;
 //   if (isLoading)
@@ -205,8 +207,6 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
 //     const curUsrMsg = document.getElementsByClassName(`.${usr}`);
 //   //  curUsrMsg.classList.add("cur-usr-msg") //can't read add
 //   curUsrMsg.className += " cur-usr-msg";
-
-    
 
 //   return data.data.attributes.messages.data.length !== 0 ? (
 //     <div className="messages-col">
@@ -262,7 +262,7 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
 //         className="create-message"
 //         onSubmit={(e) => {
 //           e.preventDefault();
-//           setMsgLength((l) => l + 1); // form onSubmit works. 
+//           setMsgLength((l) => l + 1); // form onSubmit works.
 //         }}
 //       >
 //         <input
