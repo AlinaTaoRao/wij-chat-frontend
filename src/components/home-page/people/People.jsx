@@ -6,7 +6,7 @@ import { baseUrl } from "../../../config";
 import React, { useState } from "react"; // for way 1
 
 /* way 1: highlight current user ternary, {usr}?, works, best way! */
-export default function People({ usr }) {
+export default function People({ usr, curChOwner}) {
   const peopleUrl = `${baseUrl}/users`;
   const { data, error, loading } = useFetch(peopleUrl, usr); // if there is a sign up, usr state change, then fire  useFetch()
   // console.log("USERS:", data);
@@ -15,7 +15,6 @@ export default function People({ usr }) {
     return (
       <div className="error-container">
         <p className="error-general error">
-          {" "}
           Oops, there is something wrong :(
         </p>
         <p className="error-status error">{error.status}</p>

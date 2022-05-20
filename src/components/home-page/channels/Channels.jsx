@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./styles.css";
 import useFetch from "../../../my-hooks/useFetch";
 import usePostFetchCh from "../../../my-hooks/usePostFetchCh";
+import useDelFetchCh from "../../../my-hooks/useDelFetchCh";
 import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
 
@@ -21,6 +22,7 @@ export default function Channels({
   const chUrl = `${baseUrl}/channels`;
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0);
+  const [chIdToDel, setChIdToDel] = useState(null); // for delete ch
 
   /* try to fire multiple fetch in order, use state var postCh as dependency in useFetch(), works*/
   const [postCh, setPostCh] = useState(null);
@@ -44,8 +46,11 @@ export default function Channels({
   const { data, error, loading } = useFetch(chUrl, postCh); // postCh, multiple fetch order control
   console.log(data);
 
-  const isLoading = pLoading || loading;
-  const hasError = PError || error;
+  // delete ch
+  const {delData, delError, delLoading}= useDelFetchCh(chIdToDel, setPostCh, jwtToken); 
+
+  const isLoading = pLoading || loading || delLoading;
+  const hasError = PError || error || delError;
   if (isLoading)
     return (
       <div className="channel-col">
@@ -81,7 +86,21 @@ export default function Channels({
                 >
                   {channel.attributes.title}
                 </p>
-                <button className="delete-ch">Delete</button>
+                <button
+                  className="delete-ch"
+                  onClick={(e) => {
+                    // get previous siblings
+                    const prevSibling = e.target.previousElementSibling;
+                    console.log("prevSibling msg is", prevSibling);
+
+                    // get ch id
+                    const theChId = prevSibling.id;
+                    setChIdToDel(() => theChId);
+                    console.log("setChIdToDel is", setChIdToDel);
+                  }}
+                >
+                  Delete
+                </button>
               </div>
             ) : (
               <div className="single-channel">

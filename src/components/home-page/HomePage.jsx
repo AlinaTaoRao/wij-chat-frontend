@@ -14,6 +14,7 @@ export default function HomePage({ usr, jwtToken, userId }) {
   // set channel url state, default ch id=1;
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
   const [curCh, setCurCh] = useState(1); // default ch id=1;
+  const [curChOwner, setCurChOwner]= useState(null); // for mark ch owner
 
   /* switchCh, grab cur ch id from click event, and reset url for render this ch msg. */
   const switchCh = (e) => {
@@ -21,6 +22,9 @@ export default function HomePage({ usr, jwtToken, userId }) {
     setCurCh(e.target.id);
     console.log("e.target.id:", e.target.id);
     setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
+
+    setCurChOwner(e.target.dataset.chInitiator); // for mark ch owner
+    // data-ch-initiator
 
     /* remove default ch class */
     const defaultCh = document.querySelector(".default-ch");
@@ -47,7 +51,7 @@ export default function HomePage({ usr, jwtToken, userId }) {
         jwtToken={jwtToken}
         userId={userId}
       />
-      <People usr={usr} />
+      <People usr={usr} curChOwner={curChOwner}/>
     </div>
   );
 }

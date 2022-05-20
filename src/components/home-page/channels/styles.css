@@ -27,7 +27,7 @@
 
 /* del ch btn */
 .delete-ch {
-  /* display: none; */
+  display: none;
   position: absolute;
   top: 2px;
   right: 3px;
