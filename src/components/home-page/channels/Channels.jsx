@@ -70,24 +70,12 @@ export default function Channels({
         {data.data.map((channel, index) => (
           <div key={index} className="channel">
             <input type="checkbox" className="check-ch" />
-            {channel.id === 1 ? (
-              <div className="single-channel">
-              <p
-                className="default-ch"
-                id={channel.id}
-                data-ch-title= {channel.attributes.title}
-                data-ch-initiator={channel.attributes.initiator}
-                onClick={handleSwitchCh}
-              >
-                {channel.attributes.title}
-              </p>
-              </div>
-            ) : (
+            {usr === channel.attributes.initiator ? (
               <div className="single-channel">
                 <p
-                  className="ch-name"
+                  className="default-ch"
                   id={channel.id}
-                  data-ch-title= {channel.attributes.title}
+                  data-ch-title={channel.attributes.title}
                   data-ch-initiator={channel.attributes.initiator}
                   onClick={handleSwitchCh}
                 >
@@ -95,9 +83,18 @@ export default function Channels({
                 </p>
                 <button className="delete-ch">Delete</button>
               </div>
-
-
-
+            ) : (
+              <div className="single-channel">
+                <p
+                  className="ch-name"
+                  id={channel.id}
+                  data-ch-title={channel.attributes.title}
+                  data-ch-initiator={channel.attributes.initiator}
+                  onClick={handleSwitchCh}
+                >
+                  {channel.attributes.title}
+                </p>
+              </div>
             )}
           </div>
         ))}

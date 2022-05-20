@@ -36,3 +36,13 @@
   font-size: 16px;
   padding: 5px 30px;
 }
+
+.sign-up-text{
+  padding: 10px 5px;
+  color: black;
+}
+
+span.to-sign-up{
+  padding-left: 10px;
+  color:#005ce6 ;
+}

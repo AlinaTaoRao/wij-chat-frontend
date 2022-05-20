@@ -37,12 +37,12 @@
   min-height: inherit;
 }
 
-.to-sign-in {
+.sign-in {
   margin: auto 15px;
   color: rgb(242, 248, 253);
 }
 
-.to-sign-up {
+.sign-up {
   color: rgb(242, 248, 253);
 }
 

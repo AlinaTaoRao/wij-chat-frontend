@@ -43,6 +43,8 @@
 
 .sign-up-container {
     grid-area: sign-up-container;
+    color: black;
+    
 }
 
 .sign-up-btn {
@@ -50,3 +52,8 @@
     padding: 5px 30px;
     margin-bottom: 10px;
 }
+
+span.to-sign-in{
+    color:#005ce6 ;
+  }
+  
