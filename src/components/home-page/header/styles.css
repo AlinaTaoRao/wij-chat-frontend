@@ -18,14 +18,14 @@
 }
 
 .chat-logo {
-  width: 30px;
+  width: 70px;
   margin: 5px 2px;
 }
 
 .wij-chat {
   color: rgb(242, 248, 253);
-  font-size: 18px;
-  margin: 7px 2px;
+  font-size: 30px;
+  margin: 20px 2px;
   display: inline-block;
   position: absolute;
 }
@@ -35,6 +35,8 @@
   justify-self: end;
   padding: 10px 20px;
   min-height: inherit;
+
+  margin: 13px 10px;
 }
 
 .sign-in {

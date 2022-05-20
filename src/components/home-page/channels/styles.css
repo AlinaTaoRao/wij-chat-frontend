@@ -10,8 +10,8 @@
   grid-template-rows: 1fr auto;
   text-align: start;
 
-  max-height: 90vh;
-  overflow-y: scroll;
+  /* max-height: 90vh; */
+  /* overflow-y: scroll; */
 }
 
 .channel {
