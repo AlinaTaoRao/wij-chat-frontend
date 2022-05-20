@@ -1,13 +1,10 @@
 import React from "react";
 import { useState } from "react";
 
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faCoffee } from '@fortawesome/free-solid-svg-icons'
-// import { faLight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
-
 import "./styles.css";
 import useFetch from "../../../my-hooks/useFetch";
 import usePostFetchMsg from "../../../my-hooks/usePostFetchMsg";
+import useDelFetchMsg from "../../../my-hooks/useDelFetchMsg";
 import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
 
@@ -15,13 +12,13 @@ import { baseUrl } from "../../../config";
 export default function Messages({ usr, curCh, url, jwtToken, userId }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
-  // console.log("msgLength in Messages:", msgLength);
+  const [msgIdToDel, setMsgIdToDel] = useState(null); // to fire delete msg
 
   /* try to fire multiple fetch in order, use state var postMsg as dependency in useFetch(), works*/
   const [postMsg, setPostMsg] = useState(null);
-
   /* customize usePostFetchMsg to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
+
   const postMsgArgumentList = [
     usr,
     curCh,
@@ -39,14 +36,17 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
   );
   // console.log(" post Messages:", postData);
 
+  const { delData, delError, delLoading } = useDelFetchMsg(
+    msgIdToDel,
+    setPostMsg,
+    jwtToken
+  );
+
   const { data, error, loading } = useFetch(url, postMsg); // postMsg control fetch order, works
   // console.log("Messages in cur ch is :", data);
 
-  /* define handler  */
-  const handleDeleteMsg = () => {};
-
-  const isLoading = postLoading || loading;
-  const hasError = postError || error;
+  const isLoading = postLoading || loading || delLoading;
+  const hasError = postError || error || delError;
   if (isLoading)
     return (
       <div className="messages-col">
@@ -65,7 +65,6 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
       </div>
     );
 
-
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
       <div className="messages">
@@ -75,11 +74,24 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
               <span className="sender">{msg.attributes.sender}</span>
               <span className="time">{msg.attributes.time}</span>
               <span className="ch-title">{data.data.attributes.title}</span>
-              <p className="single-msg" data-msg-id={msg.id}>
+              <p className={`single-msg msg-${msg.id}`} data-msg-id={msg.id}>
                 {msg.attributes.body}
               </p>
-              <button className="msg-trash-bin" onClick={handleDeleteMsg}>Delete </button>
+              <button
+                className="msg-trash-bin"
+                onClick={(e) => {
+                  // get previous siblings
+                  const prevSibling = e.target.previousElementSibling;
+                  console.log("prevSibling msg is", prevSibling);
 
+                  // data-* attributes get msg id
+                  const theMsgId = prevSibling.dataset.msgId;
+                  setMsgIdToDel(() => theMsgId);
+                  console.log("msgIdToDel is", msgIdToDel);
+                }}
+              >
+                Delete
+              </button>
             </div>
           ) : (
             <div key={index} className="message">
