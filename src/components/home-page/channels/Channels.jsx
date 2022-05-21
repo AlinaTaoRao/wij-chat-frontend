@@ -9,10 +9,8 @@ import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
 
 /* way 3 usePostFetchCh to post new ch, works with refresh issue */
-// curCh, id of cur ch, try to toggle rerender.
 export default function Channels({
   usr,
-  curCh,
   jwtToken,
   userId,
   handleSwitchCh,
@@ -23,7 +21,7 @@ export default function Channels({
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0);
   const [chIdToDel, setChIdToDel] = useState(null); // for delete ch
-  const [delInitiator, setDelInitiator]=useState(null); // for delete ch, check if cur usr is the ch owner, double check
+  const [delInitiator, setDelInitiator] = useState(null); // for delete ch, check if cur usr is the ch owner, double check
 
   /* try to fire multiple fetch in order, use state var postCh as dependency in useFetch(), works*/
   const [postCh, setPostCh] = useState(null);
@@ -33,7 +31,7 @@ export default function Channels({
     usr,
     channelName,
     setChannelName,
-    chUrl, 
+    chUrl,
     chLength,
     setPostCh,
     jwtToken,
@@ -46,27 +44,40 @@ export default function Channels({
   console.log(data);
 
   // delete ch
-  const {delData, delError, delLoading}= useDelFetchCh(chIdToDel, setPostCh, jwtToken, usr, delInitiator); 
+  const { delData, delError, delLoading } = useDelFetchCh(
+    chIdToDel,
+    setPostCh,
+    jwtToken,
+    usr,
+    delInitiator
+  );
 
   const isLoading = pLoading || loading || delLoading;
-  const hasError = PError || error || delError;
   if (isLoading)
     return (
       <div className="channel-col">
         <p className="loading"> Loading...</p>
       </div>
     ); // useful, can prevent reading data before loading end.
-  if (hasError)
+
+  const hasError = PError || error || delError;
+  const errorArray = [PError, error, delError];
+  if (hasError) {
+    const trueErr = errorArray.filter((err) => err);
+
     return (
       <div className="channel-col">
         <p> Oops, there is something wrong :( </p>
-        {PError ? (
-          <p className="use-post-ch-error"> PError.message </p>
-        ) : (
-          <p className="use-fetch-error"> error.message </p>
-        )}
+        <div className="errors">
+          {trueErr.map((err, index) => (
+            <p key={`error-${index}`} className="ch-error error">
+              {err.message}
+            </p>
+          ))}
+        </div>
       </div>
     );
+  }
 
   return (
     <div className="channel-col">
@@ -98,7 +109,7 @@ export default function Channels({
                     console.log("setChIdToDel is", setChIdToDel);
 
                     // get ch initiator
-                    const theChOwner=prevSibling.dataset.chInitiator;
+                    const theChOwner = prevSibling.dataset.chInitiator;
                     setDelInitiator(() => theChOwner);
                   }}
                 >
@@ -144,4 +155,3 @@ export default function Channels({
     </div>
   );
 }
-

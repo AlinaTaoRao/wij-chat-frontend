@@ -39,7 +39,6 @@ export default function HomePage({ usr, jwtToken, userId }) {
       <Header />
       <Channels
         usr={usr}
-        curCh={curCh} // to toggle rerender channel?
         jwtToken={jwtToken}
         userId={userId}
         handleSwitchCh={(e) => switchCh(e)}

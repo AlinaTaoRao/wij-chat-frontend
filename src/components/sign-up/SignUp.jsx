@@ -75,12 +75,12 @@ export default function SignUp({
     return { data, error, loading };
   };
 
-  if (error)
-    return (
-      <p>
-        error status: {error.status} <span>error: message {error.message}</span>
-      </p>
-    );
+  // if (error)
+  //   return (
+  //     <p>
+  //       error status: {error.status} <span>error: message {error.message}</span>
+  //     </p>
+  //   );
   // if (loading) return <p>loading...</p>;
 
   return (

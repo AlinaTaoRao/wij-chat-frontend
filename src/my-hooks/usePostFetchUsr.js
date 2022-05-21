@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { curData } from "../data";
+// import { curData } from "../data";
 
 /* usePostFetchUsr, handle user sign in, fired when loginCount change */
 const usePostFetchUsr = (
@@ -17,7 +17,6 @@ const usePostFetchUsr = (
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  //   const [loading, setLoading] = useState(false);
 
   // define fetch data function
   useEffect(() => {

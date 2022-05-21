@@ -46,24 +46,32 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
   // console.log("Messages in cur ch is :", data);
 
   const isLoading = postLoading || loading || delLoading;
-  const hasError = postError || error || delError;
+
   if (isLoading)
     return (
       <div className="messages-col">
         <p className="loading"> Loading...</p>
       </div>
     ); // useful, can prevent reading data before loading end.
-  if (hasError)
+
+  const hasError = postError || error || delError;
+  const errorArray = [postError, error, delError];
+  if (hasError) {
+    const trueErr = errorArray.filter((err) => err);
     return (
       <div className="messages-col">
         <p> Oops, there is something wrong :( </p>
-        {postError ? (
-          <p className="use-post-msg-error"> {postError.message} </p>
-        ) : (
-          <p className="use-fetch-error"> {error.message} </p>
-        )}
+        <div className="errors">
+          {trueErr.map((err, index) => (
+            <p key={`error-${index}`} className="msg-error error">
+              {err.message}
+            </p>
+          ))}
+        </div>
       </div>
     );
+  }
+    
 
   return data.data.attributes.messages.data.length !== 0 ? (
     <div className="messages-col">
