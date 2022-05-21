@@ -8,9 +8,7 @@ const usePostFetchCh = (
   channelName,
   setChannelName,
   chUrl,
-  curCh,
   chLength,
-  postCh,
   setPostCh,
   jwtToken,
   userId
