@@ -24,6 +24,9 @@ const usePostFetchUsr = (
     const fetchData = async () => {
       setLoading(true);
 
+      // clear last usr jwt token if there is, virtual log out
+      setJwtToken(() => null);
+
       try {
         const body = {
           identifier: usr, // username or email
@@ -57,11 +60,11 @@ const usePostFetchUsr = (
         curData.jwtToken = json.jwt; //way 1 use global var, works
 
         setJwtToken(() => json.jwt); // way 2 use state, works, must use an update fn instead of an object!  //
-        console.log("jwtToken from sign in json is", jwtToken); 
+        console.log("jwtToken from sign in json is", jwtToken);
 
         curData.curUserId = json.user.id; //way 1 use global var
         setUserId(() => json.user.id); // way 2 use state, works
-        console.log("usr id from sign in json is", userId); 
+        console.log("usr id from sign in json is", userId);
 
         setLoading(false);
         // return json;
