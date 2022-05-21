@@ -13,6 +13,12 @@ export default function Channels({
   usr,
   jwtToken,
   userId,
+  error,
+  setError,
+  postMsg,
+  setPostMsg,
+  postCh,
+  setPostCh,
   handleSwitchCh,
 }) {
   /* get channels data */
@@ -22,9 +28,6 @@ export default function Channels({
   const [chLength, setChLength] = useState(0);
   const [chIdToDel, setChIdToDel] = useState(null); // for delete ch
   const [delInitiator, setDelInitiator] = useState(null); // for delete ch, check if cur usr is the ch owner, double check
-
-  /* try to fire multiple fetch in order, use state var postCh as dependency in useFetch(), works*/
-  const [postCh, setPostCh] = useState(null);
 
   /* usePostFetchCh to post new ch */
   const postChArgumentList = [
@@ -36,20 +39,22 @@ export default function Channels({
     setPostCh,
     jwtToken,
     userId,
+    setError
   ];
-  const { PData, PError, pLoading } = usePostFetchCh(...postChArgumentList);
+  const { PData, pLoading } = usePostFetchCh(...postChArgumentList);
 
   // fetch chs data
-  const { data, error, loading } = useFetch(chUrl, postCh); // postCh, multiple fetch order control
+  const { data, loading } = useFetch(chUrl, usr, postCh, postMsg, setError); // postCh, multiple fetch order control
   console.log(data);
 
   // delete ch
-  const { delData, delError, delLoading } = useDelFetchCh(
+  const { delData, delLoading } = useDelFetchCh(
     chIdToDel,
     setPostCh,
     jwtToken,
     usr,
-    delInitiator
+    delInitiator,
+    setError
   );
 
   const isLoading = pLoading || loading || delLoading;
@@ -60,21 +65,11 @@ export default function Channels({
       </div>
     ); // useful, can prevent reading data before loading end.
 
-  const hasError = PError || error || delError;
-  const errorArray = [PError, error, delError];
-  if (hasError) {
-    const trueErr = errorArray.filter((err) => err);
-
+  if (error) {
     return (
       <div className="channel-col">
         <p> Oops, there is something wrong :( </p>
-        <div className="errors">
-          {trueErr.map((err, index) => (
-            <p key={`error-${index}`} className="ch-error error">
-              {err.message}
-            </p>
-          ))}
-        </div>
+        <div className="ch-error error">{error.status}:{error.message}</div>
       </div>
     );
   }

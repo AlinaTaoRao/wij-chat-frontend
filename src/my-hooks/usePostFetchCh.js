@@ -11,11 +11,12 @@ const usePostFetchCh = (
   chLength,
   setPostCh,
   jwtToken,
-  userId
+  userId,
+  setError
 ) => {
   // const state
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null); // way 1: not work
   const [loading, setLoading] = useState(true);
 
   // define fetch data function
@@ -78,7 +79,8 @@ const usePostFetchCh = (
     fetchData();
   }, [chUrl, chLength]);
 
-  return { data, error, loading };
+  // return { data, error, loading }; // way 1: error not work
+  return { data, loading }; // way 2: use setError from App, works
 };
 
 export default usePostFetchCh;

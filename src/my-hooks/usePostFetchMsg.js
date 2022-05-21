@@ -9,14 +9,14 @@ const usePostFetchMsg = (
   newMsg,
   setNewMsg,
   msgLength,
-  postMsg,
   setPostMsg,
   jwtToken,
-  userId
+  userId,
+  setError
 ) => {
   // const state
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null); // way 1, not work
   const [loading, setLoading] = useState(true);
 
   // define fetch data function
@@ -85,7 +85,8 @@ const usePostFetchMsg = (
     fetchData();
   }, [msgUrl, msgLength]);
 
-  return { data, error, loading };
+  // return { data, error, loading }; // way 1, not work
+  return { data,loading }; // way 2, use setError from App
 };
 
 export default usePostFetchMsg;

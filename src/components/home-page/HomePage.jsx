@@ -10,11 +10,16 @@ import People from "./people/People";
 import { baseUrl } from "../../config";
 
 /* use url and curCh state, works*/
-export default function HomePage({ usr, jwtToken, userId }) {
+export default function HomePage({ usr, jwtToken, userId, error, setError }) {
   // set channel url state, default ch id=1;
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
   const [curCh, setCurCh] = useState(1); // default ch id=1;
-  const [curChOwner, setCurChOwner]= useState(null); // for mark ch owner
+  const [curChOwner, setCurChOwner] = useState(null); // for mark ch owner
+
+  /* try to fire multiple fetch in order, use state var postMsg as dependency in useFetch(), works*/
+  const [postMsg, setPostMsg] = useState(null); // for
+  /* try to fire multiple fetch in order, use state var postCh as dependency in useFetch(), works*/
+  const [postCh, setPostCh] = useState(null);
 
   /* switchCh, grab cur ch id from click event, and reset url for render this ch msg. */
   const switchCh = (e) => {
@@ -24,7 +29,6 @@ export default function HomePage({ usr, jwtToken, userId }) {
     setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
 
     setCurChOwner(e.target.dataset.chInitiator); // for mark ch owner, value from "data-ch-initiator"
-   
 
     /* remove default ch class */
     const defaultCh = document.querySelector(".default-ch");
@@ -41,6 +45,12 @@ export default function HomePage({ usr, jwtToken, userId }) {
         usr={usr}
         jwtToken={jwtToken}
         userId={userId}
+        error={error}
+        setError={setError}
+        postMsg={postMsg}
+        setPostMsg={setPostMsg}
+        postCh={postCh}
+        setPostCh={setPostCh}
         handleSwitchCh={(e) => switchCh(e)}
       />
       <Messages
@@ -49,8 +59,24 @@ export default function HomePage({ usr, jwtToken, userId }) {
         url={url}
         jwtToken={jwtToken}
         userId={userId}
+        error={error}
+        setError={setError}
+        postMsg={postMsg}
+        setPostMsg={setPostMsg}
+        postCh={postCh}
+        setPostCh={setPostCh}
+
       />
-      <People usr={usr} curChOwner={curChOwner}/>
+      <People
+        usr={usr}
+        curChOwner={curChOwner}
+        error={error}
+        setError={setError}
+        postMsg={postMsg}
+        setPostMsg={setPostMsg}
+        postCh={postCh}
+        setPostCh={setPostCh}
+      />
     </div>
   );
 }
