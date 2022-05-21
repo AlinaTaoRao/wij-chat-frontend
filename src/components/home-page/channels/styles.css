@@ -2,6 +2,7 @@
   font-size: 16px;
   color: #00001a;
   line-height: 1.5;
+  min-width: 175px;
   /* border: 2px solid black; */
   grid-area: channel-col;
   display: grid;

@@ -21,9 +21,12 @@ export default function SignUp({
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  /* post new usr */
+  /* register new usr */
   const handleUsrSignUp = () => {
     const fetchData = async () => {
+      // clear last usr jwt token if there is, virtual log out
+      setJwtToken(() => null);
+
       try {
         const body = {
           username: usr, // works
@@ -84,11 +87,11 @@ export default function SignUp({
     <div className="sign-up">
       <Link to="/">
         <div className="title-container">
-        <img
-          className="chat-logo"
-          src="./assets/chatCoin.png"
-          alt="chat logo"
-        />
+          <img
+            className="chat-logo"
+            src="./assets/chatCoin.png"
+            alt="chat logo"
+          />
           <h1 className="title-sign wij-chat">Wij Chat</h1>
         </div>
       </Link>
