@@ -109,3 +109,8 @@
   border-left: 2px solid #0ed12b;
   box-shadow: 1.5px 1.5px 3px  #0ed12b;
 }
+
+.error {
+  color: red;
+  
+}

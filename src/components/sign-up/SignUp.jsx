@@ -12,13 +12,15 @@ export default function SignUp({
   setUserId,
   jwtToken,
   setJwtToken,
+  error,
+  setError,
 }) {
   const authorizationUrl = `${baseUrl}/auth/local/register`;
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
 
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   /* register new usr */
@@ -47,8 +49,8 @@ export default function SignUp({
         // --- throw an error if the res is not ok (this works!) ---
         if (!res.ok) {
           const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${authorizationUrl}`
-            : `HTTP error! status: ${res.status}\n-> ${authorizationUrl}`;
+            ? `${res.status}: ${res.statusText}\n${res.message} \n--> ${authorizationUrl}`
+            : `HTTP error! status: ${res.status}\n${res.message} \n-> ${authorizationUrl}`;
           throw new Error(message);
         }
 
@@ -72,16 +74,22 @@ export default function SignUp({
 
     fetchData();
 
-    return { data, error, loading };
+    // return { data, error, loading }; // way 1, not work
+    return { data, loading }; // way 2, use setError from App
   };
 
-  if (error)
-    return (
-      <p>
-        error status: {error.status} <span>error: message {error.message}</span>
-      </p>
-    );
-  // if (loading) return <p>loading...</p>;
+  
+  // if (error)
+  //   return (
+  //     <div className="error-container">
+  //       <p className="sign-up-error error">
+  //         error status: {error.status}{" "}
+  //         <span>error: message {error.message}</span>
+  //       </p>
+  //       <p>Refresh page to sign in again.</p>
+  //     </div>
+  //   );
+  // if (loading) return <p>loading...</p>;  // consistently loading issue!
 
   return (
     <div className="sign-up">

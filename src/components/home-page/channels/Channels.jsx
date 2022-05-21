@@ -9,12 +9,16 @@ import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
 
 /* way 3 usePostFetchCh to post new ch, works with refresh issue */
-// curCh, id of cur ch, try to toggle rerender.
 export default function Channels({
   usr,
-  curCh,
   jwtToken,
   userId,
+  error,
+  setError,
+  postMsg,
+  setPostMsg,
+  postCh,
+  setPostCh,
   handleSwitchCh,
 }) {
   /* get channels data */
@@ -23,10 +27,7 @@ export default function Channels({
   const [channelName, setChannelName] = useState("");
   const [chLength, setChLength] = useState(0);
   const [chIdToDel, setChIdToDel] = useState(null); // for delete ch
-  const [delInitiator, setDelInitiator]=useState(null); // for delete ch, check if cur usr is the ch owner, double check
-
-  /* try to fire multiple fetch in order, use state var postCh as dependency in useFetch(), works*/
-  const [postCh, setPostCh] = useState(null);
+  const [delInitiator, setDelInitiator] = useState(null); // for delete ch, check if cur usr is the ch owner, double check
 
   /* usePostFetchCh to post new ch */
   const postChArgumentList = [
@@ -34,41 +35,44 @@ export default function Channels({
     channelName,
     setChannelName,
     chUrl,
-    curCh,
     chLength,
-    postCh,
     setPostCh,
     jwtToken,
     userId,
+    setError
   ];
-  const { PData, PError, pLoading } = usePostFetchCh(...postChArgumentList);
+  const { PData, pLoading } = usePostFetchCh(...postChArgumentList);
 
   // fetch chs data
-  const { data, error, loading } = useFetch(chUrl, postCh); // postCh, multiple fetch order control
+  const { data, loading } = useFetch(chUrl, usr, postCh, postMsg, setError); // postCh, multiple fetch order control
   console.log(data);
 
   // delete ch
-  const {delData, delError, delLoading}= useDelFetchCh(chIdToDel, setPostCh, jwtToken, usr, delInitiator); 
+  const { delData, delLoading } = useDelFetchCh(
+    chIdToDel,
+    setPostCh,
+    jwtToken,
+    usr,
+    delInitiator,
+    setError
+  );
 
   const isLoading = pLoading || loading || delLoading;
-  const hasError = PError || error || delError;
   if (isLoading)
     return (
       <div className="channel-col">
         <p className="loading"> Loading...</p>
       </div>
     ); // useful, can prevent reading data before loading end.
-  if (hasError)
-    return (
-      <div className="channel-col">
-        <p> Oops, there is something wrong :( </p>
-        {PError ? (
-          <p className="use-post-ch-error"> PError.message </p>
-        ) : (
-          <p className="use-fetch-error"> error.message </p>
-        )}
-      </div>
-    );
+
+  // if (error) {
+  //   return (
+  //     <div className="channel-col">
+  //       <p> Oops, there is something wrong :( </p>
+  //       <div className="ch-error error">{error.status}:{error.message}</div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="channel-col">
@@ -100,7 +104,7 @@ export default function Channels({
                     console.log("setChIdToDel is", setChIdToDel);
 
                     // get ch initiator
-                    const theChOwner=prevSibling.dataset.chInitiator;
+                    const theChOwner = prevSibling.dataset.chInitiator;
                     setDelInitiator(() => theChOwner);
                   }}
                 >
@@ -146,4 +150,3 @@ export default function Channels({
     </div>
   );
 }
-

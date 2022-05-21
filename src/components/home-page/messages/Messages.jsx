@@ -9,13 +9,23 @@ import { baseUrl } from "../../../config";
 // import { curData } from "../../../data";
 
 /*  separate cur usr msg and other msg */
-export default function Messages({ usr, curCh, url, jwtToken, userId }) {
+export default function Messages({
+  usr,
+  curCh,
+  url,
+  jwtToken,
+  userId,
+  error,
+  setError,
+  postMsg,
+  setPostMsg,
+  postCh,
+  setPostCh,
+}) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
   const [msgIdToDel, setMsgIdToDel] = useState(null); // to fire delete msg
 
-  /* try to fire multiple fetch in order, use state var postMsg as dependency in useFetch(), works*/
-  const [postMsg, setPostMsg] = useState(null);
   /* customize usePostFetchMsg to handle new message*/
   const msgUrl = `${baseUrl}/messages`;
 
@@ -26,46 +36,45 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
     newMsg,
     setNewMsg,
     msgLength,
-    postMsg,
     setPostMsg,
     jwtToken,
     userId,
+    setError,
   ];
-  const { postData, postError, postLoading } = usePostFetchMsg(
-    ...postMsgArgumentList
-  );
+  const { postData, postLoading } = usePostFetchMsg(...postMsgArgumentList);
   // console.log(" post Messages:", postData);
 
-  const { delData, delError, delLoading } = useDelFetchMsg(
+  const { delData, delLoading } = useDelFetchMsg(
     msgIdToDel,
     setPostMsg,
-    jwtToken
+    jwtToken,
+    setError
   );
 
-  const { data, error, loading } = useFetch(url, postMsg); // postMsg control fetch order, works
+  const { data, loading } = useFetch(url, usr, postCh, postMsg, setError); // postMsg control fetch order, works
   // console.log("Messages in cur ch is :", data);
 
   const isLoading = postLoading || loading || delLoading;
-  const hasError = postError || error || delError;
+
   if (isLoading)
     return (
       <div className="messages-col">
         <p className="loading"> Loading...</p>
       </div>
     ); // useful, can prevent reading data before loading end.
-  if (hasError)
-    return (
-      <div className="messages-col">
-        <p> Oops, there is something wrong :( </p>
-        {postError ? (
-          <p className="use-post-msg-error"> {postError.message} </p>
-        ) : (
-          <p className="use-fetch-error"> {error.message} </p>
-        )}
-      </div>
-    );
 
-  return data.data.attributes.messages.data.length !== 0 ? (
+  // if (error) {
+  //   return (
+  //     <div className="messages-col">
+  //       <p> Oops, there is something wrong :( </p>
+  //       <div className="msg-error error">
+  //        {error.message}
+  //       </div>
+  //     </div>
+  //   );
+  // }
+
+  return (
     <div className="messages-col">
       <div className="messages">
         {data.data.attributes.messages.data.map((msg, index) =>
@@ -111,39 +120,6 @@ export default function Messages({ usr, curCh, url, jwtToken, userId }) {
         onSubmit={(e) => {
           e.preventDefault();
           setMsgLength((l) => l + 1); // works, to fire usePostFetchMsg
-        }}
-      >
-        <input
-          type="text"
-          className="input-message"
-          placeholder="New message"
-          value={newMsg}
-          onChange={(e) => setNewMsg(e.target.value)}
-          required
-        />
-        <input type="submit" value="Send" className="send-msg" />
-      </form>
-    </div>
-  ) : (
-    <div className="messages-col">
-      <div className="post-info-container">
-        {postError && (
-          <div className="post-error">
-            <p className="post-error-general error">
-              Oops, there is something wrong :(
-            </p>
-            <p className="post-error-status error">{error.status}</p>
-            <p className="post-error-msg error">{error.message}</p>
-          </div>
-        )}
-      </div>
-
-      <div className="messages"></div>
-      <form
-        className="create-message"
-        onSubmit={(e) => {
-          e.preventDefault();
-          setMsgLength((l) => l + 1); // form onSubmit works.
         }}
       >
         <input

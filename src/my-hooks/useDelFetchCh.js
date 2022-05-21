@@ -2,18 +2,25 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../config";
 
 /* way 2, add order control state */
-const useDelFetchCh = (chIdToDel, setPostCh, jwtToken, usr, delInitiator) => {
+const useDelFetchCh = (
+  chIdToDel,
+  setPostCh,
+  jwtToken,
+  usr,
+  delInitiator,
+  setError
+) => {
   const delChUrl = `${baseUrl}/channels/${chIdToDel}`;
   // const state
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null); // way 1, not work
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
 
-      if(!chIdToDel) return;
+      if (!chIdToDel) return;
 
       // get usr conform to delete ch. prevent delete by accident.  // weird issue, but not error
       // const conform = prompt(
@@ -60,7 +67,8 @@ const useDelFetchCh = (chIdToDel, setPostCh, jwtToken, usr, delInitiator) => {
     fetchData();
   }, [chIdToDel]);
 
-  return { data, error, loading };
+  // return { data, error, loading }; // way 1
+  return { data, loading }; // way 2 use setError from App
 };
 
 export default useDelFetchCh;

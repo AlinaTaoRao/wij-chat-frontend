@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { curData } from "../data";
+// import { curData } from "../data";
 
 /* usePostFetchUsr, handle user sign in, fired when loginCount change */
 const usePostFetchUsr = (
@@ -11,13 +11,13 @@ const usePostFetchUsr = (
   setJwtToken,
   userId,
   setUserId,
-  loginCount
+  loginCount,
+  setError
 ) => {
   // const state
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);  // use setError from App
   const [loading, setLoading] = useState(true);
-  //   const [loading, setLoading] = useState(false);
 
   // define fetch data function
   useEffect(() => {
@@ -76,7 +76,8 @@ const usePostFetchUsr = (
     fetchData();
   }, [loginUrl, loginCount]);
 
-  return { data, error, loading };
+  // return { data, error, loading }; // way 1,
+  return { data, loading }; // way 2, setError form App
 };
 
 export default usePostFetchUsr;
