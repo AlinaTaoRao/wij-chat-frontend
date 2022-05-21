@@ -24,7 +24,7 @@ const useDelFetchMsg = (msgIdToDel, setPostMsg, jwtToken) => {
           },
         });
         // console.log("res:", res);
-        // --- throw an error if the res is not ok (this works!) ---
+        // --- throw an error if the res is not ok  ---
         if (!res.ok) {
           const message = res.statusText
             ? `${res.status}: ${res.statusText}\n-> ${delMsgUrl}`

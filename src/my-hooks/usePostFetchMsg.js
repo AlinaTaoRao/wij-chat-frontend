@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { curData } from "../data";
+// import { curData } from "../data";
 
 /* usePostFetchMsg, for post new msg */
 const usePostFetchMsg = (
@@ -29,7 +29,7 @@ const usePostFetchMsg = (
           data: {
             users_permissions_users: {
               // id: curData.curUserId, // way 1 use global var, works;
-              id: userId, // way 1 use global var, works;
+              id: userId, // way 2, state, works
             },
             sender: usr,
             body: newMsg,
@@ -40,9 +40,10 @@ const usePostFetchMsg = (
           },
         };
 
+         // const token = curData.jwtToken; // way 1 use global var, works
         const token = jwtToken;  // way 2, set jwtToken while sign in or sign up, works.
         console.log("token form post msg is:", token)
-        // const token = curData.jwtToken; // way 1 use global var, works
+       
 
         if (!newMsg) return; // prevent send empty msg.
         const res = await fetch(encodeURI(msgUrl), {
@@ -71,9 +72,8 @@ const usePostFetchMsg = (
 
         setPostMsg(json);  // to control multiple api fetch order. post msg first, when it finish, fire useFetch(), this works!
 
-        setNewMsg(""); // clear input field
+        setNewMsg(""); // clear input field, works
 
-        // curData.postMsgJson = json; // for manually render newest msg
         setLoading(false);
         // return json;
       } catch (error) {
