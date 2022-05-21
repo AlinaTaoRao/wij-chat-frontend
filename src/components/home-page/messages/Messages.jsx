@@ -63,16 +63,16 @@ export default function Messages({
       </div>
     ); // useful, can prevent reading data before loading end.
 
-  if (error) {
-    return (
-      <div className="messages-col">
-        <p> Oops, there is something wrong :( </p>
-        <div className="msg-error error">
-         {error.message}
-        </div>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="messages-col">
+  //       <p> Oops, there is something wrong :( </p>
+  //       <div className="msg-error error">
+  //        {error.message}
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="messages-col">

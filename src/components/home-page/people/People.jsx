@@ -20,14 +20,14 @@ export default function People({
   const { data, loading } = useFetch(peopleUrl, usr, postCh, postMsg, setError); // if there is a sign up, usr state change, then fire  useFetch()
   // console.log("USERS:", data);
   if (loading) return <p> Loading...</p>;
-  if (error)
-    return (
-      <div className="error-container">
-        <p className="error-general error">Oops, there is something wrong :(</p>
-        <p className="error-status error">{error.status}</p>
-        <p className="error-msg error">{error.message}</p>
-      </div>
-    );
+  // if (error)
+  //   return (
+  //     <div className="error-container">
+  //       <p className="error-general error">Oops, there is something wrong :(</p>
+  //       <p className="error-status error">{error.status}</p>
+  //       <p className="error-msg error">{error.message}</p>
+  //     </div>
+  //   );
 
   return (
     <div className="people">
