@@ -43,10 +43,20 @@ const usePostFetchUsr = (
         });
         console.log("sign in post usr res:", res);
 
-        // --- throw an error if the res is not ok  ---
+        // --- throw an error if the res is not ok , way 1 ---
+        // if (!res.ok) {
+        //   const message = res.statusText
+        //     ? `${res.status}: ${res.statusText}\n-> ${loginUrl}`
+        //     : `HTTP error! status: ${res.status}\n-> ${loginUrl}`;
+        //   throw new Error(message);
+        // }
+
+        /* throw an error way 2, best way */
         if (!res.ok) {
+          const js= await res.json();
+          console.log("error res js:", js)
           const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${loginUrl}`
+            ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${loginUrl}`
             : `HTTP error! status: ${res.status}\n-> ${loginUrl}`;
           throw new Error(message);
         }

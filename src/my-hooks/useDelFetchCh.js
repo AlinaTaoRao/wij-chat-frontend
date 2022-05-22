@@ -39,13 +39,23 @@ const useDelFetchCh = (
           },
         });
         // console.log("res:", res);
+
         // --- throw an error if the res is not ok (this works!) ---
-        if (!res.ok) {
-          const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${delChUrl}`
-            : `HTTP error! status: ${res.status}\n-> ${delChUrl}`;
-          throw new Error(message);
-        }
+        // if (!res.ok) {
+        //   const message = res.statusText
+        //     ? `${res.status}: ${res.statusText}\n-> ${delChUrl}`
+        //     : `HTTP error! status: ${res.status}\n-> ${delChUrl}`;
+        //   throw new Error(message);
+        // }
+           /* throw an error way 2, best way */
+           if (!res.ok) {
+            const js= await res.json();
+            console.log("error res js:", js)
+            const message = res.statusText
+              ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${delChUrl}`
+              : `HTTP error! status: ${res.status}\n-> ${delChUrl}`;
+            throw new Error(message);
+          }
 
         // console.log("useDelFetch delChUrl:", delChUrl);
 

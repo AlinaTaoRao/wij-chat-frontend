@@ -46,11 +46,20 @@ export default function SignUp({
         });
         console.log("sign up res:", res);
 
-        // --- throw an error if the res is not ok (this works!) ---
+        // // --- throw an error if the res is not ok (this works!) ---
+        // if (!res.ok) {
+        //   const message = res.statusText
+        //     ? `${res.status}: ${res.statusText}\n${res.message} \n--> ${authorizationUrl}`
+        //     : `HTTP error! status: ${res.status}\n${res.message} \n-> ${authorizationUrl}`;
+        //   throw new Error(message);
+        // }
+        /* throw an error way 2, best way */
         if (!res.ok) {
+          const js = await res.json();
+          console.log("error res js:", js);
           const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n${res.message} \n--> ${authorizationUrl}`
-            : `HTTP error! status: ${res.status}\n${res.message} \n-> ${authorizationUrl}`;
+            ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${authorizationUrl}`
+            : `HTTP error! status: ${res.status}\n-> ${authorizationUrl}`;
           throw new Error(message);
         }
 
@@ -78,7 +87,6 @@ export default function SignUp({
     return { data, loading }; // way 2, use setError from App
   };
 
-  
   // if (error)
   //   return (
   //     <div className="error-container">
