@@ -23,6 +23,7 @@ const usePostFetchMsg = (
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      setError(null);  //
 
       try {
         const body = {
