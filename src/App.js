@@ -36,14 +36,16 @@ function App() {
   if (loginLoading) {
     <div className="login-loading loading">loading...</div>;
   }
-  if (error) {
-    return (
-      <div className="error-container">
-        <p className="login-error register-error error">{error.message}</p>
-        <p>Refresh page to sign in.</p>
-      </div>
-    );
-  }
+
+  /* display error in App, bad idea */
+  // if (error) {
+  //   return (
+  //     <div className="error-container">
+  //       <p className="login-error register-error error">{error.message}</p>
+  //       <p>Refresh page to sign in.</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <Router>
