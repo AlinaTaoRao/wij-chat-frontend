@@ -24,10 +24,20 @@ const useDelFetchMsg = (msgIdToDel, setPostMsg, jwtToken, setError) => {
           },
         });
         // console.log("res:", res);
+
         // --- throw an error if the res is not ok  ---
+        // if (!res.ok) {
+        //   const message = res.statusText
+        //     ? `${res.status}: ${res.statusText}\n-> ${delMsgUrl}`
+        //     : `HTTP error! status: ${res.status}\n-> ${delMsgUrl}`;
+        //   throw new Error(message);
+        // }
+        /* throw an error way 2, best way */
         if (!res.ok) {
+          const js = await res.json();
+          console.log("error res js:", js);
           const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${delMsgUrl}`
+            ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${delMsgUrl}`
             : `HTTP error! status: ${res.status}\n-> ${delMsgUrl}`;
           throw new Error(message);
         }
@@ -53,7 +63,7 @@ const useDelFetchMsg = (msgIdToDel, setPostMsg, jwtToken, setError) => {
   }, [msgIdToDel]);
 
   // return { data, error, loading };  // way 1, not work
-  return { data,loading }; // way 2, use setError from App
+  return { data, loading }; // way 2, use setError from App
 };
 
 export default useDelFetchMsg;

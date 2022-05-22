@@ -63,16 +63,34 @@ export default function Messages({
       </div>
     ); // useful, can prevent reading data before loading end.
 
-  // if (error) {
-  //   return (
-  //     <div className="messages-col">
-  //       <p> Oops, there is something wrong :( </p>
-  //       <div className="msg-error error">
-  //        {error.message}
-  //       </div>
-  //     </div>
-  //   );
-  // }
+    /* display error im message column, best way */
+  if (error) {
+    return (
+      <div className="messages-col">
+        <div className="error-container">
+          <p> Oops, there is something wrong :( </p>
+          <p className="msg-error error">{error.message}</p>
+        </div>
+        <form
+          className="create-message"
+          onSubmit={(e) => {
+            e.preventDefault();
+            setMsgLength((l) => l + 1); // works, to fire usePostFetchMsg
+          }}
+        >
+          <input
+            type="text"
+            className="input-message"
+            placeholder="New message"
+            value={newMsg}
+            onChange={(e) => setNewMsg(e.target.value)}
+            required
+          />
+          <input type="submit" value="Send" className="send-msg" />
+        </form>
+      </div>
+    );
+  }
 
   return (
     <div className="messages-col">

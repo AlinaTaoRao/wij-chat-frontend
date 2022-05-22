@@ -65,14 +65,6 @@ export default function Channels({
       </div>
     ); // useful, can prevent reading data before loading end.
 
-  // if (error) {
-  //   return (
-  //     <div className="channel-col">
-  //       <p> Oops, there is something wrong :( </p>
-  //       <div className="ch-error error">{error.status}:{error.message}</div>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="channel-col">

@@ -23,13 +23,14 @@ const usePostFetchCh = (
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      setError(null); //
 
       try {
         const body = {
           data: {
             users_permissions_users: {
               // id: curData.curUserId, // way 1, global var, works
-              id: userId,  // way 2, state, works
+              id: userId, // way 2, state, works
             },
             initiator: usr,
             title: `# ${channelName}`,
@@ -52,9 +53,18 @@ const usePostFetchCh = (
         console.log("post ch res:", res);
 
         // --- throw an error if the res is not ok, not work?  ---
+        // if (!res.ok) {
+        //   const message = res.statusText
+        //     ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
+        //     : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
+        //   throw new Error(message);
+        // }
+        /* throw an error way 2, best way */
         if (!res.ok) {
+          const js = await res.json();
+          console.log("error res js:", js);
           const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
+            ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${chUrl}`
             : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
           throw new Error(message);
         }

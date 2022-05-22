@@ -23,6 +23,7 @@ const usePostFetchMsg = (
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      setError(null);  //
 
       try {
         const body = {
@@ -40,10 +41,9 @@ const usePostFetchMsg = (
           },
         };
 
-         // const token = curData.jwtToken; // way 1 use global var, works
-        const token = jwtToken;  // way 2, set jwtToken while sign in or sign up, works.
-        console.log("token form post msg is:", token)
-       
+        // const token = curData.jwtToken; // way 1 use global var, works
+        const token = jwtToken; // way 2, set jwtToken while sign in or sign up, works.
+        console.log("token form post msg is:", token);
 
         if (!newMsg) return; // prevent send empty msg.
         const res = await fetch(encodeURI(msgUrl), {
@@ -57,9 +57,18 @@ const usePostFetchMsg = (
         console.log("res:", res);
 
         // --- throw an error if the res is not ok, not work? ---
+        // if (!res.ok) {
+        //   const message = res.statusText
+        //     ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`
+        //     : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
+        //   throw new Error(message);
+        // }
+        /* throw an error way 2, best way */
         if (!res.ok) {
+          const js = await res.json();
+          console.log("error res js:", js);
           const message = res.statusText
-            ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`
+            ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${msgUrl}`
             : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
           throw new Error(message);
         }
@@ -70,7 +79,7 @@ const usePostFetchMsg = (
         setData(json);
         console.log("post msg data:", data);
 
-        setPostMsg(json);  // to control multiple api fetch order. post msg first, when it finish, fire useFetch(), this works!
+        setPostMsg(json); // to control multiple api fetch order. post msg first, when it finish, fire useFetch(), this works!
 
         setNewMsg(""); // clear input field, works
 
@@ -86,7 +95,7 @@ const usePostFetchMsg = (
   }, [msgUrl, msgLength]);
 
   // return { data, error, loading }; // way 1, not work
-  return { data,loading }; // way 2, use setError from App
+  return { data, loading }; // way 2, use setError from App
 };
 
 export default usePostFetchMsg;
