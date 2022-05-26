@@ -1,16 +1,12 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { useState } from "react";
-// import usePostFetchUsr from "./my-hooks/usePostFetchUsr";
 
 import "./App.css";
 import SignIn from "./components/sign-in/SignIn";
 import SignUp from "./components/sign-up/SignUp";
 import HomePage from "./components/home-page/HomePage";
-// import { curData } from "./data";
-// import { baseUrl } from "./config";
 
 function App() {
-  // const [jwtToken, setJwtToken] = useState(null);
 
   const initialValues = { username: "", email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
