@@ -4,20 +4,16 @@ import { useEffect, useState } from "react";
 
 /* usePostFetchCh, for post new channel */
 const usePostFetchCh = (
-  // usr,
   channelName,
   setChannelName,
   chUrl,
   chLength,
   setPostCh,
-  // jwtToken,
-  // userId,
   setError,
   userProfile
 ) => {
   // const state
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(null); // way 1: not work
   const [loading, setLoading] = useState(true);
 
   // define fetch data function
@@ -30,10 +26,8 @@ const usePostFetchCh = (
         const body = {
           data: {
             users_permissions_users: {
-              // id: userId, // state, works
               id: userProfile.id, 
             },
-            // initiator: usr,
             initiator: userProfile.username,
             title: `# ${channelName}`,
           },
@@ -54,13 +48,6 @@ const usePostFetchCh = (
         });
         console.log("post ch res:", res);
 
-        // --- throw an error if the res is not ok, not work?  ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
-        //     : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
-        //   throw new Error(message);
-        // }
         /* throw an error way 2, best way */
         if (!res.ok) {
           const js = await res.json();

@@ -1,32 +1,25 @@
 import React, { useEffect, useState } from "react";
-// import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import "./styles.css";
 import { baseUrl } from "../../config";
-// import { curData } from "../../data";
-
-// import useFetch from "../../my-hooks/useFetch";
 
 export default function SignIn({
   formValues,
   setFormValues,
+  initialValues,
   formErrors,
   setFormErrors,
   isSubmit,
   setIsSubmit,
   userProfile,
   setUserProfile,
+  initialProfile,
   error,
   setError,
-  userId,
-  setUserId,
-  jwtToken,
-  setJwtToken,
 }) {
   const navigate = useNavigate();
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(null);  // use setError from App
   const [loading, setLoading] = useState(true);
   const loginUrl = `${baseUrl}/auth/local`;
 
@@ -36,7 +29,7 @@ export default function SignIn({
     setFormValues({ ...formValues, [name]: value });
   };
 
-  /* validate form fn */
+  /* validate sign in form */
   const validate = (values) => {
     const errors = {};
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
@@ -64,8 +57,8 @@ export default function SignIn({
     setFormErrors(validate(formValues));
     setIsSubmit(true);
 
-    // clear last usr jwt token if there is, virtual log out
-    setJwtToken(() => null);
+    // clear last usr jwt token etc if there is, virtual log out
+    setUserProfile(() => initialProfile); // not work?
 
     try {
       const body = {
@@ -102,16 +95,10 @@ export default function SignIn({
         token: json.jwt,
         createdAt: json.user.createdAt,
       });
-      console.log("sign in userProfile:", userProfile); 
 
-      // curData.jwtToken = json.jwt; //way 1 use global var, works
-      setJwtToken(() => json.jwt); // way 2 use state, works, must use an update fn instead of an object!  //
-      console.log("jwtToken from sign in json is", jwtToken);
+      console.log("sign in userProfile:", userProfile);
 
-      // curData.curUserId = json.user.id; //way 1 use global var
-      setUserId(() => json.user.id); // way 2 use state, works
-      console.log("usr id from sign in json is", userId);
-
+      setFormValues(initialValues); // clear input fields
       setLoading(false);
       navigate("/"); // redirect to home;
       // return json;
@@ -157,9 +144,8 @@ export default function SignIn({
           onChange={handleChange}
           required
         />
-
+        <p className="error">{formErrors.password}</p>
         <div className="sign-container">
-          <p className="error">{formErrors.email}</p>
           <input
             type="submit"
             className="sign-in-btn"

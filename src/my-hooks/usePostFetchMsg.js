@@ -10,8 +10,6 @@ const usePostFetchMsg = (
   setNewMsg,
   msgLength,
   setPostMsg,
-  // jwtToken,
-  // userId,
   setError,
   userProfile
 ) => {
@@ -29,10 +27,8 @@ const usePostFetchMsg = (
         const body = {
           data: {
             users_permissions_users: {
-              // id: userId,
               id: userProfile.id,
             },
-            // sender: usr,
             sender: userProfile.username,
             body: newMsg,
             time: `${new Date().toLocaleTimeString()}`,
@@ -42,7 +38,6 @@ const usePostFetchMsg = (
           },
         };
 
-        // const token = jwtToken; // set jwtToken while sign in or sign up, works.
         const token = userProfile.token;
         console.log("token form post msg is:", token);
 
@@ -88,7 +83,6 @@ const usePostFetchMsg = (
     fetchData();
   }, [msgUrl, msgLength]);
 
-  // return { data, error, loading }; // way 1, not work
   return { data, loading }; // way 2, use setError from App
 };
 

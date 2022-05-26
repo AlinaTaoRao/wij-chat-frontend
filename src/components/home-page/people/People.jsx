@@ -7,7 +7,7 @@ import React, { useState } from "react"; // for way 1
 
 /* way 1: highlight current user ternary, {usr}?, works, best way! */
 export default function People({
-  usr,
+  // usr,
   curChOwner,
   error,
   setError,
@@ -15,9 +15,10 @@ export default function People({
   setPostMsg,
   postCh,
   setPostCh,
+  userProfile
 }) {
   const peopleUrl = `${baseUrl}/users`;
-  const { data, loading } = useFetch(peopleUrl, usr, postCh, postMsg, setError); // if there is a sign up, usr state change, then fire  useFetch()
+  const { data, loading } = useFetch(peopleUrl, userProfile.username, postCh, postMsg, setError); // if there is a sign up, usr state change, then fire  useFetch()
   // console.log("USERS:", data);
   if (loading) return <p> Loading...</p>;
 
@@ -25,7 +26,7 @@ export default function People({
     <div className="people">
       {data.map((user, index) => (
         <div key={index} className="user">
-          {usr && usr === user.username ? (
+          {userProfile.username && userProfile.username === user.username ? (
             <p
               className="single-user cur-usr"
               id={user.id}

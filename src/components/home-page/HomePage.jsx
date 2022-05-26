@@ -27,6 +27,7 @@ export default function HomePage({ usr, jwtToken, userId, error, setError, userP
     setCurCh(e.target.id);
     console.log("ch id-curCh is:", e.target.id);
     setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
+    setError(null);
 
     setCurChOwner(e.target.dataset.chInitiator); // for mark ch owner, value from "data-ch-initiator"
 
@@ -42,9 +43,9 @@ export default function HomePage({ usr, jwtToken, userId, error, setError, userP
     <div className="home">
       <Header />
       <Channels
-        usr={usr}
-        jwtToken={jwtToken}
-        userId={userId}
+        // usr={usr}
+        // jwtToken={jwtToken}
+        // userId={userId}
         error={error}
         setError={setError}
         postMsg={postMsg}
@@ -56,11 +57,11 @@ export default function HomePage({ usr, jwtToken, userId, error, setError, userP
      
       />
       <Messages
-        usr={usr}
+        // usr={usr}
         curCh={curCh}
         url={url}
-        jwtToken={jwtToken}
-        userId={userId}
+        // jwtToken={jwtToken}
+        // userId={userId}
         error={error}
         setError={setError}
         postMsg={postMsg}

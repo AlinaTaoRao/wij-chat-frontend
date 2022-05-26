@@ -12,12 +12,12 @@ const useDelFetchMsg = (
   const delMsgUrl = `${baseUrl}/messages/${msgIdToDel}`;
   // const state
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(null);  // way 1, not work
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
+      setError(null); //
 
       if (!msgIdToDel) return;
 

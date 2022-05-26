@@ -17,8 +17,14 @@ function App() {
 
   const initialValues = { username: "", email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
-  const initialProfile={username: "", email: "", id:"", token:"", createdAt:""};
-  const [userProfile, setUserProfile]=useState(initialProfile);
+  const initialProfile = {
+    username: "",
+    email: "",
+    id: "",
+    token: "",
+    createdAt: "",
+  };
+  const [userProfile, setUserProfile] = useState(initialProfile);
 
   const [userId, setUserId] = useState(null); // grab cur usr id from sign up or sign in response.
   // const [loginCount, setLoginCount] = useState(0); // change this state while sign in submit, to fire usePostFetchUsr, must have!
@@ -37,13 +43,14 @@ function App() {
               <SignIn
                 formValues={formValues}
                 setFormValues={setFormValues}
+                initialValues={initialValues}
                 formErrors={formErrors}
                 setFormErrors={setFormErrors}
                 isSubmit={isSubmit}
                 setIsSubmit={setIsSubmit}
                 userProfile={userProfile}
                 setUserProfile={setUserProfile}
-
+                initialProfile={initialProfile}
                 error={error}
                 setError={setError}
                 userId={userId}
@@ -65,17 +72,16 @@ function App() {
               <SignUp
                 formValues={formValues}
                 setFormValues={setFormValues}
+                initialValues={initialValues}
                 formErrors={formErrors}
                 setFormErrors={setFormErrors}
                 isSubmit={isSubmit}
                 setIsSubmit={setIsSubmit}
                 userProfile={userProfile}
                 setUserProfile={setUserProfile}
+                initialProfile={initialProfile}
                 error={error}
                 setError={setError}
-                setUserId={setUserId}
-                jwtToken={jwtToken}
-                setJwtToken={setJwtToken}
               />
             }
           />
@@ -91,8 +97,6 @@ function App() {
                 setUserProfile={setUserProfile}
                 error={error}
                 setError={setError}
-                userId={userId}
-                jwtToken={jwtToken}
               />
             }
           />

@@ -9,11 +9,8 @@ import { baseUrl } from "../../../config";
 
 /*  separate cur usr msg and other msg */
 export default function Messages({
-  // usr,
   curCh,
   url,
-  // jwtToken,
-  // userId,
   error,
   setError,
   postMsg,
@@ -30,15 +27,12 @@ export default function Messages({
   const msgUrl = `${baseUrl}/messages`;
 
   const postMsgArgumentList = [
-    // usr,
     curCh,
     msgUrl,
     newMsg,
     setNewMsg,
     msgLength,
     setPostMsg,
-    // jwtToken,
-    // userId,
     setError,
     userProfile,
   ];
@@ -48,7 +42,6 @@ export default function Messages({
   const { delData, delLoading } = useDelFetchMsg(
     msgIdToDel,
     setPostMsg,
-    // jwtToken,
     setError,
     userProfile
   );
