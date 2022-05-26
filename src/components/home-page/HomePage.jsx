@@ -8,14 +8,12 @@ import Messages from "./messages/Messages";
 import People from "./people/People";
 import { baseUrl } from "../../config";
 
-/* use url and curCh state, works*/
 export default function HomePage({
-  // usr,
-  // jwtToken,
-  // userId,
   error,
   setError,
   userProfile,
+  setUserProfile,
+  initialProfile,
 }) {
   // set channel url state, default ch id=1;
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
@@ -47,7 +45,13 @@ export default function HomePage({
   };
   return (
     <div className="home">
-      <Header />
+      <Header
+        userProfile={userProfile}
+        setUserProfile={setUserProfile}
+        initialProfile={initialProfile}
+        error={error}
+        setError={setError}
+      />
       <Channels
         error={error}
         setError={setError}

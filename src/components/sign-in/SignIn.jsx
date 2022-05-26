@@ -27,6 +27,7 @@ export default function SignIn({
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+    setError(null); //
   };
 
   /* validate sign in form */
@@ -54,6 +55,7 @@ export default function SignIn({
   const handleSignIn = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
     setFormErrors(validate(formValues));
     setIsSubmit(true);
 

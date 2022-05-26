@@ -75,6 +75,7 @@ function App() {
                 setFormErrors={setFormErrors}
                 userProfile={userProfile}
                 setUserProfile={setUserProfile}
+                initialProfile={initialProfile}
                 error={error}
                 setError={setError}
               />
