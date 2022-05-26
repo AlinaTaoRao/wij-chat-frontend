@@ -57,9 +57,40 @@ a {
 
 }
 
-.user-profile {
+.profile-container {
   color: rgb(242, 248, 253);
   display: inline-block;
+  position: relative;
+}
+
+#profile-icon {
+  font-size: 2em;
+
+}
+
+.profile-lists {
+  position:absolute;
+  list-style: none;
+  text-align: start;
+  top: -200px;
+  right: -14px;
+  transition: 850ms;
+}
+
+.profile-lists.active {
+  position:absolute;
+  background-color: rgb(55, 22, 221);
+  opacity: 0.8;
+  list-style: none;
+  text-align: start;
+  top: 35px;
+  right: -14px;
+
+  transition: 350ms;
+}
+
+.list-item {
+  padding: 6px 20px;
 }
 
 .sign-out {
