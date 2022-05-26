@@ -10,10 +10,7 @@ import HomePage from "./components/home-page/HomePage";
 // import { baseUrl } from "./config";
 
 function App() {
-  // usr, pwd, jwtToken, collect usr input from sign in or sign up, use in post msg or ch.
-  // const [usr, setUsr] = useState("");
-  // const [pwd, setPwd] = useState("");
-  const [jwtToken, setJwtToken] = useState(null);
+  // const [jwtToken, setJwtToken] = useState(null);
 
   const initialValues = { username: "", email: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
@@ -25,9 +22,6 @@ function App() {
     createdAt: "",
   };
   const [userProfile, setUserProfile] = useState(initialProfile);
-
-  const [userId, setUserId] = useState(null); // grab cur usr id from sign up or sign in response.
-  // const [loginCount, setLoginCount] = useState(0); // change this state while sign in submit, to fire usePostFetchUsr, must have!
 
   const [error, setError] = useState(null); // try to catch and render error msg to usr ?
   const [formErrors, setFormErrors] = useState({});
@@ -53,16 +47,6 @@ function App() {
                 initialProfile={initialProfile}
                 error={error}
                 setError={setError}
-                userId={userId}
-                setUserId={setUserId}
-                jwtToken={jwtToken}
-                setJwtToken={setJwtToken}
-
-                // handleUsrInput={(e) => {
-                //   setUsr(e.target.value);
-                // }}
-                // handlePwdInput={(e) => setPwd(e.target.value)}
-                // handleSignIn={() => setLoginCount((c) => c + 1)}
               />
             }
           />

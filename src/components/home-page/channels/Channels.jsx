@@ -6,14 +6,9 @@ import useFetch from "../../../my-hooks/useFetch";
 import usePostFetchCh from "../../../my-hooks/usePostFetchCh";
 import useDelFetchCh from "../../../my-hooks/useDelFetchCh";
 import { baseUrl } from "../../../config";
-// import { curData } from "../../../data";
-
 /* way 3 usePostFetchCh to post new ch, works with refresh issue */
 export default function Channels({
-  // usr,
-  // jwtToken,
-  // userId,
-  // error,
+  error,
   setError,
   postMsg,
   setPostMsg,
@@ -32,29 +27,30 @@ export default function Channels({
 
   /* usePostFetchCh to post new ch */
   const postChArgumentList = [
-    // usr,
     channelName,
     setChannelName,
     chUrl,
     chLength,
     setPostCh,
-    // jwtToken,
-    // userId,
     setError,
-    userProfile
+    userProfile,
   ];
   const { PData, pLoading } = usePostFetchCh(...postChArgumentList);
 
   // fetch chs data
-  const { data, loading } = useFetch(chUrl, userProfile.username, postCh, postMsg, setError); // postCh, multiple fetch order control
+  const { data, loading } = useFetch(
+    chUrl,
+    userProfile.username,
+    postCh,
+    postMsg,
+    setError
+  ); // postCh, multiple fetch order control
   console.log(data);
 
   // delete ch
   const { delData, delLoading } = useDelFetchCh(
     chIdToDel,
     setPostCh,
-    // jwtToken,
-    // usr,
     delInitiator,
     setError,
     userProfile
@@ -67,7 +63,6 @@ export default function Channels({
         <p className="loading"> Loading...</p>
       </div>
     ); // useful, can prevent reading data before loading end.
-
 
   return (
     <div className="channel-col">
@@ -128,7 +123,6 @@ export default function Channels({
           onSubmit={(e) => {
             e.preventDefault();
             setChLength((l) => l + 1); // form onSubmit works. new ch created, but not render in ch list?!
-            // latestChLength.current(); // try to update new ch?, not work
           }}
         >
           <input
