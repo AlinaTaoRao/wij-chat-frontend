@@ -60,6 +60,8 @@ export default function HomePage({
         postCh={postCh}
         setPostCh={setPostCh}
         userProfile={userProfile}
+        curCh={curCh}
+        setCurCh={setCurCh}
         handleSwitchCh={(e) => switchCh(e)}
       />
       <Messages

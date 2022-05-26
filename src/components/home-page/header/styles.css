@@ -87,6 +87,7 @@ a {
   right: -14px;
 
   transition: 350ms;
+  z-index: 5;
 }
 
 .list-item {

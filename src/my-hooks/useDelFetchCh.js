@@ -7,7 +7,8 @@ const useDelFetchCh = (
   setPostCh,
   delInitiator,
   setError,
-  userProfile
+  userProfile,
+  setCurCh
 ) => {
   const delChUrl = `${baseUrl}/channels/${chIdToDel}`;
   // const state
@@ -55,6 +56,8 @@ const useDelFetchCh = (
 
         setData(json);
         console.log("useDelFetch json data:", data);
+
+        setCurCh(() => 1); // switch current channel back to template channel?
 
         setPostCh(() => json); // to fire useFetch, rerender msg list.
 
