@@ -6,21 +6,21 @@ import useFetch from "../../../my-hooks/useFetch";
 import usePostFetchMsg from "../../../my-hooks/usePostFetchMsg";
 import useDelFetchMsg from "../../../my-hooks/useDelFetchMsg";
 import { baseUrl } from "../../../config";
-// import { curData } from "../../../data";
 
 /*  separate cur usr msg and other msg */
 export default function Messages({
-  usr,
+  // usr,
   curCh,
   url,
-  jwtToken,
-  userId,
+  // jwtToken,
+  // userId,
   error,
   setError,
   postMsg,
   setPostMsg,
   postCh,
   setPostCh,
+  userProfile,
 }) {
   const [newMsg, setNewMsg] = useState("");
   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
@@ -30,16 +30,17 @@ export default function Messages({
   const msgUrl = `${baseUrl}/messages`;
 
   const postMsgArgumentList = [
-    usr,
+    // usr,
     curCh,
     msgUrl,
     newMsg,
     setNewMsg,
     msgLength,
     setPostMsg,
-    jwtToken,
-    userId,
+    // jwtToken,
+    // userId,
     setError,
+    userProfile,
   ];
   const { postData, postLoading } = usePostFetchMsg(...postMsgArgumentList);
   // console.log(" post Messages:", postData);
@@ -47,11 +48,18 @@ export default function Messages({
   const { delData, delLoading } = useDelFetchMsg(
     msgIdToDel,
     setPostMsg,
-    jwtToken,
-    setError
+    // jwtToken,
+    setError,
+    userProfile
   );
 
-  const { data, loading } = useFetch(url, usr, postCh, postMsg, setError); // postMsg control fetch order, works
+  const { data, loading } = useFetch(
+    url,
+    userProfile.username,
+    postCh,
+    postMsg,
+    setError
+  ); // postMsg control fetch order, works
   // console.log("Messages in cur ch is :", data);
 
   const isLoading = postLoading || loading || delLoading;
@@ -63,7 +71,7 @@ export default function Messages({
       </div>
     ); // useful, can prevent reading data before loading end.
 
-    /* display error im message column, best way */
+  /* display error im message column, best way */
   if (error) {
     return (
       <div className="messages-col">
@@ -96,7 +104,7 @@ export default function Messages({
     <div className="messages-col">
       <div className="messages">
         {data.data.attributes.messages.data.map((msg, index) =>
-          msg.attributes.sender === usr ? (
+          msg.attributes.sender === userProfile.username ? (
             <div key={index} className="message cur-usr-msg">
               <span className="sender">{msg.attributes.sender}</span>
               <span className="time">{msg.attributes.time}</span>

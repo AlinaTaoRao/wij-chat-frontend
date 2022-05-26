@@ -5,15 +5,15 @@ import { baseUrl } from "../config";
 const useDelFetchCh = (
   chIdToDel,
   setPostCh,
-  jwtToken,
-  usr,
+  // jwtToken,
+  // usr,
   delInitiator,
-  setError
+  setError,
+  userProfile
 ) => {
   const delChUrl = `${baseUrl}/channels/${chIdToDel}`;
   // const state
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(null); // way 1, not work
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -28,34 +28,28 @@ const useDelFetchCh = (
       // );
       // if (!conform) return;
 
-      if (usr !== delInitiator) return;
+      if (userProfile.username !== delInitiator) return;
 
       try {
         const res = await fetch(encodeURI(delChUrl), {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${jwtToken}`,
+            // Authorization: `Bearer ${jwtToken}`,
+            Authorization: `Bearer ${userProfile.token}`,
           },
         });
         // console.log("res:", res);
 
-        // --- throw an error if the res is not ok (this works!) ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${delChUrl}`
-        //     : `HTTP error! status: ${res.status}\n-> ${delChUrl}`;
-        //   throw new Error(message);
-        // }
-           /* throw an error way 2, best way */
-           if (!res.ok) {
-            const js= await res.json();
-            console.log("error res js:", js)
-            const message = res.statusText
-              ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${delChUrl}`
-              : `HTTP error! status: ${res.status}\n-> ${delChUrl}`;
-            throw new Error(message);
-          }
+        /* throw an error way 2, best way */
+        if (!res.ok) {
+          const js = await res.json();
+          console.log("error res js:", js);
+          const message = res.statusText
+            ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${delChUrl}`
+            : `HTTP error! status: ${res.status}\n-> ${delChUrl}`;
+          throw new Error(message);
+        }
 
         // console.log("useDelFetch delChUrl:", delChUrl);
 
@@ -77,7 +71,6 @@ const useDelFetchCh = (
     fetchData();
   }, [chIdToDel]);
 
-  // return { data, error, loading }; // way 1
   return { data, loading }; // way 2 use setError from App
 };
 

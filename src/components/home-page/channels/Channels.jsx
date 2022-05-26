@@ -10,15 +10,16 @@ import { baseUrl } from "../../../config";
 
 /* way 3 usePostFetchCh to post new ch, works with refresh issue */
 export default function Channels({
-  usr,
-  jwtToken,
-  userId,
-  error,
+  // usr,
+  // jwtToken,
+  // userId,
+  // error,
   setError,
   postMsg,
   setPostMsg,
   postCh,
   setPostCh,
+  userProfile,
   handleSwitchCh,
 }) {
   /* get channels data */
@@ -31,30 +32,32 @@ export default function Channels({
 
   /* usePostFetchCh to post new ch */
   const postChArgumentList = [
-    usr,
+    // usr,
     channelName,
     setChannelName,
     chUrl,
     chLength,
     setPostCh,
-    jwtToken,
-    userId,
-    setError
+    // jwtToken,
+    // userId,
+    setError,
+    userProfile
   ];
   const { PData, pLoading } = usePostFetchCh(...postChArgumentList);
 
   // fetch chs data
-  const { data, loading } = useFetch(chUrl, usr, postCh, postMsg, setError); // postCh, multiple fetch order control
+  const { data, loading } = useFetch(chUrl, userProfile.username, postCh, postMsg, setError); // postCh, multiple fetch order control
   console.log(data);
 
   // delete ch
   const { delData, delLoading } = useDelFetchCh(
     chIdToDel,
     setPostCh,
-    jwtToken,
-    usr,
+    // jwtToken,
+    // usr,
     delInitiator,
-    setError
+    setError,
+    userProfile
   );
 
   const isLoading = pLoading || loading || delLoading;
@@ -72,7 +75,7 @@ export default function Channels({
         {data.data.map((channel, index) => (
           <div key={index} className="channel">
             <input type="checkbox" className="check-ch" />
-            {usr === channel.attributes.initiator ? (
+            {userProfile.username === channel.attributes.initiator ? (
               <div className="single-channel">
                 <p
                   className="ch-name"

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 const useFetch = (url, usr, postCh, postMsg, setError) => {
   // const state
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(null); // way 1, not work
   const [loading, setLoading] = useState(true);
 
   /* try to fire useFetch each time after send new msg or created new ch */
@@ -18,13 +17,7 @@ const useFetch = (url, usr, postCh, postMsg, setError) => {
         const res = await fetch(encodeURI(url));
         // console.log("res:", res);
         
-        // --- throw an error if the res is not ok (this works!) ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${url}`
-        //     : `HTTP error! status: ${res.status}\n-> ${url}`;
-        //   throw new Error(message);
-        // }
+   
         /* throw an error way 2, best way */
         if (!res.ok) {
           const js = await res.json();

@@ -1,43 +1,32 @@
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { useState } from "react";
-import usePostFetchUsr from "./my-hooks/usePostFetchUsr";
+// import usePostFetchUsr from "./my-hooks/usePostFetchUsr";
 
 import "./App.css";
 import SignIn from "./components/sign-in/SignIn";
 import SignUp from "./components/sign-up/SignUp";
 import HomePage from "./components/home-page/HomePage";
 // import { curData } from "./data";
-import { baseUrl } from "./config";
+// import { baseUrl } from "./config";
 
 function App() {
-  const loginUrl = `${baseUrl}/auth/local`;
   // usr, pwd, jwtToken, collect usr input from sign in or sign up, use in post msg or ch.
-  const [usr, setUsr] = useState("");
-  const [pwd, setPwd] = useState("");
+  // const [usr, setUsr] = useState("");
+  // const [pwd, setPwd] = useState("");
   const [jwtToken, setJwtToken] = useState(null);
 
+  const initialValues = { username: "", email: "", password: "" };
+  const [formValues, setFormValues] = useState(initialValues);
+  const initialProfile={username: "", email: "", id:"", token:"", createdAt:""};
+  const [userProfile, setUserProfile]=useState(initialProfile);
+
   const [userId, setUserId] = useState(null); // grab cur usr id from sign up or sign in response.
-  const [loginCount, setLoginCount] = useState(0); // change this state while sign in submit, to fire usePostFetchUsr, must have!
+  // const [loginCount, setLoginCount] = useState(0); // change this state while sign in submit, to fire usePostFetchUsr, must have!
 
   const [error, setError] = useState(null); // try to catch and render error msg to usr ?
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
-  /* usePostFetchUsr, handle usr sign in*/
-  const { loginData, loginLoading } = usePostFetchUsr(
-    usr,
-    pwd,
-    loginUrl,
-    jwtToken,
-    setJwtToken,
-    userId,
-    setUserId,
-    loginCount,
-    setError // try to catch and render error msg to usr ?
-  );
-  if (loginLoading) {
-    <div className="login-loading loading">loading...</div>;
-  }
-
-  
   return (
     <Router>
       <div className="App">
@@ -46,15 +35,27 @@ function App() {
             path="/signIn"
             element={
               <SignIn
-                username={usr}
-                password={pwd}
+                formValues={formValues}
+                setFormValues={setFormValues}
+                formErrors={formErrors}
+                setFormErrors={setFormErrors}
+                isSubmit={isSubmit}
+                setIsSubmit={setIsSubmit}
+                userProfile={userProfile}
+                setUserProfile={setUserProfile}
+
+                error={error}
+                setError={setError}
                 userId={userId}
                 setUserId={setUserId}
-                handleUsrInput={(e) => {
-                  setUsr(e.target.value);
-                }}
-                handlePwdInput={(e) => setPwd(e.target.value)}
-                handleSignIn={() => setLoginCount((c) => c + 1)}
+                jwtToken={jwtToken}
+                setJwtToken={setJwtToken}
+
+                // handleUsrInput={(e) => {
+                //   setUsr(e.target.value);
+                // }}
+                // handlePwdInput={(e) => setPwd(e.target.value)}
+                // handleSignIn={() => setLoginCount((c) => c + 1)}
               />
             }
           />
@@ -62,13 +63,19 @@ function App() {
             path="/signUp"
             element={
               <SignUp
-                usr={usr}
-                setUsr={setUsr}
+                formValues={formValues}
+                setFormValues={setFormValues}
+                formErrors={formErrors}
+                setFormErrors={setFormErrors}
+                isSubmit={isSubmit}
+                setIsSubmit={setIsSubmit}
+                userProfile={userProfile}
+                setUserProfile={setUserProfile}
+                error={error}
+                setError={setError}
                 setUserId={setUserId}
                 jwtToken={jwtToken}
                 setJwtToken={setJwtToken}
-                error={error}
-                setError={setError}
               />
             }
           />
@@ -76,11 +83,16 @@ function App() {
             path="/"
             element={
               <HomePage
-                usr={usr}
-                userId={userId}
-                jwtToken={jwtToken}
+                formValues={formValues}
+                setFormValues={setFormValues}
+                formErrors={formErrors}
+                setFormErrors={setFormErrors}
+                userProfile={userProfile}
+                setUserProfile={setUserProfile}
                 error={error}
                 setError={setError}
+                userId={userId}
+                jwtToken={jwtToken}
               />
             }
           />

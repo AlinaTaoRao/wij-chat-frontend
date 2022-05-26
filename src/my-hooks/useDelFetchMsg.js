@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../config";
 
 /* way 2, add order control state */
-const useDelFetchMsg = (msgIdToDel, setPostMsg, jwtToken, setError) => {
+const useDelFetchMsg = (
+  msgIdToDel,
+  setPostMsg,
+  // jwtToken,
+  setError,
+  userProfile
+) => {
   const delMsgUrl = `${baseUrl}/messages/${msgIdToDel}`;
   // const state
   const [data, setData] = useState(null);
@@ -20,18 +26,12 @@ const useDelFetchMsg = (msgIdToDel, setPostMsg, jwtToken, setError) => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${jwtToken}`,
+            // Authorization: `Bearer ${jwtToken}`,
+            Authorization: `Bearer ${userProfile.token}`,
           },
         });
         // console.log("res:", res);
 
-        // --- throw an error if the res is not ok  ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${delMsgUrl}`
-        //     : `HTTP error! status: ${res.status}\n-> ${delMsgUrl}`;
-        //   throw new Error(message);
-        // }
         /* throw an error way 2, best way */
         if (!res.ok) {
           const js = await res.json();

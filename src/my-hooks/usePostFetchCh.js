@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 
 /* usePostFetchCh, for post new channel */
 const usePostFetchCh = (
-  usr,
+  // usr,
   channelName,
   setChannelName,
   chUrl,
   chLength,
   setPostCh,
-  jwtToken,
-  userId,
-  setError
+  // jwtToken,
+  // userId,
+  setError,
+  userProfile
 ) => {
   // const state
   const [data, setData] = useState(null);
@@ -29,17 +30,18 @@ const usePostFetchCh = (
         const body = {
           data: {
             users_permissions_users: {
-              // id: curData.curUserId, // way 1, global var, works
-              id: userId, // way 2, state, works
+              // id: userId, // state, works
+              id: userProfile.id, 
             },
-            initiator: usr,
+            // initiator: usr,
+            initiator: userProfile.username,
             title: `# ${channelName}`,
           },
         };
 
-        const token = jwtToken;
+        // const token = jwtToken;
+        const token = userProfile.token;
         console.log("token form post ch is:", token);
-        // const token = curData.jwtToken; // works,
 
         if (!channelName) return;
         const res = await fetch(encodeURI(chUrl), {
