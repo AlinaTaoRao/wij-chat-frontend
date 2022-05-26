@@ -16,9 +16,8 @@ const useFetch = (url, usr, postCh, postMsg, setError) => {
       try {
         const res = await fetch(encodeURI(url));
         // console.log("res:", res);
-        
-   
-        /* throw an error way 2, best way */
+
+        /* throw an error way  */
         if (!res.ok) {
           const js = await res.json();
           console.log("error res js:", js);
@@ -36,7 +35,7 @@ const useFetch = (url, usr, postCh, postMsg, setError) => {
 
         setLoading(false);
       } catch (error) {
-        setError(error);
+        setError(error); // set error state from App
         setLoading(false);
       }
     };
@@ -44,8 +43,7 @@ const useFetch = (url, usr, postCh, postMsg, setError) => {
     fetchData();
   }, [url, usr, postCh, postMsg]);
 
-  // return { data, error, loading }; // way 1 define error state in each fetch
-  return { data, loading }; //  way 2, use error state from App
+  return { data, loading };
 };
 
 export default useFetch;

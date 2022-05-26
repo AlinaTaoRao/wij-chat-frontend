@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-// import { curData } from "../data";
-
 /* usePostFetchCh, for post new channel */
 const usePostFetchCh = (
   channelName,
@@ -26,14 +24,13 @@ const usePostFetchCh = (
         const body = {
           data: {
             users_permissions_users: {
-              id: userProfile.id, 
+              id: userProfile.id,
             },
             initiator: userProfile.username,
             title: `# ${channelName}`,
           },
         };
 
-        // const token = jwtToken;
         const token = userProfile.token;
         console.log("token form post ch is:", token);
 
@@ -48,7 +45,7 @@ const usePostFetchCh = (
         });
         console.log("post ch res:", res);
 
-        /* throw an error way 2, best way */
+        /* throw an error */
         if (!res.ok) {
           const js = await res.json();
           console.log("error res js:", js);
@@ -70,7 +67,7 @@ const usePostFetchCh = (
         setLoading(false);
         // return json;
       } catch (error) {
-        setError(error);
+        setError(error); // use setError from App, works
         setLoading(false);
       }
     };
@@ -78,8 +75,7 @@ const usePostFetchCh = (
     fetchData();
   }, [chUrl, chLength]);
 
-  // return { data, error, loading }; // way 1: error not work
-  return { data, loading }; // way 2: use setError from App, works
+  return { data, loading };
 };
 
 export default usePostFetchCh;

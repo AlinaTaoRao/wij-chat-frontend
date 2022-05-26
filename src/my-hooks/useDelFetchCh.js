@@ -5,8 +5,6 @@ import { baseUrl } from "../config";
 const useDelFetchCh = (
   chIdToDel,
   setPostCh,
-  // jwtToken,
-  // usr,
   delInitiator,
   setError,
   userProfile
@@ -35,13 +33,12 @@ const useDelFetchCh = (
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${jwtToken}`,
             Authorization: `Bearer ${userProfile.token}`,
           },
         });
         // console.log("res:", res);
 
-        /* throw an error way 2, best way */
+        /* throw an error */
         if (!res.ok) {
           const js = await res.json();
           console.log("error res js:", js);

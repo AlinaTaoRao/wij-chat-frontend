@@ -6,7 +6,7 @@ import useFetch from "../../../my-hooks/useFetch";
 import usePostFetchCh from "../../../my-hooks/usePostFetchCh";
 import useDelFetchCh from "../../../my-hooks/useDelFetchCh";
 import { baseUrl } from "../../../config";
-/* way 3 usePostFetchCh to post new ch, works with refresh issue */
+
 export default function Channels({
   error,
   setError,
@@ -21,7 +21,7 @@ export default function Channels({
   // define url
   const chUrl = `${baseUrl}/channels`;
   const [channelName, setChannelName] = useState("");
-  const [chLength, setChLength] = useState(0);
+  const [chLength, setChLength] = useState(0); // for fire post new ch
   const [chIdToDel, setChIdToDel] = useState(null); // for delete ch
   const [delInitiator, setDelInitiator] = useState(null); // for delete ch, check if cur usr is the ch owner, double check
 
@@ -122,7 +122,7 @@ export default function Channels({
           className="channel-form"
           onSubmit={(e) => {
             e.preventDefault();
-            setChLength((l) => l + 1); // form onSubmit works. new ch created, but not render in ch list?!
+            setChLength((l) => l + 1); // form onSubmit works.
           }}
         >
           <input

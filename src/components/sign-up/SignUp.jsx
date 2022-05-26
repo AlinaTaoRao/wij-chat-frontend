@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 import { baseUrl } from "../../config";
 
-/* try 2: use handler, post usr works */
 export default function SignUp({
   formValues,
   setFormValues,
@@ -77,7 +76,7 @@ export default function SignUp({
       });
       console.log("sign up res:", res);
 
-      /* throw an error way 2, best way */
+      /* throw an error  */
       if (!res.ok) {
         const js = await res.json();
         console.log("error res js:", js);
@@ -103,14 +102,14 @@ export default function SignUp({
       console.log("sign up userProfile:", userProfile);
 
       setLoading(false);
-      setFormValues(initialValues); // clear input fields
+      setFormValues(initialValues); // clear input fields?
       navigate("/"); // redirect to home;
     } catch (error) {
-      setError(error);
+      setError(error); // use setError from App
       setLoading(false);
     }
 
-    return { data, loading }; // way 2, use setError from App
+    return { data, loading };
   };
 
   return (
@@ -129,13 +128,12 @@ export default function SignUp({
         className="sign-up-form"
         // onSubmit={(e) => {
         //   e.preventDefault();
-        //   handleUsrSignUp();
-        // }}
-        // onSubmit={handleUsrSignUp} // not work, can't fire handleUsrSignUp, ?!
+        //   handleSignUp(e);
+        // }} // not work, can't fire handleSignUp, ?!
       >
         <input
           type="text"
-          name="username"
+          name="username"  // name attribute, identify and collect user input, important!
           placeholder="Username"
           className="usr-input"
           value={formValues.username}

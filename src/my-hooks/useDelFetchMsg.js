@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../config";
 
 /* way 2, add order control state */
-const useDelFetchMsg = (
-  msgIdToDel,
-  setPostMsg,
-  // jwtToken,
-  setError,
-  userProfile
-) => {
+const useDelFetchMsg = (msgIdToDel, setPostMsg, setError, userProfile) => {
   const delMsgUrl = `${baseUrl}/messages/${msgIdToDel}`;
   // const state
   const [data, setData] = useState(null);
@@ -26,13 +20,12 @@ const useDelFetchMsg = (
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${jwtToken}`,
             Authorization: `Bearer ${userProfile.token}`,
           },
         });
         // console.log("res:", res);
 
-        /* throw an error way 2, best way */
+        /* throw an error */
         if (!res.ok) {
           const js = await res.json();
           console.log("error res js:", js);
@@ -41,8 +34,6 @@ const useDelFetchMsg = (
             : `HTTP error! status: ${res.status}\n-> ${delMsgUrl}`;
           throw new Error(message);
         }
-
-        // console.log("useDelFetchMsg delMsgUrl:", delMsgUrl);
 
         const json = await res.json();
         console.log("useDelFetchMsg json:", json);
@@ -54,7 +45,7 @@ const useDelFetchMsg = (
 
         setLoading(false);
       } catch (error) {
-        setError(error);
+        setError(error); // use setError from App
         setLoading(false);
       }
     };
@@ -62,8 +53,7 @@ const useDelFetchMsg = (
     fetchData();
   }, [msgIdToDel]);
 
-  // return { data, error, loading };  // way 1, not work
-  return { data, loading }; // way 2, use setError from App
+  return { data, loading };
 };
 
 export default useDelFetchMsg;

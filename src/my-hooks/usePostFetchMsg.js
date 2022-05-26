@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-// import { curData } from "../data";
 
 /* usePostFetchMsg, for post new msg */
 const usePostFetchMsg = (
-  // usr,
   curCh,
   msgUrl,
   newMsg,
@@ -75,7 +73,7 @@ const usePostFetchMsg = (
         setLoading(false);
         // return json;
       } catch (error) {
-        setError(error);
+        setError(error); // use setError from App
         setLoading(false);
       }
     };
@@ -83,7 +81,7 @@ const usePostFetchMsg = (
     fetchData();
   }, [msgUrl, msgLength]);
 
-  return { data, loading }; // way 2, use setError from App
+  return { data, loading }; 
 };
 
 export default usePostFetchMsg;
