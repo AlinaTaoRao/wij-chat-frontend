@@ -29,7 +29,7 @@
 }
 
 
-/* style delete ch btn */
+/* for use btn delete ch */
 .delete-ch {
   display: none;
   position: absolute;
@@ -38,31 +38,30 @@
   padding: 1px 2px;
   opacity: 0.4;
   color: red;
-  box-shadow: 1px 2px 3px #ef5858;
+  /* box-shadow: 1px 2px 2px #ef5858; */
 }
 
 .ch-name:hover + .delete-ch {
   display: block;
 }
 
-/* way 2: display delete btn with delay, easy to del, high risc */
-/* .delete-ch {
+/* for use trash icon delete ch */
+/* #delete-ch {
+  display: none;
   position: absolute;
   top: 2px;
   right: 3px;
   padding: 1px 2px;
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 20s, opacity 8s linear;
+  opacity: 0.4;
+  color: red;
+  font-size: 1.4em;
 }
 
-.ch-name:hover + .delete-ch {
-  visibility: visible;
-  opacity: 1;
+.ch-name:hover + #delete-ch {
+  display: block;
 } */
 
 
-/*  */
 
 .create-new-channel {
   align-self: end;
@@ -96,19 +95,13 @@
   box-shadow: 2px 2px 3px #277bf8;
 }
 
-/* for highlight current channel way 2: ternary */
-/* .default-ch {
-  background-color:  #b3c6ff;
-  border-left: 1px solid #0039e6;
-  box-shadow: 2px 2px 5px  #002080;
-} */
 
-[data-ch-title="# template-ch"] {
+/* [data-ch-title="# template-ch"] {
   padding-left: 2px;
   background-color:  #f5f5f9;
   border-left: 2px solid #0ed12b;
   box-shadow: 1.5px 1.5px 3px  #0ed12b;
-}
+} */
 
 .error {
   color: red;

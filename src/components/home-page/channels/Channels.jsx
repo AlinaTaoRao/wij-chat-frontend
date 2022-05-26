@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+// import { BsFillTrashFill } from "react-icons/bs"; // for use trash icon to delete channel
 
 import "./styles.css";
 import useFetch from "../../../my-hooks/useFetch";
@@ -81,7 +82,34 @@ export default function Channels({
                 >
                   {channel.attributes.title}
                 </p>
-                <button
+
+                {/* <BsFillTrashFill
+                  id="delete-ch"
+                  onClick={(e) => {
+                    // get previous siblings
+                    console.log("target in ch ", e.target);
+                    // const prevSibling = e.target.previousElementSibling; // not stable
+                    // console.log("prevSibling ch is", prevSibling);
+
+                    const parentElement=e.target.parentElement;
+                    console.log("parentElement ch is", parentElement);
+
+                    // get ch id
+                    // const theChId = prevSibling.id;  // use previousElementSibling
+                    const theChId = parentElement.children[0].id; // use parentElement
+                    console.log("theChId is", theChId);
+                    setChIdToDel(() => theChId);
+                    console.log("setChIdToDel is", setChIdToDel);
+
+                    // get ch initiator
+                    // const theChOwner = prevSibling.dataset.chInitiator; // way
+                    const theChOwner = parentElement.children[0].dataset.chInitiator; // use parentElement
+                    setDelInitiator(() => theChOwner);
+                  }}
+                /> */}
+                {/* if use svg icon, it's hard to get parent element or sibling by click */}
+
+                <p
                   className="delete-ch"
                   onClick={(e) => {
                     // get previous siblings
@@ -98,8 +126,8 @@ export default function Channels({
                     setDelInitiator(() => theChOwner);
                   }}
                 >
-                  Delete
-                </button>
+                 X
+                </p>
               </div>
             ) : (
               <div className="single-channel">
