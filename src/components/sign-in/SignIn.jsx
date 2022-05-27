@@ -27,6 +27,7 @@ export default function SignIn({
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+   
     setFormErrors(initialValues); // clear validate error if user start input after saw the error message, works
     setError(null); // clear api error if user start input after saw the error message
   };
@@ -61,8 +62,7 @@ export default function SignIn({
     setIsSubmit(true);
 
     // clear last usr jwt token etc if there is, virtual log out
-    setUserProfile(() => initialProfile); // not work?
-
+    // setUserProfile(() => initialProfile); // not work?
     try {
       const body = {
         identifier: formValues.username, // username or email

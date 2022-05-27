@@ -27,6 +27,7 @@ export default function SignUp({
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+
     setFormErrors(initialValues); // clear validate error if user start input after saw the error message, works
     setError(null); // clear api error if user start input after saw the error message, works
   };
@@ -61,7 +62,7 @@ export default function SignUp({
     setIsSubmit(true);
 
     // clear last usr jwt token if there is, virtual log out?
-
+    // setUserProfile(() => initialProfile);
     try {
       const body = {
         username: formValues.username,
@@ -132,14 +133,14 @@ export default function SignUp({
       >
         <input
           type="text"
-          name="username"  // name attribute, identify and collect user input, important!
+          name="username" // name attribute, identify and collect user input, important!
           placeholder="Username"
           className="usr-input"
           value={formValues.username}
           onChange={handleChange}
           required
         />
-        <p className="error">{formErrors.username}</p>
+        <p className="username-error error">{formErrors.username}</p>
         <input
           type="email"
           name="email"
@@ -149,7 +150,7 @@ export default function SignUp({
           onChange={handleChange}
           required
         />
-        <p className="error">{formErrors.email}</p>
+        <p className="email-error error">{formErrors.email}</p>
         <input
           type="password"
           name="password"
@@ -159,7 +160,7 @@ export default function SignUp({
           onChange={handleChange}
           required
         />
-        <p className="error">{formErrors.password}</p>
+        <p className="password-error error">{formErrors.password}</p>
 
         <input
           type="submit"
@@ -168,7 +169,7 @@ export default function SignUp({
           onClick={(e) => handleSignUp(e)} //
         />
         {error ? (
-          <p className="error">{error.message}</p>
+          <p className="sign-up-error error">{error.message}</p>
         ) : (
           <p className="error"></p>
         )}
