@@ -97,4 +97,6 @@ a {
 .sign-out {
   padding-left: 20px;
   color: rgb(242, 248, 253);
+  position: relative;
+  bottom:12px;
 }

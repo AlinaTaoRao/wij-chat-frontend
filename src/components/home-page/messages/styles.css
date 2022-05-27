@@ -1,22 +1,25 @@
 .messages-col {
+  grid-area: messages-col;
   font-size: small;
   color: black;
   line-height: 1.5;
   min-width: 371px;
   border-left: 1.5px solid #0033cc;
-  grid-area: messages-col;
+  
   /* display: grid; */
   /* grid-template-columns: repeat(1, 1fr); */
   /* grid-template-rows: 1fr auto; */
   /* text-align: start; */
   /* justify-items: end; */
-
   max-height: 90vh;
   overflow-y: scroll;
+  position: relative;    /* to position form box */
 }
 
-/* .messages { 
-} */
+.messages { 
+  position: relative;  /* adjust itself, not covered by form box */
+  bottom: 28px;
+}
 
 .post-info-container {
   color: rgb(234, 82, 82);
@@ -100,11 +103,11 @@ div.message.cur-usr-msg {
 
 /* set form position fix to view port */
 .create-message {
-  margin: 10px auto;
   min-height: 25px;
   
   position: fixed;
-  bottom: 30px;
+  left: 35%;
+  bottom: 4%;
   z-index: 3;
 }
 
