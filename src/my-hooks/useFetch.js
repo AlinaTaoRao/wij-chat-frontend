@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
-/* way 2, add order control state */
-const useFetch = (url, usr, postCh, postMsg, setError) => {
+/* 
+add order control state newEvent.
+newEvent: place holder for username, postCh and postMsg: fire useFetch each time post/delete a msg or ch. or a user sign up or sign in.
+*/
+const useFetch = (url,newEvent,setError) => {
   // const state
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(null); // way 1, not work
   const [loading, setLoading] = useState(true);
-
-  /* try to fire useFetch each time after send new msg or created new ch */
 
   // define fetch data function
   useEffect(() => {
@@ -17,18 +17,11 @@ const useFetch = (url, usr, postCh, postMsg, setError) => {
       try {
         const res = await fetch(encodeURI(url));
         // console.log("res:", res);
-        
-        // --- throw an error if the res is not ok (this works!) ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${url}`
-        //     : `HTTP error! status: ${res.status}\n-> ${url}`;
-        //   throw new Error(message);
-        // }
-        /* throw an error way 2, best way */
+
+        /* throw an error way  */
         if (!res.ok) {
           const js = await res.json();
-          console.log("error res js:", js);
+          // console.log("error res js:", js);
           const message = res.statusText
             ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${url}`
             : `HTTP error! status: ${res.status}\n-> ${url}`;
@@ -36,23 +29,22 @@ const useFetch = (url, usr, postCh, postMsg, setError) => {
         }
 
         const json = await res.json();
-        console.log("useFetch json:", json);
+        // console.log("useFetch json:", json);
 
         setData(json);
-        console.log("useFetch json data:", data);
+        // console.log("useFetch json data:", data);
 
         setLoading(false);
       } catch (error) {
-        setError(error);
+        setError(error); // set error state from App
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [url, usr, postCh, postMsg]);
+  }, [url, newEvent]);
 
-  // return { data, error, loading }; // way 1 define error state in each fetch
-  return { data, loading }; //  way 2, use error state from App
+  return { data, loading };
 };
 
 export default useFetch;

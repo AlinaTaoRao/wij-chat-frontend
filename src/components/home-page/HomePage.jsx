@@ -6,11 +6,15 @@ import Header from "./header/Header";
 import Channels from "./channels/Channels";
 import Messages from "./messages/Messages";
 import People from "./people/People";
-// import { curData } from "../../data";
 import { baseUrl } from "../../config";
 
-/* use url and curCh state, works*/
-export default function HomePage({ usr, jwtToken, userId, error, setError }) {
+export default function HomePage({
+  error,
+  setError,
+  userProfile,
+  setUserProfile,
+  initialProfile,
+}) {
   // set channel url state, default ch id=1;
   const [url, setUrl] = useState(`${baseUrl}/channels/1?populate=messages`);
   const [curCh, setCurCh] = useState(1); // default ch id=1;
@@ -27,6 +31,7 @@ export default function HomePage({ usr, jwtToken, userId, error, setError }) {
     setCurCh(e.target.id);
     console.log("ch id-curCh is:", e.target.id);
     setUrl(`${baseUrl}/channels/${e.target.id}?populate=messages`);
+    setError(null);
 
     setCurChOwner(e.target.dataset.chInitiator); // for mark ch owner, value from "data-ch-initiator"
 
@@ -40,35 +45,38 @@ export default function HomePage({ usr, jwtToken, userId, error, setError }) {
   };
   return (
     <div className="home">
-      <Header />
+      <Header
+        userProfile={userProfile}
+        setUserProfile={setUserProfile}
+        initialProfile={initialProfile}
+        error={error}
+        setError={setError}
+      />
       <Channels
-        usr={usr}
-        jwtToken={jwtToken}
-        userId={userId}
         error={error}
         setError={setError}
         postMsg={postMsg}
         setPostMsg={setPostMsg}
         postCh={postCh}
         setPostCh={setPostCh}
+        userProfile={userProfile}
+        curCh={curCh}
+        setCurCh={setCurCh}
         handleSwitchCh={(e) => switchCh(e)}
       />
       <Messages
-        usr={usr}
         curCh={curCh}
         url={url}
-        jwtToken={jwtToken}
-        userId={userId}
         error={error}
         setError={setError}
         postMsg={postMsg}
         setPostMsg={setPostMsg}
         postCh={postCh}
         setPostCh={setPostCh}
-
+        userProfile={userProfile}
       />
       <People
-        usr={usr}
+        usr={userProfile.username}
         curChOwner={curChOwner}
         error={error}
         setError={setError}
@@ -76,6 +84,7 @@ export default function HomePage({ usr, jwtToken, userId, error, setError }) {
         setPostMsg={setPostMsg}
         postCh={postCh}
         setPostCh={setPostCh}
+        userProfile={userProfile}
       />
     </div>
   );

@@ -1,22 +1,17 @@
 import { useEffect, useState } from "react";
 
-// import { curData } from "../data";
-
 /* usePostFetchCh, for post new channel */
 const usePostFetchCh = (
-  usr,
   channelName,
   setChannelName,
   chUrl,
   chLength,
   setPostCh,
-  jwtToken,
-  userId,
-  setError
+  setError,
+  userProfile
 ) => {
   // const state
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(null); // way 1: not work
   const [loading, setLoading] = useState(true);
 
   // define fetch data function
@@ -29,17 +24,14 @@ const usePostFetchCh = (
         const body = {
           data: {
             users_permissions_users: {
-              // id: curData.curUserId, // way 1, global var, works
-              id: userId, // way 2, state, works
+              id: userProfile.id,
             },
-            initiator: usr,
+            initiator: userProfile.username,
             title: `# ${channelName}`,
           },
         };
 
-        const token = jwtToken;
-        console.log("token form post ch is:", token);
-        // const token = curData.jwtToken; // works,
+        const token = userProfile.token;
 
         if (!channelName) return;
         const res = await fetch(encodeURI(chUrl), {
@@ -52,17 +44,10 @@ const usePostFetchCh = (
         });
         console.log("post ch res:", res);
 
-        // --- throw an error if the res is not ok, not work?  ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${chUrl}`
-        //     : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
-        //   throw new Error(message);
-        // }
-        /* throw an error way 2, best way */
+        /* throw an error */
         if (!res.ok) {
           const js = await res.json();
-          console.log("error res js:", js);
+          // console.log("error res js:", js);
           const message = res.statusText
             ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${chUrl}`
             : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
@@ -73,15 +58,14 @@ const usePostFetchCh = (
         console.log("post ch json:", json);
 
         setData(json);
-        console.log("post ch data:", data);
+        // console.log("post ch data:", data);
 
         setPostCh(json); // to control multiple api fetch order. post ch first, when it finish, fire useFetch(), this works!
 
         setChannelName(""); // clear input field;
         setLoading(false);
-        // return json;
       } catch (error) {
-        setError(error);
+        setError(error); // use setError from App, works
         setLoading(false);
       }
     };
@@ -89,8 +73,7 @@ const usePostFetchCh = (
     fetchData();
   }, [chUrl, chLength]);
 
-  // return { data, error, loading }; // way 1: error not work
-  return { data, loading }; // way 2: use setError from App, works
+  return { data, loading };
 };
 
 export default usePostFetchCh;

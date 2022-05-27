@@ -1,60 +1,58 @@
 import React from "react";
 import { useState } from "react";
+// import { BsFillTrashFill } from "react-icons/bs"; // for use trash icon to delete channel
 
 import "./styles.css";
 import useFetch from "../../../my-hooks/useFetch";
 import usePostFetchCh from "../../../my-hooks/usePostFetchCh";
 import useDelFetchCh from "../../../my-hooks/useDelFetchCh";
 import { baseUrl } from "../../../config";
-// import { curData } from "../../../data";
 
-/* way 3 usePostFetchCh to post new ch, works with refresh issue */
 export default function Channels({
-  usr,
-  jwtToken,
-  userId,
   error,
   setError,
-  postMsg,
-  setPostMsg,
   postCh,
   setPostCh,
+  userProfile,
+  curCh,
+  setCurCh,
   handleSwitchCh,
 }) {
   /* get channels data */
   // define url
   const chUrl = `${baseUrl}/channels`;
   const [channelName, setChannelName] = useState("");
-  const [chLength, setChLength] = useState(0);
+  const [chLength, setChLength] = useState(0); // for fire post new ch
   const [chIdToDel, setChIdToDel] = useState(null); // for delete ch
   const [delInitiator, setDelInitiator] = useState(null); // for delete ch, check if cur usr is the ch owner, double check
 
   /* usePostFetchCh to post new ch */
   const postChArgumentList = [
-    usr,
     channelName,
     setChannelName,
     chUrl,
     chLength,
     setPostCh,
-    jwtToken,
-    userId,
-    setError
+    setError,
+    userProfile,
   ];
   const { PData, pLoading } = usePostFetchCh(...postChArgumentList);
 
   // fetch chs data
-  const { data, loading } = useFetch(chUrl, usr, postCh, postMsg, setError); // postCh, multiple fetch order control
-  console.log(data);
+  const { data, loading } = useFetch(
+    chUrl,
+    postCh,
+    setError
+  ); // postCh, multiple fetch order control
 
   // delete ch
   const { delData, delLoading } = useDelFetchCh(
     chIdToDel,
     setPostCh,
-    jwtToken,
-    usr,
     delInitiator,
-    setError
+    setError,
+    userProfile,
+    setCurCh
   );
 
   const isLoading = pLoading || loading || delLoading;
@@ -65,14 +63,13 @@ export default function Channels({
       </div>
     ); // useful, can prevent reading data before loading end.
 
-
   return (
     <div className="channel-col">
       <div className="channels">
         {data.data.map((channel, index) => (
           <div key={index} className="channel">
             <input type="checkbox" className="check-ch" />
-            {usr === channel.attributes.initiator ? (
+            {userProfile.username === channel.attributes.initiator ? (
               <div className="single-channel">
                 <p
                   className="ch-name"
@@ -83,6 +80,8 @@ export default function Channels({
                 >
                   {channel.attributes.title}
                 </p>
+                {/* if use svg icon, it's hard to get parent element or sibling by click */}
+
                 <button
                   className="delete-ch"
                   onClick={(e) => {
@@ -124,8 +123,7 @@ export default function Channels({
           className="channel-form"
           onSubmit={(e) => {
             e.preventDefault();
-            setChLength((l) => l + 1); // form onSubmit works. new ch created, but not render in ch list?!
-            // latestChLength.current(); // try to update new ch?, not work
+            setChLength((l) => l + 1); // form onSubmit works.
           }}
         >
           <input

@@ -1,38 +1,33 @@
 import { useEffect, useState } from "react";
-// import { curData } from "../data";
 
 /* usePostFetchMsg, for post new msg */
 const usePostFetchMsg = (
-  usr,
   curCh,
   msgUrl,
   newMsg,
   setNewMsg,
   msgLength,
   setPostMsg,
-  jwtToken,
-  userId,
-  setError
+  setError,
+  userProfile
 ) => {
   // const state
   const [data, setData] = useState(null);
-  // const [error, setError] = useState(null); // way 1, not work
   const [loading, setLoading] = useState(true);
 
   // define fetch data function
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      setError(null);  //
+      setError(null); //
 
       try {
         const body = {
           data: {
             users_permissions_users: {
-              // id: curData.curUserId, // way 1 use global var, works;
-              id: userId, // way 2, state, works
+              id: userProfile.id,
             },
-            sender: usr,
+            sender: userProfile.username,
             body: newMsg,
             time: `${new Date().toLocaleTimeString()}`,
             channel: {
@@ -41,9 +36,7 @@ const usePostFetchMsg = (
           },
         };
 
-        // const token = curData.jwtToken; // way 1 use global var, works
-        const token = jwtToken; // way 2, set jwtToken while sign in or sign up, works.
-        console.log("token form post msg is:", token);
+        const token = userProfile.token;
 
         if (!newMsg) return; // prevent send empty msg.
         const res = await fetch(encodeURI(msgUrl), {
@@ -56,17 +49,10 @@ const usePostFetchMsg = (
         });
         console.log("res:", res);
 
-        // --- throw an error if the res is not ok, not work? ---
-        // if (!res.ok) {
-        //   const message = res.statusText
-        //     ? `${res.status}: ${res.statusText}\n-> ${msgUrl}`
-        //     : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
-        //   throw new Error(message);
-        // }
         /* throw an error way 2, best way */
         if (!res.ok) {
           const js = await res.json();
-          console.log("error res js:", js);
+          // console.log("error res js:", js);
           const message = res.statusText
             ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${msgUrl}`
             : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
@@ -84,9 +70,8 @@ const usePostFetchMsg = (
         setNewMsg(""); // clear input field, works
 
         setLoading(false);
-        // return json;
       } catch (error) {
-        setError(error);
+        setError(error); // use setError from App
         setLoading(false);
       }
     };
@@ -94,8 +79,7 @@ const usePostFetchMsg = (
     fetchData();
   }, [msgUrl, msgLength]);
 
-  // return { data, error, loading }; // way 1, not work
-  return { data, loading }; // way 2, use setError from App
+  return { data, loading }; 
 };
 
 export default usePostFetchMsg;
