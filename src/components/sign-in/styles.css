@@ -12,11 +12,12 @@
   margin: 10px auto;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-auto-rows: minmax(50px, auto);
-  grid-gap: 10px;
+  grid-auto-rows: minmax(40px, auto);
   grid-template-areas:
     "username-input"
+    "error-username"
     "password-input"
+    "error-password"
     "sign-container";
 }
 
@@ -24,8 +25,18 @@
   grid-area: username-input;
 }
 
+.error-username {
+  grid-area: error-username;
+  text-align: start;
+}
+
 .password-input {
   grid-area: password-input;
+}
+
+.error-password{
+  grid-area: error-password;
+  text-align: start;
 }
 
 .sign-container {
@@ -35,6 +46,10 @@
 .sign-in-btn {
   font-size: 16px;
   padding: 5px 30px;
+}
+
+.error-sing-in{
+  text-align: start;
 }
 
 .sign-up-text{

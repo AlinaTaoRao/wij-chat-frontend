@@ -89,7 +89,7 @@ export default function SignIn({
       console.log("sign in json:", json);
 
       setData(json);
-      console.log("sign in data:", data); // null?
+      // console.log("sign in data:", data); 
 
       setUserProfile({
         username: json.user.username,
@@ -98,8 +98,7 @@ export default function SignIn({
         token: json.jwt,
         createdAt: json.user.createdAt,
       });
-
-      console.log("sign in userProfile:", userProfile);
+      // console.log("sign in userProfile:", userProfile);
 
       setFormValues(initialValues); // clear input fields
       setLoading(false);
@@ -136,7 +135,7 @@ export default function SignIn({
           onChange={handleChange}
           required
         />
-        <p className="error">{formErrors.username}</p>
+        <p className="error-username error">{formErrors.username}</p>
         <input
           type="password"
           name="password"
@@ -146,7 +145,7 @@ export default function SignIn({
           onChange={handleChange}
           required
         />
-        <p className="error">{formErrors.password}</p>
+        <p className="error-password error">{formErrors.password}</p>
         <div className="sign-container">
           <input
             type="submit"
@@ -155,7 +154,7 @@ export default function SignIn({
             onClick={(e) => handleSignIn(e)} //works, hit enter or click btn
           />
           {error ? (
-            <p className="error">{error.message}</p>
+            <p className="error-sing-in error">{error.message}</p>
           ) : (
             <p className="error"></p>
           )}
