@@ -1,7 +1,7 @@
 # Wij Chat
 
 This is a chat application which including frontend and backend parts.
-## Frontend Language 
+## Frontend 
 React
 
 ## Frontend Deployment
