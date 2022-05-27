@@ -11,8 +11,6 @@ import { baseUrl } from "../../../config";
 export default function Channels({
   error,
   setError,
-  postMsg,
-  setPostMsg,
   postCh,
   setPostCh,
   userProfile,
@@ -43,9 +41,7 @@ export default function Channels({
   // fetch chs data
   const { data, loading } = useFetch(
     chUrl,
-    userProfile.username,
     postCh,
-    postMsg,
     setError
   ); // postCh, multiple fetch order control
 

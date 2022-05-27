@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
-/* add order control state */
-/* try to fire useFetch each time after send new msg or created new ch:
-postCh, postMsg: fire useFetch each time post/delete a msg or ch.
+/* 
+add order control state newEvent.
+newEvent: place holder for username, postCh and postMsg: fire useFetch each time post/delete a msg or ch. or a user sign up or sign in.
 */
-
-const useFetch = (url, usr, postCh, postMsg, setError) => {
+const useFetch = (url,newEvent,setError) => {
   // const state
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -43,7 +42,7 @@ const useFetch = (url, usr, postCh, postMsg, setError) => {
     };
 
     fetchData();
-  }, [url, usr, postCh, postMsg]);
+  }, [url, newEvent]);
 
   return { data, loading };
 };

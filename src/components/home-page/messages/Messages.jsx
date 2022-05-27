@@ -15,8 +15,8 @@ export default function Messages({
   setError,
   postMsg,
   setPostMsg,
-  postCh,
-  setPostCh,
+  // postCh,
+  // setPostCh,
   userProfile,
 }) {
   const [newMsg, setNewMsg] = useState("");
@@ -48,8 +48,6 @@ export default function Messages({
 
   const { data, loading } = useFetch(
     url,
-    userProfile.username,
-    postCh,
     postMsg,
     setError
   ); // postMsg control fetch order, works
