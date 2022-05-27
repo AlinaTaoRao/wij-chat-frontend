@@ -126,10 +126,7 @@ export default function SignUp({
       </Link>
       <form
         className="sign-up-form"
-        // onSubmit={(e) => {
-        //   e.preventDefault();
-        //   handleSignUp(e);
-        // }} // not work, can't fire handleSignUp, ?!
+        // onSubmit={(e) => handleSignUp(e)} // not work, can't fire handleSignUp, ?!
       >
         <input
           type="text"
