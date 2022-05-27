@@ -13,18 +13,18 @@ Strapi
 Heroku
 
 ## Features
-- [ ] sign up
-- [ ] sign in
-- [ ] sign up/ sign in form validation.
-- [ ] user profile: there is a user icon to toggle hid or display current user profile.
-- [ ] sign out
-- [ ] current user: mark current sign up/ sign in user
-- [ ] switch channel: user can view all channels and switch among different channels.
-- [ ] current channel: mark current channel.
-- [ ] send new messages: input message and send message in current channel.
-- [ ] delete your messages: hover your message and click delete button.
-- [ ] create channels
-- [ ] delete your channels: hover your channel and click delete button.
+- [x]  sign up
+- [x]  sign in
+- [x]  sign up/ sign in form validation.
+- [x]  user profile: there is a user icon to toggle hid or display current user profile.
+- [x]  sign out
+- [x]  current user: mark current sign up/ sign in user
+- [x]  switch channel: user can view all channels and switch among different channels.
+- [x]  current channel: mark current channel.
+- [x]  send new messages: input message and send message in current channel.
+- [x]  delete your messages: hover your message and click delete button.
+- [x]  create channels
+- [x]  delete your channels: hover your channel and click delete button.
 
 
 
