@@ -27,6 +27,8 @@ export default function SignUp({
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+    setFormErrors(initialValues); // clear validate error if user start input after saw the error message, works
+    setError(null); // clear api error if user start input after saw the error message, works
   };
 
   /* validate sign in form */
