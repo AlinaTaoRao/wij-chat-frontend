@@ -32,7 +32,6 @@ const usePostFetchCh = (
         };
 
         const token = userProfile.token;
-        console.log("token form post ch is:", token);
 
         if (!channelName) return;
         const res = await fetch(encodeURI(chUrl), {
@@ -48,7 +47,7 @@ const usePostFetchCh = (
         /* throw an error */
         if (!res.ok) {
           const js = await res.json();
-          console.log("error res js:", js);
+          // console.log("error res js:", js);
           const message = res.statusText
             ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${chUrl}`
             : `HTTP error! status: ${res.status}\n-> ${chUrl}`;
@@ -59,13 +58,12 @@ const usePostFetchCh = (
         console.log("post ch json:", json);
 
         setData(json);
-        console.log("post ch data:", data);
+        // console.log("post ch data:", data);
 
         setPostCh(json); // to control multiple api fetch order. post ch first, when it finish, fire useFetch(), this works!
 
         setChannelName(""); // clear input field;
         setLoading(false);
-        // return json;
       } catch (error) {
         setError(error); // use setError from App, works
         setLoading(false);

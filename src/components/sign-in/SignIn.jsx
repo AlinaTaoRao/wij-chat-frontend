@@ -103,7 +103,6 @@ export default function SignIn({
       setFormValues(initialValues); // clear input fields
       setLoading(false);
       navigate("/"); // redirect to home;
-      // return json;
     } catch (error) {
       setError(() => error);
       setLoading(false);

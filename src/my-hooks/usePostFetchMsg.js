@@ -37,7 +37,6 @@ const usePostFetchMsg = (
         };
 
         const token = userProfile.token;
-        console.log("token form post msg is:", token);
 
         if (!newMsg) return; // prevent send empty msg.
         const res = await fetch(encodeURI(msgUrl), {
@@ -53,7 +52,7 @@ const usePostFetchMsg = (
         /* throw an error way 2, best way */
         if (!res.ok) {
           const js = await res.json();
-          console.log("error res js:", js);
+          // console.log("error res js:", js);
           const message = res.statusText
             ? `${res.status}: ${res.statusText}:${js.error.message}\n-> ${msgUrl}`
             : `HTTP error! status: ${res.status}\n-> ${msgUrl}`;
@@ -71,7 +70,6 @@ const usePostFetchMsg = (
         setNewMsg(""); // clear input field, works
 
         setLoading(false);
-        // return json;
       } catch (error) {
         setError(error); // use setError from App
         setLoading(false);

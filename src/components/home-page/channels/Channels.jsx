@@ -48,7 +48,6 @@ export default function Channels({
     postMsg,
     setError
   ); // postCh, multiple fetch order control
-  console.log(data);
 
   // delete ch
   const { delData, delLoading } = useDelFetchCh(
