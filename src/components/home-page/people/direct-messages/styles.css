@@ -1,0 +1,54 @@
+.direct-messages {
+    display: none;
+  position: absolute;
+  left: -260px;
+  top: 30px;
+  background-color: rgb(245, 241, 241);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 4px;
+  padding: 0px 20px;
+  max-width: 50vw;
+  max-height: 30vh;
+  overflow-y: scroll;
+  /* z-index: 10; */
+
+}
+
+.direct-messages.active {
+    display: block;
+    position: absolute;
+    left: -260px;
+    top: 30px;
+    background-color: rgb(245, 241, 241);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 0px 20px;
+    max-width: 50vw;
+    max-height: 30vh;
+    overflow-y: scroll;
+    /* z-index: 10; */
+
+}
+
+.direct-messages {
+  color: blue;
+}
+
+.direct-message-sender {
+  font-size: 12px;
+}
+
+.direct-message-between {
+  font-size: 8px;
+  padding-left: 3px;
+}
+
+.direct-message-time {
+  font-size: 8px;
+  padding-left: 
+  3px;
+}
+
+.direct-message-body {
+    color: black;
+}
