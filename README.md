@@ -25,6 +25,7 @@ Heroku
 - [x]  delete your messages: hover your message and click delete button.
 - [x]  create channels
 - [x]  delete your channels: hover your channel and click delete button.
+- [x]  private conversation/ send and read direct message.
 
 
 
