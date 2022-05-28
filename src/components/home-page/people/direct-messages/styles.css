@@ -1,14 +1,15 @@
 .direct-messages {
     display: none;
   position: absolute;
-  left: -260px;
+  left: -350px;
   top: 30px;
-  background-color: rgb(245, 241, 241);
+  background-color: rgb(239, 247, 251);
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  border-radius: 4px;
-  padding: 0px 20px;
+  border-radius: 5px;
+  border: 1px solid rgb(57, 19, 227);
+  padding: 10px 20px;
   max-width: 50vw;
-  max-height: 30vh;
+  max-height: 40vh;
   overflow-y: scroll;
   /* z-index: 10; */
 
@@ -17,21 +18,42 @@
 .direct-messages.active {
     display: block;
     position: absolute;
-    left: -260px;
+    left: -350px;
     top: 30px;
-    background-color: rgb(245, 241, 241);
+    background-color: rgb(238, 250, 251);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border-radius: 4px;
-    padding: 0px 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(125, 101, 230);
+    padding: 10px 20px;
     max-width: 50vw;
-    max-height: 30vh;
+    max-height: 40vh;
     overflow-y: scroll;
     /* z-index: 10; */
 
 }
 
+.direct-message-title{
+  color: rgb(16, 19, 230);
+  text-align: center;
+}
+
 .direct-messages {
-  color: blue;
+  color:black;
+}
+
+.direct-message {
+  text-align: right;
+  background-color: rgb(251, 253, 255);
+  padding: 2px 5px;
+  margin: 4px 3px;
+  border: 1px solid rgb(231, 236, 246);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.direct-message.my {
+  color: rgb(124, 5, 235);
+  text-align: left;
 }
 
 .direct-message-sender {

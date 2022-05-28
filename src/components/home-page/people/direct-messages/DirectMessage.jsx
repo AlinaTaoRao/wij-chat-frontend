@@ -7,6 +7,8 @@ export default function DirectMessage({
   directConversation,
   directMessage,
   setDirectMessage,
+  userProfile,
+  toWhom,
   handleDirectMessage,
 }) {
   // console.log("dMessageData", dMessageData);
@@ -17,8 +19,16 @@ export default function DirectMessage({
           directConversation ? "direct-messages active" : "direct-messages"
         }
       >
+        <h4 className="direct-message-title">{`${userProfile.username}-${toWhom}`}</h4>
         {dMessageData.data.map((msg, index) => (
-          <div className="direct-message" key={index}>
+          <div
+            className={
+              userProfile.username === msg.attributes.sender
+                ? "direct-message my"
+                : "direct-message"
+            }
+            key={index}
+          >
             <span className="direct-message-sender">
               {msg.attributes.sender}
             </span>

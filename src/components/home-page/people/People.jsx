@@ -41,8 +41,13 @@ export default function People({ curChOwner, error, setError, userProfile }) {
   const [directMsgLoading, setDirectMsgLoading] = useState(true);
   const handleDirectMessage = async (e) => {
     e.preventDefault();
+    setError(null);
 
     try {
+      /* same as new Date().toLocaleTimeString() */
+      // const today = new Date();
+      // const realTime = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      
       const body = {
         data: {
           users_permissions_users: {
@@ -50,7 +55,7 @@ export default function People({ curChOwner, error, setError, userProfile }) {
           },
           sender: userProfile.username,
           body: directMessage,
-          time: `${new Date().toLocaleTimeString()}`,
+          time: `${new Date().toLocaleTimeString()}`, // works
           to: toWhom,
           between: `${userProfile.username}-${toWhom}`,
         },
@@ -125,6 +130,8 @@ export default function People({ curChOwner, error, setError, userProfile }) {
         directConversation={directConversation}
         directMessage={directMessage}
         setDirectMessage={setDirectMessage}
+        userProfile={userProfile}
+        toWhom={toWhom}
         handleDirectMessage={handleDirectMessage}
       />
     </div>
