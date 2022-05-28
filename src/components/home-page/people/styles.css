@@ -5,6 +5,7 @@
     border-left: 1.5px solid #0033cc; 
     grid-area: people;
     text-align: start;
+    position: relative;
 }
 
 .error {

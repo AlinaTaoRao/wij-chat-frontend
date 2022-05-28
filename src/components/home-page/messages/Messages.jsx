@@ -15,8 +15,6 @@ export default function Messages({
   setError,
   postMsg,
   setPostMsg,
-  // postCh,
-  // setPostCh,
   userProfile,
 }) {
   const [newMsg, setNewMsg] = useState("");
