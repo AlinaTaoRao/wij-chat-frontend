@@ -21,9 +21,8 @@ export default function Messages({
   const [msgLength, setMsgLength] = useState(0); // to fire usePostFetchMsg.
   const [msgIdToDel, setMsgIdToDel] = useState(null); // to fire delete msg
 
-  /* customize usePostFetchMsg to handle new message*/
+  /* usePostFetchMsg(), post a new message */
   const msgUrl = `${baseUrl}/messages`;
-
   const postMsgArgumentList = [
     curCh,
     msgUrl,
@@ -35,8 +34,8 @@ export default function Messages({
     userProfile,
   ];
   const { postData, postLoading } = usePostFetchMsg(...postMsgArgumentList);
-  // console.log(" post Messages:", postData);
 
+  /* useDelFetchMsg(), delete a message */
   const { delData, delLoading } = useDelFetchMsg(
     msgIdToDel,
     setPostMsg,
@@ -44,11 +43,9 @@ export default function Messages({
     userProfile
   );
 
-  const { data, loading } = useFetch(
-    url,
-    postMsg,
-    setError
-  ); // postMsg control fetch order, works
+  /* fetch current channel messages list */
+  // url: current channel url, value from switch channel
+  const { data, loading } = useFetch(url, postMsg, setError); // postMsg control fetch order, works
   // console.log("Messages in cur ch is :", data);
 
   const isLoading = postLoading || loading || delLoading;
