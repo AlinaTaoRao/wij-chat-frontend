@@ -70,7 +70,6 @@ export default function People({ curChOwner, error, setError, userProfile }) {
         },
         body: JSON.stringify(body),
       });
-      // console.log("res:", res);
 
       /* throw an error  */
       if (!res.ok) {

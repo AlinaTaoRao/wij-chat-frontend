@@ -16,9 +16,11 @@
   position: relative;    /* to position form box */
 }
 
+ 
 .messages { 
-  position: relative;  /* adjust itself, not covered by form box */
-  bottom: 28px;
+  /* adjust itself, not covered by form box */
+  /* position: relative; 
+  bottom: 28px; */
 }
 
 .post-info-container {

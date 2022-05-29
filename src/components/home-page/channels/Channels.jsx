@@ -19,14 +19,13 @@ export default function Channels({
   handleSwitchCh,
 }) {
   /* get channels data */
-  // define url
-  const chUrl = `${baseUrl}/channels`;
-  const [channelName, setChannelName] = useState("");
+  const chUrl = `${baseUrl}/channels?sort[0]=id:asc`; // get all channels and sort them by id, works
+  const [channelName, setChannelName] = useState(""); // collect user input
   const [chLength, setChLength] = useState(0); // for fire post new ch
   const [chIdToDel, setChIdToDel] = useState(null); // for delete ch
   const [delInitiator, setDelInitiator] = useState(null); // for delete ch, check if cur usr is the ch owner, double check
 
-  /* usePostFetchCh to post new ch */
+  /* usePostFetchCh to post a new ch */
   const postChArgumentList = [
     channelName,
     setChannelName,
@@ -38,14 +37,14 @@ export default function Channels({
   ];
   const { PData, pLoading } = usePostFetchCh(...postChArgumentList);
 
-  // fetch chs data
+  // fetch channels list
   const { data, loading } = useFetch(
     chUrl,
     postCh,
     setError
   ); // postCh, multiple fetch order control
 
-  // delete ch
+  // delete a ch
   const { delData, delLoading } = useDelFetchCh(
     chIdToDel,
     setPostCh,
